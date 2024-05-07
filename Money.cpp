@@ -42,3 +42,8 @@ Money Money::operator*(double rate) {
     }
     return {this->value * rate, this->currency};
 }
+
+std::ostream& operator<<(std::ostream& stream, const Money& in) {
+    stream << in.getValue() << " " << symbols[in.getCurrency()];
+    return stream;
+}

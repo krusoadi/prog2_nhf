@@ -1,39 +1,37 @@
 #ifndef PROG2_NHF_BANKACCOUNT_H
 #define PROG2_NHF_BANKACCOUNT_H
 
-enum BankMoneyTypes {
-    EUR,
-    HUF,
-    USD,
-};
+#include "Money.h"
+#include <string>
 
 
 
 class BankAccount {
 private:
     const unsigned int ID;
-    double money;
-    BankMoneyTypes currency;
+    std::string name;
+
+    Money userMoney;
+
 public:
 
     // Constructors/Destructors
 
     BankAccount();
-    BankAccount(double amount, BankMoneyTypes curr);
+    BankAccount(const Money& in);
     BankAccount(const BankAccount& other);
     ~BankAccount() = default;
 
     // Getters
 
-    double getMoney() const;
-    BankMoneyTypes getCurrency() const;
+    Money getMoney() const;
     unsigned int getId() const;
-
+    const std::string &getName() const;
 
     // Setters
 
-    void setMoney(double money);
-    void setCurrency(BankMoneyTypes currency);
+    void setMoney(const Money& in);
+    void setName(const std::string &name);
 
     // Static functions
 
@@ -41,9 +39,12 @@ public:
 
     // Operator overloads
 
-    void operator+(const BankAccount& other);
+    void operator+=(const BankAccount& other);
 
 };
+
+std::ostream& operator<<(std::ostream& stream, const BankAccount& in);
+
 
 
 #endif //PROG2_NHF_BANKACCOUNT_H

@@ -1,12 +1,29 @@
 #include <random>
 #include "BankAccount.h"
 
-double BankAccount::getMoney() const {
-    return money;
+
+
+BankAccount::BankAccount(const BankAccount &other): ID(other.ID), userMoney(other.userMoney) {}
+
+BankAccount::BankAccount(): ID(BankAccount::generateID()), userMoney() {}
+
+void BankAccount::setMoney(const Money& in) {
+    this->userMoney = in;
 }
 
-void BankAccount::setMoney(double amount) {
-    this->money = amount;
+BankAccount::BankAccount(const Money& in): ID(BankAccount::generateID()) {
+    if (in.getValue() < 0) {
+        // TODO EXCEPTION ITT IS
+    }
+    this->userMoney = in;
+}
+
+Money BankAccount::getMoney() const {
+    return userMoney;
+}
+
+unsigned int BankAccount::getId() const {
+    return ID;
 }
 
 int BankAccount::generateID() {
@@ -20,29 +37,20 @@ int BankAccount::generateID() {
     return dis(gen);
 }
 
-BankAccount::BankAccount(double amount, BankMoneyTypes curr): ID(BankAccount::generateID()) {
-    if (amount >= 0) {
-        this->money = amount;
-        this->currency = curr;
-    }
+void BankAccount::operator+=(const BankAccount &other) {
+    this->userMoney = this->userMoney + other.userMoney;
 }
 
-BankMoneyTypes BankAccount::getCurrency() const {
-    return currency;
+const std::string &BankAccount::getName() const {
+    return name;
 }
 
-void BankAccount::setCurrency(BankMoneyTypes currency) {
-    this->currency = currency;
+void BankAccount::setName(const std::string &newUserName) {
+    this->name = newUserName;
 }
 
-unsigned int BankAccount::getId() const {
-    return ID;
-}
 
-BankAccount::BankAccount(const BankAccount &other): ID(other.ID), money(other.money), currency(other.currency) {}
-
-BankAccount::BankAccount(): ID(BankAccount::generateID()), money(0), currency(HUF) {}
-
-void BankAccount::operator+(const BankAccount &other) {
-
+std::ostream& operator<<(std::ostream& stream, const BankAccount& in) {
+    stream << "Name: " << in.getName() << " (" << in.getId() << ") :" << in.getMoney();
+    return stream;
 }

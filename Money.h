@@ -1,6 +1,7 @@
-
 #ifndef PROG2_NHF_MONEY_H
 #define PROG2_NHF_MONEY_H
+
+#include <iostream>
 
 enum BankMoneyTypes {
     EUR,
@@ -8,7 +9,9 @@ enum BankMoneyTypes {
     USD,
 };
 
-double vals[3] = {1, 355, 0.77};
+inline double vals[3] = {1, 355, 0.77};
+inline const char* symbols[3] = {"Eur", "Ft", "$"};
+
 
 class Money {
     double value;
@@ -40,6 +43,8 @@ public:
     Money operator*(double rate);
 
 };
+
+std::ostream& operator<<(std::ostream& stream, const Money& in);
 
 
 #endif //PROG2_NHF_MONEY_H
