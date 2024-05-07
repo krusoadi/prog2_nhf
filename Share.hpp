@@ -1,8 +1,8 @@
 
-#ifndef PROG2_NHF_SHARE_H
-#define PROG2_NHF_SHARE_H
-#include "Exceptions.h"
-#include "Money.h"
+#ifndef PROG2_NHF_SHARE_HPP
+#define PROG2_NHF_SHARE_HPP
+#include "Exceptions.hpp"
+#include "Money.hpp"
 #include <string>
 
 class OwnedShare;
@@ -54,4 +54,4 @@ public:
 };
 
 
-#endif //PROG2_NHF_SHARE_H
+#endif //PROG2_NHF_SHARE_HPP

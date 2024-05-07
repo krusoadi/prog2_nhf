@@ -1,4 +1,4 @@
-#include "Money.h"
+#include "Money.hpp"
 
 Money::Money(double value, BankMoneyTypes currency) : value(value), currency(currency) {}
 

@@ -5,12 +5,12 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(prog2_nhf main.cpp
         BankAccount.cpp
-        BankAccount.h
+        BankAccount.hpp
         Money.cpp
-        Money.h
+        Money.hpp
         Exceptions.cpp
-        Exceptions.h
+        Exceptions.hpp
         BankingSystem.cpp
-        BankingSystem.h
+        BankingSystem.hpp
         Share.cpp
-        Share.h)
+        Share.hpp)

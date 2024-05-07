@@ -1,5 +1,5 @@
-#ifndef PROG2_NHF_EXCEPTIONS_H
-#define PROG2_NHF_EXCEPTIONS_H
+#ifndef PROG2_NHF_EXCEPTIONS_HPP
+#define PROG2_NHF_EXCEPTIONS_HPP
 
 #include <exception>
 
@@ -21,4 +21,4 @@ public:
 };
 
 
-#endif //PROG2_NHF_EXCEPTIONS_H
+#endif //PROG2_NHF_EXCEPTIONS_HPP

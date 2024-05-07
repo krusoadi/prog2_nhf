@@ -1,7 +1,7 @@
-#ifndef PROG2_NHF_BANKACCOUNT_H
-#define PROG2_NHF_BANKACCOUNT_H
+#ifndef PROG2_NHF_BANKACCOUNT_HPP
+#define PROG2_NHF_BANKACCOUNT_HPP
 
-#include "Share.h"
+#include "Share.hpp"
 #include <string>
 #include <vector>
 
@@ -66,4 +66,4 @@ std::ostream& operator<<(std::ostream& stream, const BankAccount& in);
 
 
 
-#endif //PROG2_NHF_BANKACCOUNT_H
+#endif //PROG2_NHF_BANKACCOUNT_HPP

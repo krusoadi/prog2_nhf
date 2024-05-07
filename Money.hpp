@@ -1,8 +1,8 @@
-#ifndef PROG2_NHF_MONEY_H
-#define PROG2_NHF_MONEY_H
+#ifndef PROG2_NHF_MONEY_HPP
+#define PROG2_NHF_MONEY_HPP
 
 #include <iostream>
-#include "Exceptions.h"
+#include "Exceptions.hpp"
 enum BankMoneyTypes {
     EUR,
     HUF,
@@ -52,4 +52,4 @@ public:
 std::ostream& operator<<(std::ostream& stream, const Money& in);
 
 
-#endif //PROG2_NHF_MONEY_H
+#endif //PROG2_NHF_MONEY_HPP
