@@ -38,7 +38,7 @@ Money Money::operator+(const Money &other) {
 
 Money Money::operator*(double rate) {
     if (rate < 0) {
-        // TODO EXCEPTION
+        throw Exceptions(NegativeMoney, "Tried to multiply money with negative amount.");
     }
     return {this->value * rate, this->currency};
 }

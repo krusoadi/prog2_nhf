@@ -13,7 +13,7 @@ void BankAccount::setMoney(const Money& in) {
 
 BankAccount::BankAccount(const Money& in): ID(BankAccount::generateID()) {
     if (in.getValue() < 0) {
-        // TODO EXCEPTION ITT IS
+        throw Exceptions(NegativeMoney, "Negative money was given.");
     }
     this->userMoney = in;
 }

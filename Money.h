@@ -2,7 +2,7 @@
 #define PROG2_NHF_MONEY_H
 
 #include <iostream>
-
+#include "Exceptions.h"
 enum BankMoneyTypes {
     EUR,
     HUF,

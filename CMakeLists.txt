@@ -7,4 +7,6 @@ add_executable(prog2_nhf main.cpp
         BankAccount.cpp
         BankAccount.h
         Money.cpp
-        Money.h)
+        Money.h
+        Exceptions.cpp
+        Exceptions.h)
