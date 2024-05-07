@@ -4,15 +4,14 @@
 #include "Money.h"
 #include <string>
 
-
-
 class BankAccount {
 private:
     const unsigned int ID;
     std::string name;
     bool isMale;
-
     Money userMoney;
+
+    bool isWorker;
 
 public:
 
@@ -41,6 +40,17 @@ public:
     // Operator overloads
 
     void operator+=(const BankAccount& other);
+
+    void addMoney(const Money& in);
+    void substractMoney(const Money& in);
+
+    // Other Functions
+
+    std::string getGender() const;
+
+    bool getisWorker() const;
+
+    void setIsWorker(bool isWorkerIn);
 
 };
 

@@ -35,6 +35,16 @@ Money Money::operator+(const Money &other) {
 
     return {this->value + temp.value, this->currency};
 }
+Money Money::operator-(const Money &other) {
+    if (this->currency == other.currency) {
+        return {this->value - other.value, this->currency};
+    }
+
+    Money temp = other.convertCurrency(this->currency);
+
+    return {this->value - temp.value, this->currency};
+}
+
 
 Money Money::operator*(double rate) {
     if (rate < 0) {
@@ -42,6 +52,29 @@ Money Money::operator*(double rate) {
     }
     return {this->value * rate, this->currency};
 }
+
+Money &Money::operator+=(const Money &other) {
+    if (this->currency == other.currency) {
+        this->value += other.value;
+        return *this;
+    }
+
+    Money temp = other.convertCurrency(this->currency);
+    this->value += temp.value;
+    return *this;
+}
+
+Money &Money::operator-=(const Money &other) {
+    if (this->currency == other.currency) {
+        this->value -= other.value;
+        return *this;
+    }
+
+    Money temp = other.convertCurrency(this->currency);
+    this->value -= temp.value;
+    return *this;
+}
+
 
 std::ostream& operator<<(std::ostream& stream, const Money& in) {
     stream << in.getValue() << " " << symbols[in.getCurrency()];

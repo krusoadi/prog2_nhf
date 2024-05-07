@@ -51,8 +51,31 @@ void BankAccount::setName(const std::string &newUserName) {
     this->name = newUserName;
 }
 
+void BankAccount::addMoney(const Money &in) {
+    this->userMoney += in;
+}
+
+void BankAccount::substractMoney(const Money &in) {
+    this->userMoney -= in;
+}
+
+std::string BankAccount::getGender() const {
+    if (isMale) {
+        return {"Male"};
+    }
+    return {"Female"};
+}
+
+bool BankAccount::getisWorker() const {
+    return isWorker;
+}
+
+void BankAccount::setIsWorker(bool isWorkerIn) {
+    BankAccount::isWorker = isWorkerIn;
+}
+
 
 std::ostream& operator<<(std::ostream& stream, const BankAccount& in) {
-    stream << "Name: " << in.getName() << " (" << in.getId() << ") :" << in.getMoney();
+    stream << "Name: " << in.getName() << " (id: " << in.getId() << ") " << in.getGender() <<" : " << in.getMoney();
     return stream;
 }
