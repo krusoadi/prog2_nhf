@@ -2,20 +2,22 @@
 #include <utility>
 #include "BankAccount.h"
 
+BankAccount::BankAccount(const BankAccount &other): ID(other.ID), userMoney(other.userMoney) {
+    this->name = other.name;
+    this->isMale = other.isMale;
+    this->userShares = other.userShares;
+    this->isWorker = other.isWorker;
+}
 
+BankAccount::BankAccount(): ID(BankAccount::generateID()), userMoney(), isMale(false) {}
 
-BankAccount::BankAccount(const BankAccount &other): ID(other.ID), userMoney(other.userMoney) {}
-
-BankAccount::BankAccount(): ID(BankAccount::generateID()), userMoney(), isMale(false), userShares(nullptr), boughtShares(0) {}
-
-BankAccount::BankAccount(const Money& in, std::string nameIn, bool isMaleIn): ID(BankAccount::generateID()), name(std::move(nameIn)) {
+BankAccount::BankAccount(const Money& in, std::string nameIn, bool isMaleIn,bool isWorkerIn):
+ID(BankAccount::generateID()), name(std::move(nameIn)), isWorker(isWorkerIn), isMale(isMaleIn)
+{
     if (in.getValue() < 0) {
         throw Exceptions(NegativeMoney, "Negative money was given.");
     }
     this->userMoney = in;
-    this->isMale = isMaleIn;
-    this->userShares = nullptr;
-    this->boughtShares = 0;
 }
 
 
@@ -47,11 +49,6 @@ int BankAccount::generateID() {
     return dis(gen);
 }
 
-void BankAccount::operator+=(const BankAccount &other) {
-    this->userMoney = this->userMoney + other.userMoney;
-}
-
-
 
 void BankAccount::setName(const std::string &newUserName) {
     this->name = newUserName;
@@ -80,28 +77,42 @@ void BankAccount::setIsWorker(bool isWorkerIn) {
     BankAccount::isWorker = isWorkerIn;
 }
 
-void BankAccount::BuyShares(Share& type, int amount) { // TODO foglalni rendesen
-    if (this->userShares == nullptr) {
-        this->userShares = new OwnedShare[1];
-        *this->userShares = type.buyShares(amount);
-        boughtShares = 1;
-    }
-}
-
-void BankAccount::SellShares(Share& type, int amount) { //TODO felszabaditani rendesen
-    if (this->userShares != nullptr) {
-        type.sellShares(amount, this->userShares[0]);
-        /*
-        if (this->userShares[0].getAmount() - amount == 0) {
-            delete this->userShares;
-            this->boughtShares = 0;
+void BankAccount::BuyShares(Share& type, int amount) { // TODO tesztelni
+    if (!userShares.empty()) {
+        for (auto i = userShares.begin(); i < userShares.end(); i++) {
+            if ((*i).getMaster() == &type) {
+                type.buyShares(amount, (*i));
+                return;
+            }
         }
-         */
+    }
+    OwnedShare temp;
+    type.buyShares(amount, temp);
+    if (temp.getMaster() != nullptr) {
+        this->userShares.push_back(temp);
+
     }
 }
 
-OwnedShare *BankAccount::getUserShares() const {
-    return userShares;
+void BankAccount::SellShares(Share& type, int amount) { //TODO tesztelni
+    if (!userShares.empty()) {
+        for (auto i = userShares.begin(); i < userShares.end(); i++) {
+            if ((*i).getMaster() == &type) {
+                type.sellShares(amount, (*i));
+
+                if ((*i).getAmount() == 0) {
+                    userShares.erase(i);
+                }
+
+                return;
+            }
+        }
+    }
+    throw Exceptions(NotEnoughShares, "Tried to sell shares, but didn't buy earlier.");
+}
+
+OwnedShare BankAccount::getIndex(int n) {
+    return this->userShares.at(n);
 }
 
 

@@ -3,6 +3,7 @@
 
 #include "Share.h"
 #include <string>
+#include <vector>
 
 class BankAccount {
 private:
@@ -12,14 +13,15 @@ private:
     Money userMoney;
 
     bool isWorker; // TODO Implementalni
-    OwnedShare * userShares;
-    int boughtShares;
+
+    std::vector<OwnedShare> userShares;
+
 public:
 
     // Constructors/Destructors
 
     BankAccount();
-    BankAccount(const Money& in, std::string nameIn, bool isMaleIn);
+    BankAccount(const Money& in, std::string nameIn, bool isMaleIn, bool isWorkerIn);
     BankAccount(const BankAccount& other);
     ~BankAccount() = default;
 
@@ -38,9 +40,7 @@ public:
 
     static int generateID();
 
-    // Operator overloads
-
-    void operator+=(const BankAccount& other);
+    // Money Functions
 
     void addMoney(const Money& in);
     void substractMoney(const Money& in);
@@ -58,7 +58,8 @@ public:
     void BuyShares(Share& type, int amount);
     void SellShares(Share& type, int amount);
 
-    OwnedShare *getUserShares() const;
+    OwnedShare getIndex(int n); // TODO TOROLNI DEBUGHOZ
+
 };
 
 std::ostream& operator<<(std::ostream& stream, const BankAccount& in);

@@ -39,14 +39,18 @@ void Share::sellShares(int n, OwnedShare& in) {
     in.setAmount(in.getAmount() - n);
 }
 
-OwnedShare Share::buyShares(int n) {
+void Share::buyShares(int n, OwnedShare& in) {
+    if (in.getMaster() != nullptr && in.getMaster() != this) {
+        throw Exceptions(WrongMaster, "Tried to buy share to a different one.");
+    }
     if (this->available >= n) {
         this->available -= n;
+        in.setMaster(this);
+        in.setAmount(in.getAmount() + n);
         calculateNewPrice(false);
-
-        return {n, this};
+        return;
     }
-    return {0, nullptr};
+    throw Exceptions(NotEnoughShares, "There was not enough shares to buy");
 }
 
 const std::string &Share::getName() const {
@@ -62,6 +66,8 @@ unsigned int Share::getAvailable() const {
 }
 
 // OwnedShare
+
+OwnedShare::OwnedShare(): amount(0), Master(nullptr) {}
 
 
 int OwnedShare::getAmount() const {
@@ -89,3 +95,4 @@ Money OwnedShare::showValue() const {
 std::string OwnedShare::showName() const {
     return (*(this->getMaster())).getName();
 }
+

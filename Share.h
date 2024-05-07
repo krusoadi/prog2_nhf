@@ -26,7 +26,7 @@ public:
     Share(std::string name, const Money &value, unsigned int available);
 
     void sellShares(int n, OwnedShare& in);
-    OwnedShare buyShares(int n);
+    void buyShares(int n, OwnedShare& in);
 
 };
 
@@ -35,7 +35,7 @@ private:
     int amount;
     Share* Master; // o a share, amit vettunk beolvasaskor erre figyelni kell
 public:
-    OwnedShare() = default;
+    OwnedShare();
 
     OwnedShare(int amount, Share* masterIn);
 
