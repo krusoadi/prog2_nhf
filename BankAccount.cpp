@@ -6,7 +6,7 @@
 
 BankAccount::BankAccount(const BankAccount &other): ID(other.ID), userMoney(other.userMoney) {}
 
-BankAccount::BankAccount(): ID(BankAccount::generateID()), userMoney(), isMale(false) {}
+BankAccount::BankAccount(): ID(BankAccount::generateID()), userMoney(), isMale(false), userShares(nullptr), boughtShares(0) {}
 
 BankAccount::BankAccount(const Money& in, std::string nameIn, bool isMaleIn): ID(BankAccount::generateID()), name(std::move(nameIn)) {
     if (in.getValue() < 0) {
@@ -14,6 +14,8 @@ BankAccount::BankAccount(const Money& in, std::string nameIn, bool isMaleIn): ID
     }
     this->userMoney = in;
     this->isMale = isMaleIn;
+    this->userShares = nullptr;
+    this->boughtShares = 0;
 }
 
 
@@ -76,6 +78,30 @@ bool BankAccount::getisWorker() const {
 
 void BankAccount::setIsWorker(bool isWorkerIn) {
     BankAccount::isWorker = isWorkerIn;
+}
+
+void BankAccount::BuyShares(Share& type, int amount) { // TODO bugos
+    if (this->userShares == nullptr) {
+        this->userShares = new OwnedShare[1];
+        *this->userShares = type.buyShares(amount);
+        boughtShares = 1;
+    }
+}
+
+void BankAccount::SellShares(Share& type, int amount) { //TODO bugos
+    if (this->userShares != nullptr) {
+        type.sellShares(amount, this->userShares[0]);
+        /*
+        if (this->userShares[0].getAmount() - amount == 0) {
+            delete this->userShares;
+            this->boughtShares = 0;
+        }
+         */
+    }
+}
+
+OwnedShare *BankAccount::getUserShares() const {
+    return userShares;
 }
 
 

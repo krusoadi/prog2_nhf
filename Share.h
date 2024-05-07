@@ -33,7 +33,7 @@ public:
 class OwnedShare {
 private:
     int amount;
-    Share* Master;
+    Share* Master; // o a share, amit vettunk beolvasaskor erre figyelni kell
 public:
     OwnedShare() = default;
 
@@ -46,11 +46,11 @@ public:
 
     // Setters
 
-    void setAmount(int amount);
+    void setAmount(int amountIn);
     void setMaster(Share *master);
 
-    Money showValue();
-    std::string showName();
+    Money showValue() const;
+    std::string showName() const;
 };
 
 

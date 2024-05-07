@@ -68,8 +68,8 @@ int OwnedShare::getAmount() const {
     return amount;
 }
 
-void OwnedShare::setAmount(int amount) {
-    this->amount = amount;
+void OwnedShare::setAmount(int amountIn) {
+    this->amount = amountIn;
 }
 
 OwnedShare::OwnedShare( int amount, Share* masterIn): amount(amount), Master(masterIn) {}
@@ -82,10 +82,10 @@ void OwnedShare::setMaster(Share *master) {
     Master = master;
 }
 
-Money OwnedShare::showValue() {
+Money OwnedShare::showValue() const {
     return (*(this->getMaster())).getValue();
 }
 
-std::string OwnedShare::showName() {
+std::string OwnedShare::showName() const {
     return (*(this->getMaster())).getName();
 }

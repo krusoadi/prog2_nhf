@@ -11,7 +11,9 @@ private:
     bool isMale;
     Money userMoney;
 
-    bool isWorker;
+    bool isWorker; // TODO Implementalni
+    OwnedShare * userShares;
+    int boughtShares;
 public:
 
     // Constructors/Destructors
@@ -51,6 +53,12 @@ public:
 
     void setIsWorker(bool isWorkerIn);
 
+    // Share functions
+
+    void BuyShares(Share& type, int amount);
+    void SellShares(Share& type, int amount);
+
+    OwnedShare *getUserShares() const;
 };
 
 std::ostream& operator<<(std::ostream& stream, const BankAccount& in);
