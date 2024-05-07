@@ -8,10 +8,6 @@ BankAccount::BankAccount(const BankAccount &other): ID(other.ID), userMoney(othe
 
 BankAccount::BankAccount(): ID(BankAccount::generateID()), userMoney(), isMale(false) {}
 
-void BankAccount::setMoney(const Money& in) {
-    this->userMoney = in;
-}
-
 BankAccount::BankAccount(const Money& in, std::string nameIn, bool isMaleIn): ID(BankAccount::generateID()), name(std::move(nameIn)) {
     if (in.getValue() < 0) {
         throw Exceptions(NegativeMoney, "Negative money was given.");
@@ -20,12 +16,22 @@ BankAccount::BankAccount(const Money& in, std::string nameIn, bool isMaleIn): ID
     this->isMale = isMaleIn;
 }
 
+
 Money BankAccount::getMoney() const {
     return userMoney;
 }
 
+
+const std::string &BankAccount::getName() const {
+    return name;
+}
+
 unsigned int BankAccount::getId() const {
     return ID;
+}
+
+void BankAccount::setMoney(const Money& in) {
+    this->userMoney = in;
 }
 
 int BankAccount::generateID() {
@@ -43,9 +49,7 @@ void BankAccount::operator+=(const BankAccount &other) {
     this->userMoney = this->userMoney + other.userMoney;
 }
 
-const std::string &BankAccount::getName() const {
-    return name;
-}
+
 
 void BankAccount::setName(const std::string &newUserName) {
     this->name = newUserName;

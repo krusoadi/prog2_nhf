@@ -75,6 +75,15 @@ Money &Money::operator-=(const Money &other) {
     return *this;
 }
 
+Money &Money::operator*=(double rate) {
+    if (rate < 0) {
+        throw Exceptions(NegativeMoney, "Tried to multiply money with negative amount.");
+    }
+    this->value *= rate;
+
+    return *this;
+}
+
 
 std::ostream& operator<<(std::ostream& stream, const Money& in) {
     stream << in.getValue() << " " << symbols[in.getCurrency()];

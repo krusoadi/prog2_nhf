@@ -45,6 +45,7 @@ public:
 
     Money& operator+=(const Money& other);
     Money& operator-=(const Money& other);
+    Money& operator*=(double rate);
 
 };
 

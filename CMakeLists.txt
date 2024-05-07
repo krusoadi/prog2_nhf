@@ -9,4 +9,8 @@ add_executable(prog2_nhf main.cpp
         Money.cpp
         Money.h
         Exceptions.cpp
-        Exceptions.h)
+        Exceptions.h
+        BankingSystem.cpp
+        BankingSystem.h
+        Share.cpp
+        Share.h)

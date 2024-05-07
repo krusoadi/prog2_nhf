@@ -1,7 +1,7 @@
 #ifndef PROG2_NHF_BANKACCOUNT_H
 #define PROG2_NHF_BANKACCOUNT_H
 
-#include "Money.h"
+#include "Share.h"
 #include <string>
 
 class BankAccount {
@@ -12,7 +12,6 @@ private:
     Money userMoney;
 
     bool isWorker;
-
 public:
 
     // Constructors/Destructors

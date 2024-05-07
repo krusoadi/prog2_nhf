@@ -73,6 +73,18 @@ build CMakeFiles/prog2_nhf.dir/Exceptions.cpp.obj: CXX_COMPILER__prog2_nhf_unsca
   OBJECT_DIR = CMakeFiles\prog2_nhf.dir
   OBJECT_FILE_DIR = CMakeFiles\prog2_nhf.dir
 
+build CMakeFiles/prog2_nhf.dir/BankingSystem.cpp.obj: CXX_COMPILER__prog2_nhf_unscanned_Debug C$:/Users/kruso/CLionProjects/prog2_nhf/BankingSystem.cpp || cmake_object_order_depends_target_prog2_nhf
+  DEP_FILE = CMakeFiles\prog2_nhf.dir\BankingSystem.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\prog2_nhf.dir
+  OBJECT_FILE_DIR = CMakeFiles\prog2_nhf.dir
+
+build CMakeFiles/prog2_nhf.dir/Share.cpp.obj: CXX_COMPILER__prog2_nhf_unscanned_Debug C$:/Users/kruso/CLionProjects/prog2_nhf/Share.cpp || cmake_object_order_depends_target_prog2_nhf
+  DEP_FILE = CMakeFiles\prog2_nhf.dir\Share.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\prog2_nhf.dir
+  OBJECT_FILE_DIR = CMakeFiles\prog2_nhf.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target prog2_nhf
@@ -81,7 +93,7 @@ build CMakeFiles/prog2_nhf.dir/Exceptions.cpp.obj: CXX_COMPILER__prog2_nhf_unsca
 #############################################
 # Link the executable prog2_nhf.exe
 
-build prog2_nhf.exe: CXX_EXECUTABLE_LINKER__prog2_nhf_Debug CMakeFiles/prog2_nhf.dir/main.cpp.obj CMakeFiles/prog2_nhf.dir/BankAccount.cpp.obj CMakeFiles/prog2_nhf.dir/Money.cpp.obj CMakeFiles/prog2_nhf.dir/Exceptions.cpp.obj
+build prog2_nhf.exe: CXX_EXECUTABLE_LINKER__prog2_nhf_Debug CMakeFiles/prog2_nhf.dir/main.cpp.obj CMakeFiles/prog2_nhf.dir/BankAccount.cpp.obj CMakeFiles/prog2_nhf.dir/Money.cpp.obj CMakeFiles/prog2_nhf.dir/Exceptions.cpp.obj CMakeFiles/prog2_nhf.dir/BankingSystem.cpp.obj CMakeFiles/prog2_nhf.dir/Share.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\prog2_nhf.dir
