@@ -80,7 +80,7 @@ void BankAccount::setIsWorker(bool isWorkerIn) {
     BankAccount::isWorker = isWorkerIn;
 }
 
-void BankAccount::BuyShares(Share& type, int amount) { // TODO bugos
+void BankAccount::BuyShares(Share& type, int amount) { // TODO foglalni rendesen
     if (this->userShares == nullptr) {
         this->userShares = new OwnedShare[1];
         *this->userShares = type.buyShares(amount);
@@ -88,7 +88,7 @@ void BankAccount::BuyShares(Share& type, int amount) { // TODO bugos
     }
 }
 
-void BankAccount::SellShares(Share& type, int amount) { //TODO bugos
+void BankAccount::SellShares(Share& type, int amount) { //TODO felszabaditani rendesen
     if (this->userShares != nullptr) {
         type.sellShares(amount, this->userShares[0]);
         /*
