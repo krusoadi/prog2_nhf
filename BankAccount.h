@@ -10,6 +10,7 @@ class BankAccount {
 private:
     const unsigned int ID;
     std::string name;
+    bool isMale;
 
     Money userMoney;
 
@@ -18,7 +19,7 @@ public:
     // Constructors/Destructors
 
     BankAccount();
-    BankAccount(const Money& in);
+    BankAccount(const Money& in, std::string nameIn, bool isMaleIn);
     BankAccount(const BankAccount& other);
     ~BankAccount() = default;
 
@@ -26,7 +27,7 @@ public:
 
     Money getMoney() const;
     unsigned int getId() const;
-    const std::string &getName() const;
+    const std::string& getName() const;
 
     // Setters
 
