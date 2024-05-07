@@ -6,7 +6,9 @@
 enum errors {
     GenericError,
     NotDefinedError,
-    NegativeMoney
+    NegativeMoney,
+    NotEnoughShares,
+    WrongMaster
 };
 
 class Exceptions : public std::exception {
