@@ -40,7 +40,6 @@ int main() {
 
     tempAcc.SellShares(testShare, 5);
 
-
     std::cout << tempAcc << std::endl;
 
     return 0;

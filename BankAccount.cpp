@@ -25,7 +25,6 @@ Money BankAccount::getMoney() const {
     return userMoney;
 }
 
-
 const std::string &BankAccount::getName() const {
     return name;
 }
@@ -48,7 +47,6 @@ int BankAccount::generateID() {
 
     return dis(gen);
 }
-
 
 void BankAccount::setName(const std::string &newUserName) {
     this->name = newUserName;
@@ -108,10 +106,10 @@ void BankAccount::SellShares(Share& type, int amount) { //TODO tesztelni
             }
         }
     }
-    throw Exceptions(NotEnoughShares, "Tried to sell shares, but didn't buy earlier.");
+    throw Exceptions(NotEnoughShares, "Tried to sell shares, but didn't buy earlier. (empty user)");
 }
 
-OwnedShare BankAccount::getIndex(int n) {
+OwnedShare BankAccount::getIndex(int n) { // TODO TOROLNI MAJD
     return this->userShares.at(n);
 }
 
