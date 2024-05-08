@@ -4,13 +4,11 @@
 
 #define END 3 // max tombertek a valutakra
 
-enum BankMoneyTypes {
+enum CurrencyTypes {
     EUR,
     HUF,
     USD,
 };
-
-
 
 class Currency {
 private:

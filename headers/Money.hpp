@@ -7,32 +7,32 @@
 
 class Money {
     double value;
-    BankMoneyTypes currency;
+    CurrencyTypes moneyCurr; // Rovidites fontos
 
-    // Static Private currency converter
+    // Static Private moneyCurr converter
 
-    static Money TransferCurrency(BankMoneyTypes our, const Money& other);
+    static Money TransferCurrency(CurrencyTypes our, const Money& other);
 
 public:
 
     // Constructors
 
-    Money(double value, BankMoneyTypes currency);
+    Money(double value, CurrencyTypes currency);
     Money();
 
     // Getters
 
     double getValue() const;
-    BankMoneyTypes getCurrency() const;
+    CurrencyTypes getCurrency() const;
 
     // Setters
 
-    void setCurrency(BankMoneyTypes cur);
+    void setCurrency(CurrencyTypes cur);
     void setValue(double val);
 
     // Converters (for object)
 
-    Money convertCurrency(BankMoneyTypes dest) const;
+    Money convertCurrency(CurrencyTypes dest) const;
 
     // Operators
 
