@@ -58,7 +58,7 @@ public:
     void BuyShares(Share& type, int amount);
     void SellShares(Share& type, int amount);
 
-    OwnedShare getIndex(int n); // TODO TOROLNI DEBUGHOZ
+    void revealShares();
 
 };
 

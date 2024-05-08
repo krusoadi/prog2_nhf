@@ -75,7 +75,17 @@ void BankAccount::setIsWorker(bool isWorkerIn) {
     BankAccount::isWorker = isWorkerIn;
 }
 
-void BankAccount::BuyShares(Share& type, int amount) { // TODO tesztelni
+void BankAccount::BuyShares(Share& type, int amount) { // Tesztelve, eddig hibatlan
+
+    Money priceOfShares = type.getValue();
+    priceOfShares *= amount;
+
+    if (this->userMoney < priceOfShares) {
+        printf("Tesztszoveg, nincs eleg penze :(");
+        return;
+    }
+
+    this->substractMoney(priceOfShares);
 
     if (!userShares.empty()) {
         for (auto i = userShares.begin(); i < userShares.end(); i++) {
@@ -93,16 +103,20 @@ void BankAccount::BuyShares(Share& type, int amount) { // TODO tesztelni
     }
 }
 
-void BankAccount::SellShares(Share& type, int amount) { //TODO tesztelni
+void BankAccount::SellShares(Share& type, int amount) { // Tesztelve, eddig hibatlan
     if (!userShares.empty()) {
         for (auto i = userShares.begin(); i < userShares.end(); i++) {
             if ((*i).getMaster() == &type) {
+
+                if (amount <= (*i).getAmount()) { // Mivela kovetkezo fuggveny nezne ezt meg ezert itt is kell.
+                    this->addMoney((*i).showValue()); // Visszaadjuk a penzet a felhasznalonak
+                }
+
                 type.sellShares(amount, (*i));
 
                 if ((*i).getAmount() == 0) {
                     userShares.erase(i);
                 }
-
                 return;
             }
         }
@@ -110,8 +124,10 @@ void BankAccount::SellShares(Share& type, int amount) { //TODO tesztelni
     throw Exceptions(NotEnoughShares, "Tried to sell shares, but didn't buy earlier. (empty user)");
 }
 
-OwnedShare BankAccount::getIndex(int n) { // TODO TOROLNI MAJD
-    return this->userShares.at(n);
+void BankAccount::revealShares() {
+    for (auto i = userShares.begin(); i < userShares.end(); i++) {
+        std::cout << *i << std::endl;
+    }
 }
 
 

@@ -14,8 +14,8 @@ double Share::getNewRate(bool decrease) {
 
     int a, b;
 
-    decrease ? a = 80 : a = 101;
-    decrease ?  b = 99 : b = 135;
+    decrease ? a = 85 : a = 101;
+    decrease ?  b = 99 : b = 115;
 
     std::uniform_int_distribution<>dis(a,b);
 

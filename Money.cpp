@@ -84,19 +84,19 @@ Money Money::operator*(int amount) {
 bool Money::operator==(const Money &other) {
     Money temp = Money::temporaryCurrency(this->currency, other);
 
-    return this->value == other.value;
+    return this->value == temp.value;
 }
 
 bool Money::operator<(const Money &other) {
     Money temp = Money::temporaryCurrency(this->currency, other);
 
-    return this->value < other.value;
+    return this->value < temp.value;
 }
 
 bool Money::operator>(const Money &other) {
     Money temp = Money::temporaryCurrency(this->currency, other);
 
-    return this->value > other.value;
+    return this->value > temp.value;
 }
 
 std::ostream& operator<<(std::ostream& stream, const Money& in) {
