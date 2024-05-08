@@ -24,7 +24,6 @@ int main() {
     tempAcc.BuyShares(testShare, 10);
     tempAcc.BuyShares(testShare2, 10);
 
-
     std::cout << "\nBought Shares..\n";
 
     std::cout << tempAcc << std::endl;

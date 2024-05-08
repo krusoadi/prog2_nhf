@@ -13,7 +13,6 @@ enum CurrencyTypes {
 
 class Currency {
 private:
-
     // Bounds (used by randomValue)
 
     static constexpr double LOWER_BOUNDS[END] = {1, 350, 0.50};
