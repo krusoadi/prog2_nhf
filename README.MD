@@ -5,6 +5,11 @@ This project is my homework for my Programming II. course.
 
 ## Classes
 
+### [Currency](headers/Currency.h)
+The Currency class is fully static, its main purpose is to make currency modifiable
+and random. It stores the currency symbols too.
+
+
 ### [Money](headers/Money.hpp)
 
 This class is a data structure for money basically, the main reasons for
