@@ -2,6 +2,7 @@
 #define PROG2_NHF_TCONTAINER_HPP
 
 #include "../headers/Exceptions.hpp"
+#include <iostream>
 
 template<class T>
 
@@ -36,6 +37,10 @@ public:
 
     // Status Check methods
     bool isEmpty();
+
+    // Getters
+
+    int getNum() const;
 
 };
 
@@ -78,9 +83,8 @@ void TContainer<T>::add_back(T newVar) {
     for (i = 0; i < num; i++) {
         temp[i] = this->vars[i];
     }
-
-    temp[++i] = newVar;
-    num = i;
+    temp[i] = newVar;
+    ++num;
     delPtr();
     this->vars = temp;
 }
@@ -107,7 +111,7 @@ void TContainer<T>::add_index(T newVar, int n) {
         throw Exceptions(NegativeIndex, "Negative Indexed when adding new element");
     }
 
-    T* temp = new T[num++];
+    T* temp = new T[++num];
 
     bool reached_n = false;
 
@@ -151,15 +155,13 @@ T TContainer<T>::pop_front() {
     }
 
     T retVal = this->vars[0];
-
-    T* temp = new T[num - 1];
+    T* temp = new T[--num];
 
     for (int i = 0; i < num; i++) {
         temp[i] = this->vars[i + 1];
     }
     delPtr();
     this->vars = temp;
-    num--;
     return retVal;
 }
 
@@ -171,7 +173,7 @@ T TContainer<T>::pop_index(int n) {
     if (n < 0) {
         throw Exceptions(NegativeIndex, "Negative Indexed when adding new element");
     }
-    if (n > num) {
+    if (n >= num) {
         throw Exceptions(OverIndex, "Over indexed TContainer, when popping. (index)");
     }
 
@@ -194,7 +196,7 @@ T TContainer<T>::pop_index(int n) {
 
     delPtr();
     this->vars = temp;
-    this->num--;
+    num--;
 
     return retVal;
 }
@@ -213,6 +215,19 @@ T TContainer<T>::operator[](int n) {
 template<class T>
 bool TContainer<T>::isEmpty() {
     return this->vars == nullptr;
+}
+
+template<class T>
+int TContainer<T>::getNum() const {
+    return this->num;
+}
+
+template<class T>
+std::ostream& operator<<(std::ostream& stream, const TContainer<T> &in) {
+    for (int i = 0; i < in.getNum(); ++i) {
+        stream << in[i] << "\n";
+    }
+    return stream;
 }
 
 #endif //PROG2_NHF_TCONTAINER_HPP
