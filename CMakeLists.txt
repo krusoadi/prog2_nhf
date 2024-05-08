@@ -13,4 +13,6 @@ add_executable(prog2_nhf main.cpp
         code/BankingSystem.cpp
         headers/BankingSystem.hpp
         code/Share.cpp
-        headers/Share.hpp)
+        headers/Share.hpp
+        code/Currency.cpp
+        headers/Currency.h)

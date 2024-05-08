@@ -3,15 +3,10 @@
 
 #include <iostream>
 #include "Exceptions.hpp"
-enum BankMoneyTypes {
-    EUR,
-    HUF,
-    USD,
-};
+#include "Currency.h"
 
 inline double vals[3] = {1, 355, 0.77};
 inline const char* symbols[3] = {"Eur", "Ft", "$"};
-
 
 class Money {
     double value;

@@ -7,7 +7,7 @@ class BankingSystem {
 private:
     BankAccount* users;
     Money bankMoney;
-
+    Share* bankShares;
 public:
 
 
