@@ -1,6 +1,6 @@
 #include <random>
 #include <utility>
-#include "BankAccount.hpp"
+#include "../headers/BankAccount.hpp"
 
 BankAccount::BankAccount(const BankAccount &other): ID(other.ID), userMoney(other.userMoney) {
     this->name = other.name;

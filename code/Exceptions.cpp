@@ -1,4 +1,4 @@
-#include "Exceptions.hpp"
+#include "../headers/Exceptions.hpp"
 
 Exceptions::Exceptions(errors errorType, const char *message) : type(errorType), msg(message) {}
 
