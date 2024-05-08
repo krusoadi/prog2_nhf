@@ -49,7 +49,7 @@ void Share::buyShares(int n, OwnedShare& in) {
         calculateNewPrice(false);
         return;
     }
-    throw Exceptions(NotEnoughShares, "There was not enough shares to buy");
+    throw Exceptions(NotEnoughShares, "There weren't enough shares to buy");
 }
 
 const std::string &Share::getName() const {
