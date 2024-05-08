@@ -8,7 +8,7 @@ Money Money::TransferCurrency(CurrencyTypes our, const Money &other) {
     double retval;
 
     if (our != other.moneyCurr) {
-        retval = (other.value / Currency::valuetoEUR[other.moneyCurr]) * Currency::valuetoEUR[our];
+        retval = (other.value / Currency::valueToEUR[other.moneyCurr]) * Currency::valueToEUR[our];
 
         return {retval, our};
     }

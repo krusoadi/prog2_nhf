@@ -2,6 +2,8 @@
 
 const std::string Currency::symbols[] =  {"Eur", "Ft", "$"};
 
+double Currency::valueToEUR[] = {1, 350, 400};
+
 double Currency::randomValue(double low, double high) {
 
     // Safe C++ 11 random double generator
@@ -13,8 +15,12 @@ double Currency::randomValue(double low, double high) {
 }
 
 void Currency::updateCurrency() {
-    valuetoEUR[EUR] = 1;
+    valueToEUR[EUR] = 1;
     for (int i = 1; i < END; i++) { // EUR does not need to be updated.
-        valuetoEUR[i] = randomValue(LOW_BOUNDS[i], UPPER_BOUNDS[i]);
+        valueToEUR[i] = randomValue(LOW_BOUNDS[i], UPPER_BOUNDS[i]);
     }
+}
+
+void Currency::printCurrency() {
+    std::cout << "From EUR:\tHUF:" << Currency::valueToEUR[HUF] << "\tUSD:" << Currency::valueToEUR[USD] << std::endl;
 }

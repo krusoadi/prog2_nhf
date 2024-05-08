@@ -5,6 +5,8 @@
 int main() {
     Currency::updateCurrency();
 
+    Currency::printCurrency();
+
     Share testShare("Apple Inc.", Money(2000, HUF), 100);
     Share testShare2("Tesla", Money(1500, HUF), 50);
 

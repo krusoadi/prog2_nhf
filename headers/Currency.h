@@ -2,6 +2,7 @@
 #define PROG2_NHF_CURRENCY_H
 #include <random>
 #include <string>
+#include <iostream>
 #define END 3 // max tombertek a valutakra
 
 enum CurrencyTypes {
@@ -19,10 +20,11 @@ private:
 public:
     //Static Value of Currency (based on EURO)
 
-    static double valuetoEUR[END];
+    static double valueToEUR[END];
     static const std::string symbols[3];
 
     static void updateCurrency();
+    static void printCurrency();
 };
 
 
