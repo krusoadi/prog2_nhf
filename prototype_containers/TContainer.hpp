@@ -222,7 +222,7 @@ int TContainer<T>::getNum() const {
 }
 
 template<class T>
-std::ostream& operator<<(std::ostream& stream, const TContainer<T> &in) {
+std::ostream& operator<<(std::ostream& stream, TContainer<T> &in) {
     for (int i = 0; i < in.getNum(); ++i) {
         stream << in[i] << "\n";
     }

@@ -5,28 +5,23 @@
 // Tested: add_back, add_front, pop_front, pop_back, pop_index, add_index, getNum, isEmpty, Constructors (all of them)
 
 int main() {
-    TContainer<int> temp(0);
-    for (int i = 1; i < 10; i++) {
-        temp.add_front(i);
+    Currency::updateCurrency();
+
+    TContainer<Money> temp;
+    for (int i = 0; i < 15; i++) {
+        temp.add_back(Money(i, EUR));
     }
 
-    TContainer<int> test2(temp);
+    auto max = temp.getNum();
 
-    int asd = test2.getNum();
+    TContainer<Money> test2;
 
-    std::cout << asd << std::endl;
-
-
-    for (int i = 0; i < asd; i++) {
-        std::cout<< test2.pop_back() << " ";
+    for (int i = 0; i < max; i++) {
+        test2.add_back(temp[i].convertCurrency(HUF));
     }
 
-    std::cout << "\n" << std::endl;
-
-    for (int i = 0; i < asd; i++) {
-        std::cout<< temp.pop_back() << " ";
-    }
-
+    std::cout << temp << std::endl;
+    std::cout << test2 << std::endl;
     return 0;
 }
 
