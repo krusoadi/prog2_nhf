@@ -9,7 +9,8 @@ enum errors {
     NegativeMoney,
     NotEnoughShares,
     WrongMaster,
-    OverIndex
+    OverIndex,
+    EmptyContainer
 };
 
 class Exceptions : public std::exception {

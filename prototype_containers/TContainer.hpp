@@ -46,11 +46,6 @@ void TContainer<T>::delPtr() {
 }
 
 template<class T>
-bool TContainer<T>::isEmpty() {
-    return this->vars == nullptr;
-}
-
-template<class T>
 TContainer<T>::TContainer(): vars(nullptr), num(0)  {}
 
 template<class T>
@@ -103,6 +98,10 @@ void TContainer<T>::add_front(T newVar) {
 
 template<class T>
 T TContainer<T>::pop_back() {
+    if(isEmpty()) {
+        throw Exceptions(EmptyContainer, "Cannot pop from an empty container (back).");
+    }
+
     T retVal = this->vars[--num];
 
     T* temp = new T[num];
@@ -117,6 +116,10 @@ T TContainer<T>::pop_back() {
 
 template<class T>
 T TContainer<T>::pop_front() {
+    if(isEmpty()) {
+        throw Exceptions(EmptyContainer, "Cannot pop from an empty container (front).");
+    }
+
     T retVal = this->vars[0];
 
     T* temp = new T[num - 1];
@@ -132,6 +135,10 @@ T TContainer<T>::pop_front() {
 
 template<class T>
 T TContainer<T>::pop_index(int n) {
+    if(isEmpty()) {
+        throw Exceptions(EmptyContainer, "Cannot pop from an empty container (index).");
+    }
+
     T retVal = this->vars[n];
 
     T* temp = new T[num - 1];
@@ -141,11 +148,9 @@ T TContainer<T>::pop_index(int n) {
     for (int i = 0; i < num; i++) {
         if(n == i) {
             reached_n = true;
-        }
-        if (i != n && !reached_n) {
+        } else if (!reached_n) {
             temp[i] = this->vars[i];
-        }
-        if (i != n && reached_n) {
+        } else {
             temp[i-1] =this->vars[i];
         }
     }
@@ -153,18 +158,24 @@ T TContainer<T>::pop_index(int n) {
     delPtr();
     this->vars = temp;
     this->num--;
+
+    return retVal;
 }
 
 template<class T>
 T TContainer<T>::operator[](int n) {
+    if(isEmpty()) {
+        throw Exceptions(EmptyContainer, "Cannot get an indexed item from an empty container.");
+    }
     if (this->num <= n) {
         throw Exceptions(OverIndex, "TContainer was over indexed.");
     }
     return this->vars[n];
 }
 
-
-
-
+template<class T>
+bool TContainer<T>::isEmpty() {
+    return this->vars == nullptr;
+}
 
 #endif //PROG2_NHF_TCONTAINER_HPP
