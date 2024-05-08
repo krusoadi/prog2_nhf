@@ -16,7 +16,7 @@ double Currency::randomValue(double low, double high) {
 
 void Currency::updateCurrency() {
     valueToEUR[EUR] = 1;
-    for (int i = 1; i < END; i++) { // EUR does not need to be updated, so "i" starts from one.
+    for (int i = 1; i < END; ++i) { // EUR does not need to be updated, so "i" starts from one.
         valueToEUR[i] = randomValue(LOWER_BOUNDS[i], UPPER_BOUNDS[i]);
     }
 }

@@ -87,7 +87,7 @@ void BankAccount::BuyShares(Share& type, int amount) { // Tesztelve, eddig hibat
     this->subtractMoney(priceOfShares);
 
     if (!userShares.empty()) {
-        for (auto i = userShares.begin(); i < userShares.end(); i++) {
+        for (auto i = userShares.begin(); i < userShares.end(); ++i) {
             if ((*i).getMaster() == &type) {
                 type.buyShares(amount, (*i));
                 return;
@@ -104,7 +104,7 @@ void BankAccount::BuyShares(Share& type, int amount) { // Tesztelve, eddig hibat
 
 void BankAccount::SellShares(Share& type, int amount) { // Tesztelve, eddig hibatlan
     if (!userShares.empty()) {
-        for (auto i = userShares.begin(); i < userShares.end(); i++) {
+        for (auto i = userShares.begin(); i < userShares.end(); ++i) {
             if ((*i).getMaster() == &type) {
 
                 if (amount <= (*i).getAmount()) { // Mivela kovetkezo fuggveny nezne ezt meg ezert itt is kell.
@@ -124,7 +124,7 @@ void BankAccount::SellShares(Share& type, int amount) { // Tesztelve, eddig hiba
 }
 
 void BankAccount::revealShares() {
-    for (auto i = userShares.begin(); i < userShares.end(); i++) {
+    for (auto i = userShares.begin(); i < userShares.end(); ++i) {
         std::cout << *i << std::endl;
     }
 }

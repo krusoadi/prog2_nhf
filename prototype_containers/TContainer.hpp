@@ -42,7 +42,13 @@ public:
 
     [[nodiscard]] int getNum() const;
 
+    // Other methods
+
+    void clear();
+    void swap(int n, int m);
+
 };
+
 
 template<class T>
 void TContainer<T>::delPtr() {
@@ -64,7 +70,7 @@ TContainer<T>::TContainer(T first): num(1) {
 template<class T>
 TContainer<T>::TContainer(const TContainer<T> &other): num(other.num) {
     this->vars = new T[num];
-    for (int i = 0; i < num; i++) {
+    for (int i = 0; i < num; ++i) {
         this->vars[i] = other.vars[i];
     }
 }
@@ -79,7 +85,7 @@ void TContainer<T>::add_back(T newVar) {
     T* temp = new T[num + 1];
 
     int i;
-    for (i = 0; i < num; i++) {
+    for (i = 0; i < num; ++i) {
         temp[i] = this->vars[i];
     }
     temp[i] = newVar;
@@ -93,7 +99,7 @@ void TContainer<T>::add_front(T newVar) {
     T* temp = new T[num + 1];
     temp[0] = newVar;
 
-    for (int i = 0; i < num; i++) {
+    for (int i = 0; i < num; ++i) {
         temp[i + 1] = this->vars[i];
     }
     num++;
@@ -114,7 +120,7 @@ void TContainer<T>::add_index(T newVar, int n) {
 
     bool reached_n = false;
 
-    for (int i = 0; i < num; i++) {
+    for (int i = 0; i < num; ++i) {
         if (i == n) {
             temp[i] = newVar;
             reached_n = true;
@@ -139,7 +145,7 @@ T TContainer<T>::pop_back() {
 
     T* temp = new T[num];
 
-    for (int i = 0; i < num; i++) {
+    for (int i = 0; i < num; ++i) {
         temp[i] = this->vars[i];
     }
     delPtr();
@@ -156,7 +162,7 @@ T TContainer<T>::pop_front() {
     T retVal = this->vars[0];
     T* temp = new T[--num];
 
-    for (int i = 0; i < num; i++) {
+    for (int i = 0; i < num; ++i) {
         temp[i] = this->vars[i + 1];
     }
     delPtr();
@@ -183,7 +189,7 @@ T TContainer<T>::pop_index(int n) {
 
     bool reached_n = false;
 
-    for (int i = 0; i < num; i++) {
+    for (int i = 0; i < num; ++i) {
         if(n == i) {
             reached_n = true;
         } else if (!reached_n) {
@@ -219,6 +225,26 @@ bool TContainer<T>::isEmpty() {
 template<class T>
 int TContainer<T>::getNum() const {
     return this->num;
+}
+template<class T>
+void TContainer<T>::clear() {
+    delPtr();
+    this->num = 0;
+}
+
+template<class T>
+void TContainer<T>::swap(int n, int m) {
+    if (n >= num || m >= num) {
+        throw Exceptions(OverIndex, "Over indexed, when swapping.");
+    } if (n < 0 || m < 0) {
+        throw Exceptions(NegativeIndex, "Negative index was given when swapping.");
+    } if(n == m) {
+        return;
+    }
+
+    T temp = this->vars[n];
+    this->vars[n] = this->vars[m];
+    this->vars[m] =temp;
 }
 
 template<class T>

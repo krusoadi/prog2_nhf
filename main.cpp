@@ -20,6 +20,8 @@ int main() {
         test2.add_back(temp[i].convertCurrency(HUF));
     }
 
+    test2.clear();
+
     std::cout << temp << std::endl;
     std::cout << test2 << std::endl;
     return 0;
