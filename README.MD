@@ -7,7 +7,7 @@ This project is my homework for my Programming II. course.
 
 ### [Currency](headers/Currency.h)
 The Currency class is fully static, its main purpose is to make currency modifiable
-and random. It stores the currency symbols too.
+and random. It stores the currency SYMBOLS too.
 
 
 ### [Money](headers/Money.hpp)

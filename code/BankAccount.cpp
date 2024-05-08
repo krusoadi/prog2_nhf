@@ -9,10 +9,10 @@ BankAccount::BankAccount(const BankAccount &other): ID(other.ID), userMoney(othe
     this->isWorker = other.isWorker;
 }
 
-BankAccount::BankAccount(): ID(BankAccount::generateID()), userMoney(), isMale(false), isWorker(false) {}
+BankAccount::BankAccount(): ID(BankAccount::getGeneratedID()), userMoney(), isMale(false), isWorker(false) {}
 
 BankAccount::BankAccount(const Money& money, std::string name, bool isMale, bool isWorker):
-        ID(BankAccount::generateID()), name(std::move(name)), isWorker(isWorker), isMale(isMale)
+        ID(BankAccount::getGeneratedID()), name(std::move(name)), isWorker(isWorker), isMale(isMale)
 {
     if (money.getValue() < 0) {
         throw Exceptions(NegativeMoney, "Negative money was given.");
@@ -36,7 +36,7 @@ void BankAccount::setMoney(const Money& in) {
     this->userMoney = in;
 }
 
-int BankAccount::generateID() {
+int BankAccount::getGeneratedID() {
 
     // Safe C++ 11 random generator
 
@@ -55,7 +55,7 @@ void BankAccount::addMoney(const Money &in) {
     this->userMoney += in;
 }
 
-void BankAccount::substractMoney(const Money &in) {
+void BankAccount::subtractMoney(const Money &in) {
     this->userMoney -= in;
 }
 
@@ -84,7 +84,7 @@ void BankAccount::BuyShares(Share& type, int amount) { // Tesztelve, eddig hibat
         return;
     }
 
-    this->substractMoney(priceOfShares);
+    this->subtractMoney(priceOfShares);
 
     if (!userShares.empty()) {
         for (auto i = userShares.begin(); i < userShares.end(); i++) {

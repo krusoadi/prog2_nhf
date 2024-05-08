@@ -99,6 +99,6 @@ bool Money::operator>(const Money &other) {
 }
 
 std::ostream& operator<<(std::ostream& stream, const Money& in) {
-    stream << in.getValue() << " " << Currency::symbols[in.getCurrency()];
+    stream << in.getValue() << " " << Currency::SYMBOLS[in.getCurrency()];
     return stream;
 }

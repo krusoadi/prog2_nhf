@@ -8,21 +8,28 @@ class OwnedShare;
 
 class Share {
 private:
-    std::string name;
-    Money value;
-    unsigned int available;
+    std::string name; // Name of the Share e.g.: Apple Inc.
+    Money value; // Current value of the share
+    unsigned int available; // Number of available shares
 
-    double static getNewRate(bool decrease);
-    void calculateNewPrice(int change);
+    // New price (after sell/buy) calculators
+
+    double static getNewRate(bool decrease); // Random growth/regression rate calculator
+    void calculateNewPrice(int change); // Method to set the new price with the generated rate
 
 public:
-    // Getters
-
-    const std::string &getName() const;
-    const Money &getValue() const;
-    unsigned int getAvailable() const;
+    // Constructors, Destructors
 
     Share(std::string name, const Money &value, unsigned int available);
+    ~Share() = default;
+
+    // Getters
+
+    [[nodiscard]] const std::string &getName() const;
+    [[nodiscard]] const Money &getValue() const;
+    [[nodiscard]] unsigned int getAvailable() const;
+
+    // Share buyer and Seller methods
 
     void sellShares(int n, OwnedShare& in);
     void buyShares(int n, OwnedShare& in);
@@ -33,25 +40,28 @@ std::ostream& operator<<(std::ostream& stream, const Share &in);
 
 class OwnedShare {
 private:
-    int amount;
-    Share* Master; // Ez mutat arra amit vettunk, TODO BEOLVASASNAL EZT FIGYELNI KELL
+    int amount; // amount of bought shares
+    Share* Master; // The Share objects pointer which it's connected to
 public:
-    OwnedShare();
+    // Constructors, Destructors
 
+    OwnedShare();
     OwnedShare(int amount, Share* masterIn);
 
     // Getters
 
-    int getAmount() const;
-    Share *getMaster() const;
+    [[nodiscard]] int getAmount() const;
+    [[nodiscard]] Share *getMaster() const;
 
     // Setters
 
     void setAmount(int amountIn);
     void setMaster(Share *master);
 
-    Money showValue() const;
-    std::string showName() const;
+    // Methods to get information about the Share (Master)
+
+    [[nodiscard]] Money showValue() const;
+    [[nodiscard]] std::string showName() const;
 };
 
 std::ostream& operator<<(std::ostream& stream, const OwnedShare &in);

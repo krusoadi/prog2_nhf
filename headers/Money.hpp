@@ -7,23 +7,25 @@
 
 class Money {
     double value;
-    CurrencyTypes moneyCurr; // Rovidites fontos
+    CurrencyTypes moneyCurr; // acronym for Money Currency
 
-    // Static Private moneyCurr converter
+    // Static Private currency converter
 
     static Money TransferCurrency(CurrencyTypes our, const Money& other);
 
 public:
 
-    // Constructors
+    // Constructors, Destructors
 
     Money(double value, CurrencyTypes currency);
     Money();
 
+    ~Money() = default;
+
     // Getters
 
-    double getValue() const;
-    CurrencyTypes getCurrency() const;
+    [[nodiscard]] double getValue() const;
+    [[nodiscard]] CurrencyTypes getCurrency() const;
 
     // Setters
 
@@ -32,9 +34,9 @@ public:
 
     // Converters (for object)
 
-    Money convertCurrency(CurrencyTypes dest) const;
+    [[nodiscard]] Money convertCurrency(CurrencyTypes dest) const;
 
-    // Operators
+    // Arithmetic Operators
 
     Money operator+(const Money& other);
     Money operator-(const Money& other);
@@ -44,6 +46,8 @@ public:
     Money& operator+=(const Money& other);
     Money& operator-=(const Money& other);
     Money& operator*=(double rate);
+
+    // Compare operators
 
     bool operator==(const Money& other);
     bool operator<(const Money& other);
