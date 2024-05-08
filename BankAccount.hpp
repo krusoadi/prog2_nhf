@@ -59,7 +59,6 @@ public:
     void SellShares(Share& type, int amount);
 
     void revealShares();
-
 };
 
 std::ostream& operator<<(std::ostream& stream, const BankAccount& in);
