@@ -10,7 +10,8 @@ enum errors {
     NotEnoughShares,
     WrongMaster,
     OverIndex,
-    EmptyContainer
+    EmptyContainer,
+    NegativeIndex
 };
 
 class Exceptions : public std::exception {
