@@ -5,12 +5,12 @@ Money::Money(double value, CurrencyTypes currency) : value(value), moneyCurr(cur
 Money::Money(): value(0), moneyCurr(EUR) {}
 
 Money Money::TransferCurrency(CurrencyTypes our, const Money &other) {
-    double retval;
+    double returnValue;
 
     if (our != other.moneyCurr) {
-        retval = (other.value / Currency::valueToEUR[other.moneyCurr]) * Currency::valueToEUR[our];
+        returnValue = (other.value / Currency::valueToEUR[other.moneyCurr]) * Currency::valueToEUR[our];
 
-        return {retval, our};
+        return {returnValue, our};
     }
     return other;
 }

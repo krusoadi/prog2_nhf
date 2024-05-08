@@ -1,7 +1,7 @@
 #ifndef PROG2_NHF_BANKSYSTEM_HPP
 #define PROG2_NHF_BANKSYSTEM_HPP
 
-#include "BankAccount.hpp"
+#include "BankAccount.hpp" // TODO megcsinalni
 
 class BankSystem {
 private:
@@ -12,6 +12,5 @@ public:
 
 
 };
-
 
 #endif //PROG2_NHF_BANKSYSTEM_HPP
