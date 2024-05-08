@@ -15,4 +15,14 @@ The Share class defines everything about a specified share, the price, the numbe
 available shares and the name of the share. With every buy, and sell, the price changes.
 
 > [!IMPORTANT]
->This class is only used for information about the share, accounts use OwnedShare.
+>This class is only used for storing information about the share, accounts use OwnedShare.
+
+### [OwnedShare](headers/Share.hpp)
+
+These are the shares, that a user can obtain. The object only stores the number of bought shares, and a pointer
+to its Share object. Every detail about the share is stored in the Master object, to keep up-to-date prices and 
+available shares.
+
+### [BankAccount](headers/BankAccount.hpp)
+
+This class stores data, about users, with a generated ID. 
