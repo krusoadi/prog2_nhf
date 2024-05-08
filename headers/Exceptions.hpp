@@ -8,7 +8,8 @@ enum errors {
     NotDefinedError,
     NegativeMoney,
     NotEnoughShares,
-    WrongMaster
+    WrongMaster,
+    OverIndex
 };
 
 class Exceptions : public std::exception {
