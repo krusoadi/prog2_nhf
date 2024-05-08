@@ -11,7 +11,6 @@ int main() {
 
     BankAccount tempAcc = {temp, "Krusoczki Adam", true, true};
 
-
     std::cout << tempAcc << std::endl;
 
     std::cout<<"\n";
