@@ -17,7 +17,10 @@ class Money {
     double value;
     BankMoneyTypes currency;
 
-    static Money temporaryCurrency(BankMoneyTypes ours,const Money& other); // kodismetles ellen, megnezi a masik penztipousat es atvaltja a mienkbe
+    // Static Private currency converter
+
+    static Money temporaryCurrency(BankMoneyTypes ours,const Money& other);
+
 public:
 
     // Constructors
@@ -35,9 +38,9 @@ public:
     void setCurrency(BankMoneyTypes cur);
     void setValue(double val);
 
-    // Converters
+    // Converters (for object)
 
-    Money convertCurrency(BankMoneyTypes dest) const; // ez u.a mint a privat, csak ez nem statikus, objektumhoz kotott
+    Money convertCurrency(BankMoneyTypes dest) const;
 
     // Operators
 

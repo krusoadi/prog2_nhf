@@ -7,7 +7,7 @@ int main() {
     Share testShare("Apple Inc.", Money(2000, HUF), 100);
     Share testShare2("Tesla", Money(1500, HUF), 50);
 
-    Money temp = {1000, USD};
+    Money temp = {1000, EUR};
 
     BankAccount tempAcc = {temp, "Krusoczki Adam", true, true};
 
