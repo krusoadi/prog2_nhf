@@ -4,7 +4,7 @@ Money::Money(double value, BankMoneyTypes currency) : value(value), currency(cur
 
 Money::Money(): value(0), currency(EUR) {}
 
-Money Money::temporaryCurrency(BankMoneyTypes ours, const Money &other) {
+Money Money::TransferCurrency(BankMoneyTypes ours, const Money &other) {
     double retval;
 
     if (ours != other.currency) {
@@ -32,16 +32,16 @@ void Money::setValue(double val) {
 }
 
 Money Money::convertCurrency(BankMoneyTypes dest) const { // Alapvetoen EUR ba van minten, oda valt vissza es at a masikba
-    return Money::temporaryCurrency(dest, *this);
+    return Money::TransferCurrency(dest, *this);
 }
 
 Money Money::operator+(const Money &other) {
-    Money temp = Money::temporaryCurrency(this->currency, other);
+    Money temp = Money::TransferCurrency(this->currency, other);
     return {this->value+ temp.value, this->currency};
 
 }
 Money Money::operator-(const Money &other) {
-    Money temp = Money::temporaryCurrency(this->currency, other);
+    Money temp = Money::TransferCurrency(this->currency, other);
     return {this->value - temp.value, this->currency};
 }
 
@@ -53,13 +53,13 @@ Money Money::operator*(double rate) {
 }
 
 Money &Money::operator+=(const Money &other) {
-    Money temp = Money::temporaryCurrency(this->currency, other);
+    Money temp = Money::TransferCurrency(this->currency, other);
     this->value += temp.value;
     return *this;
 }
 
 Money &Money::operator-=(const Money &other) {
-    Money temp = Money::temporaryCurrency(this->currency, other);
+    Money temp = Money::TransferCurrency(this->currency, other);
     this->value -= temp.value;
     return *this;
 }
@@ -81,19 +81,19 @@ Money Money::operator*(int amount) {
 }
 
 bool Money::operator==(const Money &other) {
-    Money temp = Money::temporaryCurrency(this->currency, other);
+    Money temp = Money::TransferCurrency(this->currency, other);
 
     return this->value == temp.value;
 }
 
 bool Money::operator<(const Money &other) {
-    Money temp = Money::temporaryCurrency(this->currency, other);
+    Money temp = Money::TransferCurrency(this->currency, other);
 
     return this->value < temp.value;
 }
 
 bool Money::operator>(const Money &other) {
-    Money temp = Money::temporaryCurrency(this->currency, other);
+    Money temp = Money::TransferCurrency(this->currency, other);
 
     return this->value > temp.value;
 }

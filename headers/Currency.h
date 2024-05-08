@@ -14,6 +14,7 @@ enum BankMoneyTypes {
 
 inline const double LOW_BOUNDS[END] = {1, 300, 0.50};
 inline const double UPPER_BOUNDS[END] = {1, 450, 1.25};
+inline const char* symbols[3] = {"Eur", "Ft", "$"};
 
 class Currency {
 private:

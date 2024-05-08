@@ -6,7 +6,6 @@
 #include "Currency.h"
 
 inline double vals[3] = {1, 355, 0.77};
-inline const char* symbols[3] = {"Eur", "Ft", "$"};
 
 class Money {
     double value;
@@ -14,7 +13,7 @@ class Money {
 
     // Static Private currency converter
 
-    static Money temporaryCurrency(BankMoneyTypes ours,const Money& other);
+    static Money TransferCurrency(BankMoneyTypes ours, const Money& other);
 
 public:
 
