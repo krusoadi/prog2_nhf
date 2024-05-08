@@ -13,8 +13,11 @@ enum CurrencyTypes {
 
 class Currency {
 private:
-    static constexpr double LOW_BOUNDS[END] = {1, 300, 0.50};
-    static constexpr double UPPER_BOUNDS[END] = {1, 450, 1.25};
+
+    // Bounds (used by randomValue) and the random generator for currency
+
+    static constexpr double LOW_BOUNDS[END] = {1, 350, 0.50};
+    static constexpr double UPPER_BOUNDS[END] = {1, 400, 1};
     static double randomValue(double low, double high);
 
 public:
