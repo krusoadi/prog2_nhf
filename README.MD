@@ -3,8 +3,7 @@
 
 ## Classes
 
-### Money
+### [Money](headers/Money.hpp)
 
-This [class](headers/Money.hpp) manages money basically, the main reason for
-creating this class, was currencies, and transfers. With the operators, we can easily add orr compare
-different currencies, without transferring.
+This class manages money basically, the main reasons for
+creating this class were currencies and transfers.
