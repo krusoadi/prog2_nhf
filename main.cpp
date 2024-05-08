@@ -4,7 +4,7 @@
 
 int main() {
 
-    Share testShare("Tesztadat", Money(2000, HUF), 100);
+    Share testShare("Apple Inc.", Money(2000, HUF), 100);
 
     Money temp = {10, EUR};
 
@@ -14,33 +14,35 @@ int main() {
     std::cout << tempAcc << std::endl;
 
     tempAcc.setName("Teszter Janos");
+
+    std::cout << testShare << std::endl;
+
     tempAcc.BuyShares(testShare, 10);
 
-    tempAcc.setMoney(temp.convertCurrency(HUF));
+    std::cout << "\n";
 
     OwnedShare tempOwnSh = tempAcc.getIndex(0);
     tempAcc.addMoney(temp);
 
-    std::cout << tempOwnSh.showValue() << std::endl;
+    std::cout << testShare << std::endl;
 
-    std::cout << tempOwnSh.getAmount() << std::endl;
-    std::cout << tempOwnSh.showName() << std::endl;
-    std::cout << tempOwnSh.getMaster() << std::endl;
-    std::cout << &testShare << std::endl;
+    std::cout << tempOwnSh << std::endl;
 
+    std::cout << "\n";
 
     tempAcc.SellShares(testShare, 5);
 
+    std::cout << testShare << std::endl;
+
     tempOwnSh = tempAcc.getIndex(0);
 
-    std::cout << tempOwnSh.showValue() << std::endl;
-
-    std::cout << tempOwnSh.getAmount() << std::endl;
-    std::cout << tempOwnSh.showName() << std::endl;
+    std::cout << tempOwnSh << std::endl;
 
     tempAcc.SellShares(testShare, 5);
 
     std::cout << tempAcc << std::endl;
+
+    std::cout << testShare << std::endl;
 
     return 0;
 }

@@ -9,7 +9,7 @@ BankAccount::BankAccount(const BankAccount &other): ID(other.ID), userMoney(othe
     this->isWorker = other.isWorker;
 }
 
-BankAccount::BankAccount(): ID(BankAccount::generateID()), userMoney(), isMale(false) {}
+BankAccount::BankAccount(): ID(BankAccount::generateID()), userMoney(), isMale(false), isWorker(false) {}
 
 BankAccount::BankAccount(const Money& in, std::string nameIn, bool isMaleIn,bool isWorkerIn):
 ID(BankAccount::generateID()), name(std::move(nameIn)), isWorker(isWorkerIn), isMale(isMaleIn)
@@ -76,6 +76,7 @@ void BankAccount::setIsWorker(bool isWorkerIn) {
 }
 
 void BankAccount::BuyShares(Share& type, int amount) { // TODO tesztelni
+
     if (!userShares.empty()) {
         for (auto i = userShares.begin(); i < userShares.end(); i++) {
             if ((*i).getMaster() == &type) {

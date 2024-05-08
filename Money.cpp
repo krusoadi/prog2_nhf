@@ -4,6 +4,17 @@ Money::Money(double value, BankMoneyTypes currency) : value(value), currency(cur
 
 Money::Money(): value(0), currency(EUR) {}
 
+Money Money::temporaryCurrency(BankMoneyTypes ours, const Money &other) {
+    double retval;
+
+    if (ours != other.currency) {
+        retval = (other.value / vals[other.currency]) *vals[ours];
+
+        return {retval, ours};
+    }
+
+    return other;
+}
 
 double Money::getValue() const {
     return value;
@@ -22,29 +33,18 @@ void Money::setValue(double val) {
 }
 
 Money Money::convertCurrency(BankMoneyTypes dest) const { // Alapvetoen EUR ba van minten, oda valt vissza es at a masikba
-    double tempValue = this->value / vals[this->currency];
-    return {tempValue * vals[dest], dest};
+    return Money::temporaryCurrency(dest, *this);
 }
 
 Money Money::operator+(const Money &other) {
-    if (this->currency == other.currency) {
-        return {this->value+other.value, this->currency};
-    }
+    Money temp = Money::temporaryCurrency(this->currency, other);
+    return {this->value+ temp.value, this->currency};
 
-    Money temp = other.convertCurrency(this->currency);
-
-    return {this->value + temp.value, this->currency};
 }
 Money Money::operator-(const Money &other) {
-    if (this->currency == other.currency) {
-        return {this->value - other.value, this->currency};
-    }
-
-    Money temp = other.convertCurrency(this->currency);
-
+    Money temp = Money::temporaryCurrency(this->currency, other);
     return {this->value - temp.value, this->currency};
 }
-
 
 Money Money::operator*(double rate) {
     if (rate < 0) {
@@ -54,36 +54,50 @@ Money Money::operator*(double rate) {
 }
 
 Money &Money::operator+=(const Money &other) {
-    if (this->currency == other.currency) {
-        this->value += other.value;
-        return *this;
-    }
-
-    Money temp = other.convertCurrency(this->currency);
+    Money temp = Money::temporaryCurrency(this->currency, other);
     this->value += temp.value;
     return *this;
 }
 
 Money &Money::operator-=(const Money &other) {
-    if (this->currency == other.currency) {
-        this->value -= other.value;
-        return *this;
-    }
-
-    Money temp = other.convertCurrency(this->currency);
+    Money temp = Money::temporaryCurrency(this->currency, other);
     this->value -= temp.value;
     return *this;
 }
 
 Money &Money::operator*=(double rate) {
     if (rate < 0) {
-        throw Exceptions(NegativeMoney, "Tried to multiply money with negative amount.");
+        throw Exceptions(NegativeMoney, "Tried to multiply money with negative double amount.");
     }
     this->value *= rate;
 
     return *this;
 }
 
+Money Money::operator*(int amount) {
+    if (amount < 0) {
+        throw Exceptions(NegativeMoney, "Tried to multiply money with negative int amount.");
+    }
+    return {this->value * amount, this->currency};
+}
+
+bool Money::operator==(const Money &other) {
+    Money temp = Money::temporaryCurrency(this->currency, other);
+
+    return this->value == other.value;
+}
+
+bool Money::operator<(const Money &other) {
+    Money temp = Money::temporaryCurrency(this->currency, other);
+
+    return this->value < other.value;
+}
+
+bool Money::operator>(const Money &other) {
+    Money temp = Money::temporaryCurrency(this->currency, other);
+
+    return this->value > other.value;
+}
 
 std::ostream& operator<<(std::ostream& stream, const Money& in) {
     stream << in.getValue() << " " << symbols[in.getCurrency()];

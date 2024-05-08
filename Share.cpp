@@ -14,8 +14,8 @@ double Share::getNewRate(bool decrease) {
 
     int a, b;
 
-    decrease ? a = 80 : a = 101 ;
-    decrease ?  b = 100 : b = 135;
+    decrease ? a = 80 : a = 101;
+    decrease ?  b = 99 : b = 135;
 
     std::uniform_int_distribution<>dis(a,b);
 
@@ -89,10 +89,19 @@ void OwnedShare::setMaster(Share *master) {
 }
 
 Money OwnedShare::showValue() const {
-    return (*(this->getMaster())).getValue();
+    Money value = (*(this->getMaster())).getValue();
+
+    return  value * this->amount;
 }
 
 std::string OwnedShare::showName() const {
     return (*(this->getMaster())).getName();
 }
 
+std::ostream &operator<<(std::ostream &stream, const Share &in) {
+    return stream << in.getName() << " (available: " << in.getAvailable() <<") Price: " << in.getValue();
+}
+
+std::ostream &operator<<(std::ostream &stream, const OwnedShare &in) {
+    return stream << in.showName() << " owned: "<< in.getAmount() << " total price: " << in.showValue();
+}

@@ -30,10 +30,12 @@ public:
 
 };
 
+std::ostream& operator<<(std::ostream& stream, const Share &in);
+
 class OwnedShare {
 private:
     int amount;
-    Share* Master; // o a share, amit vettunk beolvasaskor erre figyelni kell
+    Share* Master; // Ez mutat arra amit vettunk, TODO BEOLVASASNAL EZT FIGYELNI KELL
 public:
     OwnedShare();
 
@@ -52,6 +54,8 @@ public:
     Money showValue() const;
     std::string showName() const;
 };
+
+std::ostream& operator<<(std::ostream& stream, const OwnedShare &in);
 
 
 #endif //PROG2_NHF_SHARE_HPP
