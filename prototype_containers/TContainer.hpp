@@ -40,7 +40,7 @@ public:
 
     // Getters
 
-    int getNum() const;
+    [[nodiscard]] int getNum() const;
 
 };
 
@@ -58,12 +58,11 @@ TContainer<T>::TContainer(): vars(nullptr), num(0)  {}
 template<class T>
 TContainer<T>::TContainer(T first): num(1) {
     this->vars = new T[num];
-    this->vars = first;
+    this->vars[0] = first;
 }
 
 template<class T>
 TContainer<T>::TContainer(const TContainer<T> &other): num(other.num) {
-    delPtr();
     this->vars = new T[num];
     for (int i = 0; i < num; i++) {
         this->vars[i] = other.vars[i];

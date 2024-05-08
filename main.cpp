@@ -2,17 +2,26 @@
 #include "headers/BankAccount.hpp"
 #include "prototype_containers/TContainer.hpp"
 
-// Tested: add_back, add_front, pop_front, pop_back, pop_index, add_index, getNum, isEmpty
+// Tested: add_back, add_front, pop_front, pop_back, pop_index, add_index, getNum, isEmpty, Constructors (all of them)
 
 int main() {
-    TContainer<int> temp;
-    for (int i = 0; i < 10; i++) {
+    TContainer<int> temp(0);
+    for (int i = 1; i < 10; i++) {
         temp.add_front(i);
     }
 
-    int asd = temp.getNum();
+    TContainer<int> test2(temp);
+
+    int asd = test2.getNum();
 
     std::cout << asd << std::endl;
+
+
+    for (int i = 0; i < asd; i++) {
+        std::cout<< test2.pop_back() << " ";
+    }
+
+    std::cout << "\n" << std::endl;
 
     for (int i = 0; i < asd; i++) {
         std::cout<< temp.pop_back() << " ";
