@@ -214,6 +214,9 @@ T TContainer<T>::operator[](int n) {
     if (this->num <= n) {
         throw Exceptions(OverIndex, "TContainer was over indexed.");
     }
+    if (n < 0) {
+        throw Exceptions(NegativeIndex, "Negative Indexed when adding new element");
+    }
     return this->vars[n];
 }
 
