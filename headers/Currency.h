@@ -1,7 +1,7 @@
 #ifndef PROG2_NHF_CURRENCY_H
 #define PROG2_NHF_CURRENCY_H
 #include <random>
-
+#include <string>
 #define END 3 // max tombertek a valutakra
 
 enum CurrencyTypes {

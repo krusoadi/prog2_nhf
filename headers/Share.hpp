@@ -3,7 +3,6 @@
 #define PROG2_NHF_SHARE_HPP
 #include "Exceptions.hpp"
 #include "Money.hpp"
-#include <string>
 
 class OwnedShare;
 

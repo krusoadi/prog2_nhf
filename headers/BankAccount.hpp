@@ -2,7 +2,6 @@
 #define PROG2_NHF_BANKACCOUNT_HPP
 
 #include "Share.hpp"
-#include <string>
 #include <vector>
 
 class BankAccount {
