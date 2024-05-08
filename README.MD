@@ -1,6 +1,8 @@
 # Basics of Programming II. Homework
 ## Introduction
 
+This project is my homework for my Programming II. course.
+
 ## Classes
 
 ### [Money](headers/Money.hpp)
