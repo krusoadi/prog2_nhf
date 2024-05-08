@@ -5,15 +5,13 @@
 #include "Exceptions.hpp"
 #include "Currency.h"
 
-inline double vals[3] = {1, 355, 0.77};
-
 class Money {
     double value;
     BankMoneyTypes currency;
 
     // Static Private currency converter
 
-    static Money TransferCurrency(BankMoneyTypes ours, const Money& other);
+    static Money TransferCurrency(BankMoneyTypes our, const Money& other);
 
 public:
 

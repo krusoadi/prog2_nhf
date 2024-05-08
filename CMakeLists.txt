@@ -10,8 +10,8 @@ add_executable(prog2_nhf main.cpp
         headers/Money.hpp
         code/Exceptions.cpp
         headers/Exceptions.hpp
-        code/BankingSystem.cpp
-        headers/BankingSystem.hpp
+        code/BankSystem.cpp
+        headers/BankSystem.hpp
         code/Share.cpp
         headers/Share.hpp
         code/Currency.cpp

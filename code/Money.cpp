@@ -4,13 +4,13 @@ Money::Money(double value, BankMoneyTypes currency) : value(value), currency(cur
 
 Money::Money(): value(0), currency(EUR) {}
 
-Money Money::TransferCurrency(BankMoneyTypes ours, const Money &other) {
+Money Money::TransferCurrency(BankMoneyTypes our, const Money &other) {
     double retval;
 
-    if (ours != other.currency) {
-        retval = (other.value / vals[other.currency]) *vals[ours];
+    if (our != other.currency) {
+        retval = (other.value / Currency::valuetoEUR[other.currency]) *Currency::valuetoEUR[our];
 
-        return {retval, ours};
+        return {retval, our};
     }
     return other;
 }
@@ -99,6 +99,6 @@ bool Money::operator>(const Money &other) {
 }
 
 std::ostream& operator<<(std::ostream& stream, const Money& in) {
-    stream << in.getValue() << " " << symbols[in.getCurrency()];
+    stream << in.getValue() << " " << Currency::symbols[in.getCurrency()];
     return stream;
 }

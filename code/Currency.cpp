@@ -1,5 +1,7 @@
 #include "../headers/Currency.h"
 
+const std::string Currency::symbols[] =  {"Eur", "Ft", "$"};
+
 double Currency::randomValue(double low, double high) {
 
     // Safe C++ 11 random double generator
@@ -11,11 +13,8 @@ double Currency::randomValue(double low, double high) {
 }
 
 void Currency::updateCurrency() {
-    for (int i = 0; i < END; ++i) {
+    valuetoEUR[EUR] = 1;
+    for (int i = 1; i < END; i++) { // EUR does not need to be updated.
         valuetoEUR[i] = randomValue(LOW_BOUNDS[i], UPPER_BOUNDS[i]);
     }
-}
-
-double Currency::getValue(BankMoneyTypes curr) {
-    return valuetoEUR[curr];
 }

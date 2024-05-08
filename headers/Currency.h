@@ -2,8 +2,6 @@
 #define PROG2_NHF_CURRENCY_H
 #include <random>
 
-// TODO implementalni, a bankba es itt is
-
 #define END 3 // max tombertek a valutakra
 
 enum BankMoneyTypes {
@@ -12,19 +10,21 @@ enum BankMoneyTypes {
     USD,
 };
 
-inline const double LOW_BOUNDS[END] = {1, 300, 0.50};
-inline const double UPPER_BOUNDS[END] = {1, 450, 1.25};
-inline const char* symbols[3] = {"Eur", "Ft", "$"};
+
 
 class Currency {
 private:
-    double valuetoEUR[END] ={1}; // alapveto eurohoz kepest mert ar
-
+    static constexpr double LOW_BOUNDS[END] = {1, 300, 0.50};
+    static constexpr double UPPER_BOUNDS[END] = {1, 450, 1.25};
     static double randomValue(double low, double high);
-public:
-    void updateCurrency();
-    double getValue(BankMoneyTypes curr);
 
+public:
+    //Static Value of Currency (based on EURO)
+
+    static double valuetoEUR[END];
+    static const std::string symbols[3];
+
+    static void updateCurrency();
 };
 
 
