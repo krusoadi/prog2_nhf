@@ -28,6 +28,6 @@ available shares.
 This class stores data, about users, with a generated ID. The users can buy shares, deposit etc.
 
 > [!WARNING]
-> Still heavily under development! :D
+> Still heavily under development! :laughing:
 
 
