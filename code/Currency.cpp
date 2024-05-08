@@ -2,7 +2,7 @@
 
 const std::string Currency::SYMBOLS[] =  {"Eur", "Ft", "$"};
 
-double Currency::valueToEUR[] = {1, 350, 400};
+double Currency::valueToEUR[] = {1, 350, 400}; // Some basic values to avoid uninitialized currency bug
 
 double Currency::randomValue(double low, double high) {
 
@@ -16,7 +16,7 @@ double Currency::randomValue(double low, double high) {
 
 void Currency::updateCurrency() {
     valueToEUR[EUR] = 1;
-    for (int i = 1; i < END; i++) { // EUR does not need to be updated.
+    for (int i = 1; i < END; i++) { // EUR does not need to be updated, so "i" starts from one.
         valueToEUR[i] = randomValue(LOWER_BOUNDS[i], UPPER_BOUNDS[i]);
     }
 }

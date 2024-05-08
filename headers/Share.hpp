@@ -29,7 +29,7 @@ public:
     [[nodiscard]] const Money &getValue() const;
     [[nodiscard]] unsigned int getAvailable() const;
 
-    // Share buyer and Seller methods
+    // Share Buyer and Seller methods
 
     void sellShares(int n, OwnedShare& in);
     void buyShares(int n, OwnedShare& in);
