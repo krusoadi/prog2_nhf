@@ -9,7 +9,7 @@ int main() {
 
     Money temp = {1000, USD};
 
-    BankAccount tempAcc = {temp, "Krusoadi", true, true};
+    BankAccount tempAcc = {temp, "Krusoczki Adam", true, true};
 
 
     std::cout << tempAcc << std::endl;

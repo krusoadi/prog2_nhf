@@ -12,7 +12,6 @@ Money Money::temporaryCurrency(BankMoneyTypes ours, const Money &other) {
 
         return {retval, ours};
     }
-
     return other;
 }
 

@@ -89,13 +89,13 @@ void OwnedShare::setMaster(Share *master) {
 }
 
 Money OwnedShare::showValue() const {
-    Money value = (*(this->getMaster())).getValue();
+    Money value = this->getMaster()->getValue();
 
     return  value * this->amount;
 }
 
 std::string OwnedShare::showName() const {
-    return (*(this->getMaster())).getName();
+    return this->getMaster()->getName();
 }
 
 std::ostream &operator<<(std::ostream &stream, const Share &in) {
