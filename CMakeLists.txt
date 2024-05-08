@@ -16,5 +16,4 @@ add_executable(prog2_nhf main.cpp
         headers/Share.hpp
         code/Currency.cpp
         headers/Currency.h
-        prototype_containers/TContainer.cpp
         prototype_containers/TContainer.hpp)
