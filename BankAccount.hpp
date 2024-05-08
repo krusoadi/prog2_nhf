@@ -21,7 +21,7 @@ public:
     // Constructors/Destructors
 
     BankAccount();
-    BankAccount(const Money& in, std::string nameIn, bool isMaleIn, bool isWorkerIn);
+    BankAccount(const Money& money, std::string name, bool isMale, bool isWorker);
     BankAccount(const BankAccount& other);
     ~BankAccount() = default;
 

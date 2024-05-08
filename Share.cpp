@@ -6,7 +6,6 @@ Share::Share(std::string name, const Money &value, unsigned int available) : nam
                                                                                     available(available) {}
 
 double Share::getNewRate(bool decrease) {
-
     // Safe C++ 11 random generator
 
     std::random_device randomizer;

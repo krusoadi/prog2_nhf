@@ -11,15 +11,14 @@ BankAccount::BankAccount(const BankAccount &other): ID(other.ID), userMoney(othe
 
 BankAccount::BankAccount(): ID(BankAccount::generateID()), userMoney(), isMale(false), isWorker(false) {}
 
-BankAccount::BankAccount(const Money& in, std::string nameIn, bool isMaleIn,bool isWorkerIn):
-ID(BankAccount::generateID()), name(std::move(nameIn)), isWorker(isWorkerIn), isMale(isMaleIn)
+BankAccount::BankAccount(const Money& money, std::string name, bool isMale, bool isWorker):
+        ID(BankAccount::generateID()), name(std::move(name)), isWorker(isWorker), isMale(isMale)
 {
-    if (in.getValue() < 0) {
+    if (money.getValue() < 0) {
         throw Exceptions(NegativeMoney, "Negative money was given.");
     }
-    this->userMoney = in;
+    this->userMoney = money;
 }
-
 
 Money BankAccount::getMoney() const {
     return userMoney;
