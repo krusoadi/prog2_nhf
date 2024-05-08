@@ -1,3 +1,0 @@
-C:/Users/kruso/CLionProjects/prog2_nhf/cmake-build-debug/CMakeFiles/prog2_nhf.dir
-C:/Users/kruso/CLionProjects/prog2_nhf/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/kruso/CLionProjects/prog2_nhf/cmake-build-debug/CMakeFiles/rebuild_cache.dir
