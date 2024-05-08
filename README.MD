@@ -25,4 +25,9 @@ available shares.
 
 ### [BankAccount](headers/BankAccount.hpp)
 
-This class stores data, about users, with a generated ID. 
+This class stores data, about users, with a generated ID. The users can buy shares, deposit etc.
+
+> [!IMPORTANT]
+> Still heavily under development! :D
+
+
