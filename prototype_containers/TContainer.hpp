@@ -33,7 +33,7 @@ public:
 
     // Operator Overloads
 
-    T operator[](int n);
+    T& operator[](int n);
 
     // Status Check methods
     bool isEmpty();
@@ -184,7 +184,6 @@ T TContainer<T>::pop_index(int n) {
 
 
     T retVal = this->vars[n];
-
     T* temp = new T[num - 1];
 
     bool reached_n = false;
@@ -207,7 +206,7 @@ T TContainer<T>::pop_index(int n) {
 }
 
 template<class T>
-T TContainer<T>::operator[](int n) {
+T& TContainer<T>::operator[](int n) {
     if(isEmpty()) {
         throw Exceptions(EmptyContainer, "Cannot get an indexed item from an empty container.");
     }

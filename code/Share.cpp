@@ -2,6 +2,7 @@
 #include <utility>
 #include <random>
 
+
 Share::Share(std::string name, const Money &value, unsigned int available) : name(std::move(name)), value(value),
                                                                                     available(available) {}
 
