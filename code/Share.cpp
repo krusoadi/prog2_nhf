@@ -7,17 +7,15 @@ Share::Share(std::string name, const Money &value, unsigned int available) : nam
                                                                                     available(available) {}
 
 double Share::getNewRate(bool decrease) {
-    // Safe C++ 11 random generator
-
     std::random_device randomizer;
     std::mt19937 gen(randomizer());
 
-    int a, b;
+    int low, high;
 
-    decrease ? a = 85 : a = 101;
-    decrease ?  b = 99 : b = 115;
+    decrease ? low = 85 : low = 101;
+    decrease ? high = 99 : high = 115;
 
-    std::uniform_int_distribution<>dis(a,b);
+    std::uniform_int_distribution<>dis(low, high);
 
     return ((double)dis(gen)) / 100;
 }
