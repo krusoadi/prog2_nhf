@@ -51,6 +51,11 @@ public:
     void clear();
     void swap(int n, int m);
 
+    //Search by an independent identity, throws compile time error, if wrongly used.
+
+    template<class Y> // Needed due to object-type independence (Share-OwnedShare comparison)
+            int search(Y identity);
+
     // Iterator TODO RandomAccessIterator, BidirectionalIterator or ForwardIterator suits better?
 
     struct Iterator;
@@ -265,11 +270,18 @@ void TContainer<T>::swap(int n, int m) {
 }
 
 template<class T>
-std::ostream& operator<<(std::ostream& stream, TContainer<T> &in) {
-    for (int i = 0; i < in.getNum(); ++i) {
-        stream << in[i] << "\n";
+template<class Y>
+int TContainer<T>::search(Y identity) {
+    if(this->isEmpty()) {
+        throw Exceptions(EmptyContainer, "Cannot search in an empty Container.");
     }
-    return stream;
+
+    for (int i = 0; i < this->num; ++i) {
+        if (this->vars[i] == identity) {
+            return i;
+        }
+    }
+    return -1; // Non-organic return value, means error.
 }
 
 // Iterator, and its functions
@@ -331,6 +343,13 @@ typename TContainer<T>::Iterator TContainer<T>::rend() {
     return TContainer::Iterator(&vars[-1]); // BRUH??????
 }
 
+template<class T>
+std::ostream& operator<<(std::ostream& stream, TContainer<T> &in) {
+    for (int i = 0; i < in.getNum(); ++i) {
+        stream << in[i] << "\n";
+    }
+    return stream;
+}
 
 
 
