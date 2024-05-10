@@ -16,7 +16,7 @@ private:
 
     // Bought shares of the user stored in a vector
 
-    std::vector<OwnedShare> userShares;
+    TContainer<OwnedShare> userShares;
 
 public:
 
@@ -55,7 +55,7 @@ public:
 
     // Share managing functions
 
-    void BuyShares(Share& type, int amount);
+    void BuyShares(Share& Stype, int amount);
     void SellShares(Share& type, int amount);
 
     // Share printer (Debug purposes)

@@ -5,9 +5,7 @@
 int Share::currentIDCounter = 0; // TODO method for this!
 
 Share::Share(std::string name, const Money &value, unsigned int available) : name(std::move(name)), value(value),
-available(available){
-    this->ShareID = generateID();
-}
+available(available), ShareID(generateID()) {}
 
 double Share::getNewRate(bool decrease) {
     std::random_device randomizer;
@@ -15,8 +13,8 @@ double Share::getNewRate(bool decrease) {
 
     int low, high;
 
-    decrease ? low = 85 : low = 101;
-    decrease ? high = 99 : high = 115;
+    decrease ? low = 95 : low = 100;
+    decrease ? high = 99 : high = 105;
 
     std::uniform_int_distribution<>dis(low, high);
 
@@ -28,7 +26,7 @@ void Share::calculateNewPrice(int sold) {
     this->value *= rate;
 }
 
-void Share::sellShares(int n, OwnedShare& in) {
+void Share::buyFromUser(int n, OwnedShare& in) {
     if (in.getAmount() < n) {
         throw Exceptions(NotEnoughShares, "There was not enough shares to sell");
     }
@@ -40,7 +38,7 @@ void Share::sellShares(int n, OwnedShare& in) {
     in.setAmount(in.getAmount() - n);
 }
 
-void Share::buyShares(int n, OwnedShare& in) {
+void Share::sellToUser(int n, OwnedShare& in) {
     if (in.getMasterShareId() != -1 && in.getMasterShareId() != this->ShareID) {
         throw Exceptions(WrongMaster, "Tried to buy share to a different one.");
     }
@@ -109,17 +107,9 @@ bool OwnedShare::operator!=(const Share &other) const {
     return this->masterShareID != other.getShareId();
 }
 
-Money OwnedShare::showValue() const {
-    /* TODO ezt megcsinalni SOS
-    Money value = this->getMaster()->getValue();
+Money OwnedShare::showValue(Share* master) const {
+    return Money(master->getValue()) * this->amount;
 
-    return  value * this->amount;
-     */
-}
-
-std::string OwnedShare::showName() const {
-    // TODO ezt is SOS
-    //return this->getMaster()->getName();
 }
 
 std::ostream &operator<<(std::ostream &stream, const Share &in) {
@@ -127,5 +117,5 @@ std::ostream &operator<<(std::ostream &stream, const Share &in) {
 }
 
 std::ostream &operator<<(std::ostream &stream, const OwnedShare &in) {
-    return stream << in.showName() << " owned: "<< in.getAmount() << " total price: " << in.showValue();
+    return stream << "id of share: " << in.getMasterShareId() << " owned: "<< in.getAmount();
 }

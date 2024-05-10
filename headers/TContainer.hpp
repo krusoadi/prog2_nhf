@@ -307,6 +307,8 @@ template <class T> struct TContainer<T>::Iterator {
 
     explicit Iterator(pointer ptr) : it_ptr(ptr) {}
 
+    difference_tag distance(Iterator other) {return std::distance(this->it_ptr, other.it_ptr);}
+
     reference operator*() const {return *it_ptr;}
     pointer operator->() {return it_ptr;}
 

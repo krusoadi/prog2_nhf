@@ -8,7 +8,7 @@ class OwnedShare;
 
 class Share {
 private:
-    int ShareID;
+    const int ShareID;
     std::string name; // Name of the Share e.g.: Apple Inc.
     Money value; // Current value of the share
     unsigned int available; // Number of available shares
@@ -38,8 +38,8 @@ public:
 
     // Share Buyer and Seller methods
 
-    void sellShares(int n, OwnedShare& in);
-    void buyShares(int n, OwnedShare& in);
+    void buyFromUser(int n, OwnedShare& in);
+    void sellToUser(int n, OwnedShare& in);
 
     // Slave identifier operator
 
@@ -77,11 +77,9 @@ public:
     bool operator==(const Share& other) const;
     bool operator!=(const Share& other) const;
 
+    // Get the price of the owned Share
 
-    // Methods to get information about the Share (Master)
-
-    [[nodiscard]] Money showValue() const;
-    [[nodiscard]] std::string showName() const;
+    [[nodiscard]] Money showValue(Share* master) const;
 };
 
 std::ostream& operator<<(std::ostream& stream, const OwnedShare &in);

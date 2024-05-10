@@ -74,9 +74,8 @@ void BankAccount::setIsWorker(bool isWorkerIn) {
     BankAccount::isWorker = isWorkerIn;
 }
 
-void BankAccount::BuyShares(Share& type, int amount) { // Tesztelve, eddig hibatlan
-
-    Money priceOfShares = type.getValue();
+void BankAccount::BuyShares(Share& Stype, int amount) { // Tesztelve, eddig hibatlan
+    Money priceOfShares = Stype.getValue();
     priceOfShares *= amount;
 
     if (this->userMoney < priceOfShares) {
@@ -86,35 +85,35 @@ void BankAccount::BuyShares(Share& type, int amount) { // Tesztelve, eddig hibat
 
     this->subtractMoney(priceOfShares);
 
-    if (!userShares.empty()) {
-        for (auto i = userShares.begin(); i < userShares.end(); ++i) {
-            if ((*i).getMaster() == &type) {
-                type.buyShares(amount, (*i));
+    if (!userShares.isEmpty()) {
+        for (auto & userShare : userShares) {
+            if (userShare.getMasterShareId() == Stype.getShareId()) {
+                Stype.sellToUser(amount, userShare);
                 return;
             }
         }
     }
-    OwnedShare temp;
-    type.buyShares(amount, temp);
-    if (temp.getMaster() != nullptr) {
-        this->userShares.push_back(temp);
 
+    OwnedShare temp;
+    Stype.sellToUser(amount, temp);
+    if (temp.getMasterShareId() != -1) {
+        this->userShares.add_back(temp);
     }
 }
 
-void BankAccount::SellShares(Share& type, int amount) { // Tesztelve, eddig hibatlan
-    if (!userShares.empty()) {
-        for (auto i = userShares.begin(); i < userShares.end(); ++i) {
-            if ((*i).getMaster() == &type) {
+void BankAccount::SellShares(Share& type, int amount) {
+    if (!userShares.isEmpty()) {
+        for (auto i = userShares.begin(); i != userShares.end(); ++i) {
+            if ((*i).getMasterShareId() == type.getShareId()) {
 
                 if (amount <= (*i).getAmount()) { // Mivela kovetkezo fuggveny nezne ezt meg ezert itt is kell.
-                    this->addMoney((*i).showValue()); // Visszaadjuk a penzet a felhasznalonak
+                    this->addMoney((*i).showValue(&type)); // Visszaadjuk a penzet a felhasznalonak
                 }
 
-                type.sellShares(amount, (*i));
+                type.buyFromUser(amount, (*i));
 
                 if ((*i).getAmount() == 0) {
-                    userShares.erase(i);
+                    userShares.pop_index(static_cast<int>(i.distance(userShares.begin()))); // TODO could be unsafe??
                 }
                 return;
             }
@@ -124,8 +123,8 @@ void BankAccount::SellShares(Share& type, int amount) { // Tesztelve, eddig hiba
 }
 
 void BankAccount::revealShares() {
-    for (auto i = userShares.begin(); i < userShares.end(); ++i) {
-        std::cout << *i << std::endl;
+    for (auto & userShare : userShares) {
+        std::cout << userShare << std::endl;
     }
 }
 

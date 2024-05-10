@@ -6,8 +6,6 @@
 // Need to check if the program leaks memory
 
 int main() {
-    Share::
-
     Currency::updateCurrency();
 
     TContainer<Money> temp;
