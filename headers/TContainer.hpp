@@ -1,7 +1,7 @@
 #ifndef PROG2_NHF_TCONTAINER_HPP
 #define PROG2_NHF_TCONTAINER_HPP
 
-#include "../headers/Exceptions.hpp"
+#include "Exceptions.hpp"
 #include <iostream>
 
 template<class T>
@@ -48,7 +48,6 @@ public:
     void swap(int n, int m);
 
 };
-
 
 template<class T>
 void TContainer<T>::delPtr() {

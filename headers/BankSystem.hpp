@@ -1,12 +1,13 @@
 #ifndef PROG2_NHF_BANKSYSTEM_HPP
 #define PROG2_NHF_BANKSYSTEM_HPP
 
-#include "BankAccount.hpp" // TODO megcsinalni
+#include "BankAccount.hpp"
+#include "TContainer.hpp"
 
 class BankSystem {
 private:
-    BankAccount* users;
-    Share* bankShares;
+    TContainer<BankAccount> users;
+    TContainer<Share> bankShares;
     Money bankMoney;
 public:
 
