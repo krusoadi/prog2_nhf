@@ -26,7 +26,11 @@ int main() {
         std::cout << i << "\n";
     }
 
+    std::cout << std::endl;
 
+    for (auto i =temp.rbegin(); i != temp.rend() ; --i) {
+        std::cout << *i << "\n";
+    }
 
     return 0;
 }

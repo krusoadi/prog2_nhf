@@ -272,7 +272,7 @@ std::ostream& operator<<(std::ostream& stream, TContainer<T> &in) {
     return stream;
 }
 
-// Iterator, adn its functions
+// Iterator, and its functions
 
 template <class T> struct TContainer<T>::Iterator {
     using iterator_category = std::bidirectional_iterator_tag;
