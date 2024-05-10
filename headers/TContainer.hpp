@@ -18,6 +18,7 @@ private:
     void delPtr();
     void makePtr(int n);
     void checkIndex(int i);
+    void resize(int n);
 
 public:
     // Constructors, Destructors
@@ -71,6 +72,18 @@ public:
     Iterator rend();
 
 };
+
+template<class T>
+void TContainer<T>::resize(int n) {
+    T* temp = new T[n];
+
+    for (int i = 0; i < std::min(n, num); ++i) {
+        temp[i] = this->vars[i];
+    }
+    delPtr();
+    this->vars = temp;
+    this->num = n;
+}
 
 template<class T>
 void TContainer<T>::checkIndex(int i) {
@@ -131,16 +144,8 @@ TContainer<T>::~TContainer() {
 template<class T>
 void TContainer<T>::add_back(T newVar) {
     try {
-        T *temp = new T[num + 1];
-
-        int i;
-        for (i = 0; i < num; ++i) {
-            temp[i] = this->vars[i];
-        }
-        temp[i] = newVar;
-        ++num;
-        delPtr();
-        this->vars = temp;
+        resize(this->num + 1);
+        this->vars[num-1] = newVar;
     } catch (Exceptions &e) {
         delPtr();
         std::cerr << e.what();
@@ -148,7 +153,7 @@ void TContainer<T>::add_back(T newVar) {
 }
 
 template<class T>
-void TContainer<T>::add_front(T newVar) {
+void TContainer<T>::add_front(T newVar) { // Maybe use resize, but that would be 2 loop.
     T* temp = new T[num + 1];
     temp[0] = newVar;
 
@@ -188,16 +193,8 @@ T TContainer<T>::pop_back() {
     if(isEmpty()) {
         throw Exceptions(EmptyContainer, "Cannot pop from an empty container (back).");
     }
-
-    T retVal = this->vars[--num];
-
-    T* temp = new T[num];
-
-    for (int i = 0; i < num; ++i) {
-        temp[i] = this->vars[i];
-    }
-    delPtr();
-    this->vars = temp;
+    T retVal = this->vars[num-1];
+    resize(num-1);
     return retVal;
 }
 
