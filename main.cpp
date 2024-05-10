@@ -22,8 +22,9 @@ int main() {
 
     test2.clear();
 
-    std::cout << temp << std::endl;
-    std::cout << test2 << std::endl;
+    for (auto i = temp.rbegin(), end= temp.rend(); i != end; --i) {
+        std::cout << *i << "\n";
+    }
 
     return 0;
 }
