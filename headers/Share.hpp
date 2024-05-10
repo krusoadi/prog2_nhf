@@ -41,6 +41,11 @@ public:
     void sellShares(int n, OwnedShare& in);
     void buyShares(int n, OwnedShare& in);
 
+    // Slave identifier operator
+
+    bool operator==(const OwnedShare& other) const;
+    bool operator!=(const OwnedShare& other) const;
+
     [[nodiscard]] int getShareId() const;
 
 };
@@ -67,7 +72,10 @@ public:
     void setAmount(int amountIn);
     void setMasterShareId(int masterShareId);
 
+    // Master identifier operators
 
+    bool operator==(const Share& other) const;
+    bool operator!=(const Share& other) const;
 
 
     // Methods to get information about the Share (Master)

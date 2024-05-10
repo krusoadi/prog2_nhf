@@ -71,6 +71,14 @@ int Share::getShareId() const {
     return ShareID;
 }
 
+bool Share::operator==(const OwnedShare &other) const {
+    return this->ShareID == other.getMasterShareId();
+}
+
+bool Share::operator!=(const OwnedShare &other) const {
+    return this->ShareID != other.getMasterShareId();
+}
+
 // OwnedShare
 
 OwnedShare::OwnedShare(): amount(0), masterShareID(-1) {}
@@ -91,6 +99,14 @@ void OwnedShare::setAmount(int amountIn) {
 
 void OwnedShare::setMasterShareId(int masterShareId) {
     masterShareID = masterShareId;
+}
+
+bool OwnedShare::operator==(const Share &other) const {
+    return this->masterShareID == other.getShareId();
+}
+
+bool OwnedShare::operator!=(const Share &other) const {
+    return this->masterShareID != other.getShareId();
 }
 
 Money OwnedShare::showValue() const {
