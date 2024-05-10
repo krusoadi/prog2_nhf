@@ -16,6 +16,8 @@ private:
     int num;
 
     void delPtr();
+    void makePtr(int n);
+    void checkIndex(int i);
 
 public:
     // Constructors, Destructors
@@ -71,6 +73,16 @@ public:
 };
 
 template<class T>
+void TContainer<T>::checkIndex(int i) {
+    if (i > num) {
+        throw Exceptions(EmptyContainer, "Over indexed TContainer, when adding a new element.");
+    }
+    if (i < 0) {
+        throw Exceptions(NegativeIndex, "Negative Indexed when adding new element");
+    }
+}
+
+template<class T>
 void TContainer<T>::delPtr() {
     if (!isEmpty()) {
         delete[] this->vars;
@@ -79,19 +91,35 @@ void TContainer<T>::delPtr() {
 }
 
 template<class T>
+void TContainer<T>::makePtr(int n) {
+    this->vars = new T[n];
+}
+
+template<class T>
 TContainer<T>::TContainer(): vars(nullptr), num(0)  {}
 
 template<class T>
 TContainer<T>::TContainer(T first): num(1) {
-    this->vars = new T[num];
-    this->vars[0] = first;
+    try {
+        makePtr(num);
+        this->vars[0] = first;
+    } catch (std::bad_alloc &e) {
+        std::cerr << e.what();
+    }
+
 }
 
 template<class T>
 TContainer<T>::TContainer(const TContainer<T> &other): num(other.num) {
-    this->vars = new T[num];
-    for (int i = 0; i < num; ++i) {
-        this->vars[i] = other.vars[i];
+
+    try {
+        makePtr(num);
+        for (int i = 0; i < num; ++i) {
+            this->vars[i] = other.vars[i];
+        }
+    } catch (Exceptions &e) {
+        delPtr();
+        std::cerr << e.what();
     }
 }
 
@@ -102,16 +130,21 @@ TContainer<T>::~TContainer() {
 
 template<class T>
 void TContainer<T>::add_back(T newVar) {
-    T* temp = new T[num + 1];
+    try {
+        T *temp = new T[num + 1];
 
-    int i;
-    for (i = 0; i < num; ++i) {
-        temp[i] = this->vars[i];
+        int i;
+        for (i = 0; i < num; ++i) {
+            temp[i] = this->vars[i];
+        }
+        temp[i] = newVar;
+        ++num;
+        delPtr();
+        this->vars = temp;
+    } catch (Exceptions &e) {
+        delPtr();
+        std::cerr << e.what();
     }
-    temp[i] = newVar;
-    ++num;
-    delPtr();
-    this->vars = temp;
 }
 
 template<class T>
@@ -129,12 +162,7 @@ void TContainer<T>::add_front(T newVar) {
 
 template<class T>
 void TContainer<T>::add_index(T newVar, int n) {
-    if (num < n) {
-        throw Exceptions(EmptyContainer, "Over indexed TContainer, when adding a new element.");
-    }
-    if (n < 0) {
-        throw Exceptions(NegativeIndex, "Negative Indexed when adding new element");
-    }
+    checkIndex(n);
 
     T* temp = new T[++num];
 
@@ -195,13 +223,7 @@ T TContainer<T>::pop_index(int n) {
     if(isEmpty()) {
         throw Exceptions(EmptyContainer, "Cannot pop from an empty container (index).");
     }
-    if (n < 0) {
-        throw Exceptions(NegativeIndex, "Negative Indexed when adding new element");
-    }
-    if (n >= num) {
-        throw Exceptions(OverIndex, "Over indexed TContainer, when popping. (index)");
-    }
-
+    checkIndex(n);
 
     T retVal = this->vars[n];
     T* temp = new T[num - 1];
@@ -230,12 +252,7 @@ T& TContainer<T>::operator[](int n) {
     if(isEmpty()) {
         throw Exceptions(EmptyContainer, "Cannot get an indexed item from an empty container.");
     }
-    if (this->num <= n) {
-        throw Exceptions(OverIndex, "TContainer was over indexed.");
-    }
-    if (n < 0) {
-        throw Exceptions(NegativeIndex, "Negative Indexed when adding new element");
-    }
+    checkIndex(n);
     return this->vars[n];
 }
 
