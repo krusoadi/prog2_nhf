@@ -22,8 +22,8 @@ int main() {
 
     test2.clear();
 
-    for (auto i = temp.rbegin(), end= temp.rend(); i != end; --i) {
-        std::cout << *i << "\n";
+    for (auto i : temp) {
+        std::cout << i << "\n";
     }
 
     return 0;

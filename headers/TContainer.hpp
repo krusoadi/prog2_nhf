@@ -25,7 +25,7 @@ public:
         using pointer = T*;
         using reference = T&;
 
-        Iterator(pointer ptr) : it_ptr(ptr) {}
+        explicit Iterator(pointer ptr) : it_ptr(ptr) {}
 
         reference operator*() const {return *it_ptr;}
         pointer operator->() {return it_ptr;}
