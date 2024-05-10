@@ -102,25 +102,25 @@ void BankAccount::BuyShares(Share& Stype, int amount) { // Tesztelve, eddig hiba
 }
 
 void BankAccount::SellShares(Share& type, int amount) {
-    if (!userShares.isEmpty()) {
-        for (auto i = userShares.begin(); i != userShares.end(); ++i) {
-            if ((*i).getMasterShareId() == type.getShareId()) {
+    if (userShares.isEmpty()) {
+        throw Exceptions(NotEnoughShares, "Tried to sell shares, but didn't buy earlier.");
+    }
+    for (auto i = userShares.begin(); i != userShares.end(); ++i) {
+        if ((*i).getMasterShareId() == type.getShareId()) {
 
-                if (amount <= (*i).getAmount()) { // Mivel a kovetkezo fuggveny nezne ezt meg ezert itt is kell.
-                    this->addMoney((*i).showValue(&type)); // Visszaadjuk a penzet a felhasznalonak
-                }
-
-                type.buyFromUser(amount, (*i));
-
-                if ((*i).getAmount() == 0) {
-                    // TODO could be unsafe to static_cast size_t to int???
-                    userShares.pop_index(static_cast<int>(i.distance(userShares.begin())));
-                }
-                return;
+            if (amount <= (*i).getAmount()) { // Mivel a kovetkezo fuggveny nezne ezt meg ezert itt is kell.
+                this->addMoney((*i).showValue(&type)); // Visszaadjuk a penzet a felhasznalonak
             }
+
+            type.buyFromUser(amount, (*i));
+
+            if ((*i).getAmount() == 0) {
+                // TODO could be unsafe to static_cast size_t to int???
+                userShares.pop_index(static_cast<int>(i.distance(userShares.begin())));
+            }
+            return;
         }
     }
-    throw Exceptions(NotEnoughShares, "Tried to sell shares, but didn't buy earlier. (empty user)");
 }
 
 void BankAccount::revealShares() {

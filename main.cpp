@@ -102,9 +102,3 @@ int main() {
         std::cout << *i << "\n";
     }
 */
-
-/*
-Currency::updateCurrency();
-
-
-*/
