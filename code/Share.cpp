@@ -2,9 +2,12 @@
 #include <utility>
 #include <random>
 
+int Share::currentIDCounter = 0; // TODO method for this!
 
 Share::Share(std::string name, const Money &value, unsigned int available) : name(std::move(name)), value(value),
-                                                                                    available(available) {}
+available(available){
+    this->ShareID = generateID();
+}
 
 double Share::getNewRate(bool decrease) {
     std::random_device randomizer;
@@ -29,7 +32,7 @@ void Share::sellShares(int n, OwnedShare& in) {
     if (in.getAmount() < n) {
         throw Exceptions(NotEnoughShares, "There was not enough shares to sell");
     }
-    if (in.getMaster() != this) {
+    if (in.getMasterShareId() != this->ShareID) {
         throw Exceptions(WrongMaster, "Tried to sell back share to a different one.");
     }
     this->available += n;
@@ -38,13 +41,14 @@ void Share::sellShares(int n, OwnedShare& in) {
 }
 
 void Share::buyShares(int n, OwnedShare& in) {
-    if (in.getMaster() != nullptr && in.getMaster() != this) {
+    if (in.getMasterShareId() != -1 && in.getMasterShareId() != this->ShareID) {
         throw Exceptions(WrongMaster, "Tried to buy share to a different one.");
     }
     if (this->available >= n) {
         this->available -= n;
-        in.setMaster(this);
+        in.setMasterShareId(this->ShareID);
         in.setAmount(in.getAmount() + n);
+
         calculateNewPrice(false);
         return;
     }
@@ -63,10 +67,19 @@ unsigned int Share::getAvailable() const {
     return available;
 }
 
+int Share::getShareId() const {
+    return ShareID;
+}
+
 // OwnedShare
 
-OwnedShare::OwnedShare(): amount(0), Master(nullptr) {}
+OwnedShare::OwnedShare(): amount(0), masterShareID(-1) {}
 
+OwnedShare::OwnedShare(int amount): amount(amount), masterShareID(-1)  {}
+
+int OwnedShare::getMasterShareId() const {
+    return masterShareID;
+}
 
 int OwnedShare::getAmount() const {
     return amount;
@@ -76,14 +89,8 @@ void OwnedShare::setAmount(int amountIn) {
     this->amount = amountIn;
 }
 
-OwnedShare::OwnedShare( int amount, Share* masterIn): amount(amount), Master(masterIn) {}
-
-Share *OwnedShare::getMaster() const {
-    return Master;
-}
-
-void OwnedShare::setMaster(Share *master) {
-    Master = master;
+void OwnedShare::setMasterShareId(int masterShareId) {
+    masterShareID = masterShareId;
 }
 
 Money OwnedShare::showValue() const {

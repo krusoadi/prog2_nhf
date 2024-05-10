@@ -8,9 +8,16 @@ class OwnedShare;
 
 class Share {
 private:
+    int ShareID;
     std::string name; // Name of the Share e.g.: Apple Inc.
     Money value; // Current value of the share
     unsigned int available; // Number of available shares
+
+    // Static ID generator, and current Highest ID, for unique values
+
+    static int currentIDCounter;
+    int static generateID() {if(!currentIDCounter) {initIDCounter();} return currentIDCounter++;}; // egh...
+    void static initIDCounter () {currentIDCounter = 1;}; // TODO finishing and implementing
 
     // New price (after sell/buy) calculators
 
@@ -34,29 +41,30 @@ public:
     void sellShares(int n, OwnedShare& in);
     void buyShares(int n, OwnedShare& in);
 
+    int getShareId() const;
+
 };
 
 std::ostream& operator<<(std::ostream& stream, const Share &in);
 
 class OwnedShare {
 private:
+    int masterShareID;
     int amount; // amount of bought shares
-    Share* Master; // The Share objects pointer which it's connected to
 public:
     // Constructors, Destructors
 
     OwnedShare();
-    OwnedShare(int amount, Share* masterIn);
+    OwnedShare(int amount);
 
     // Getters
 
     [[nodiscard]] int getAmount() const;
-    [[nodiscard]] Share *getMaster() const;
-
+    [[nodiscard]] int getMasterShareId() const;
     // Setters
 
     void setAmount(int amountIn);
-    void setMaster(Share *master);
+    void setMasterShareId(int masterShareId);
 
     // Methods to get information about the Share (Master)
 

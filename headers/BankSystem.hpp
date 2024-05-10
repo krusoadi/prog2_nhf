@@ -11,7 +11,6 @@ private:
     Money bankMoney;
 public:
 
-
 };
 
 #endif //PROG2_NHF_BANKSYSTEM_HPP
