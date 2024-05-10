@@ -41,7 +41,7 @@ public:
     void sellShares(int n, OwnedShare& in);
     void buyShares(int n, OwnedShare& in);
 
-    int getShareId() const;
+    [[nodiscard]] int getShareId() const;
 
 };
 
@@ -55,16 +55,20 @@ public:
     // Constructors, Destructors
 
     OwnedShare();
-    OwnedShare(int amount);
+    explicit OwnedShare(int amount);
 
     // Getters
 
     [[nodiscard]] int getAmount() const;
     [[nodiscard]] int getMasterShareId() const;
+
     // Setters
 
     void setAmount(int amountIn);
     void setMasterShareId(int masterShareId);
+
+
+
 
     // Methods to get information about the Share (Master)
 
