@@ -51,7 +51,7 @@ public:
     void clear();
     void swap(int n, int m);
 
-    // Iterator TODO megnezni, hogy a RandomAccessIterator-nak lenne-e elonye
+    // Iterator TODO RandomAccessIterator, BidirectionalIterator or ForwardIterator suits better?
 
     struct Iterator;
 
