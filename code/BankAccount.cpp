@@ -106,14 +106,15 @@ void BankAccount::SellShares(Share& type, int amount) {
         for (auto i = userShares.begin(); i != userShares.end(); ++i) {
             if ((*i).getMasterShareId() == type.getShareId()) {
 
-                if (amount <= (*i).getAmount()) { // Mivela kovetkezo fuggveny nezne ezt meg ezert itt is kell.
+                if (amount <= (*i).getAmount()) { // Mivel a kovetkezo fuggveny nezne ezt meg ezert itt is kell.
                     this->addMoney((*i).showValue(&type)); // Visszaadjuk a penzet a felhasznalonak
                 }
 
                 type.buyFromUser(amount, (*i));
 
                 if ((*i).getAmount() == 0) {
-                    userShares.pop_index(static_cast<int>(i.distance(userShares.begin()))); // TODO could be unsafe??
+                    // TODO could be unsafe to static_cast size_t to int???
+                    userShares.pop_index(static_cast<int>(i.distance(userShares.begin())));
                 }
                 return;
             }
