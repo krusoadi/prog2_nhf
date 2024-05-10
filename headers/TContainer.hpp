@@ -44,7 +44,7 @@ public:
 
     // Getters
 
-    [[nodiscard]] int getNum() const;
+    [[nodiscard]] int size() const;
 
     // Other methods
 
@@ -245,7 +245,7 @@ bool TContainer<T>::isEmpty() {
 }
 
 template<class T>
-int TContainer<T>::getNum() const {
+int TContainer<T>::size() const {
     return this->num;
 }
 template<class T>
@@ -345,7 +345,7 @@ typename TContainer<T>::Iterator TContainer<T>::rend() {
 
 template<class T>
 std::ostream& operator<<(std::ostream& stream, TContainer<T> &in) {
-    for (int i = 0; i < in.getNum(); ++i) {
+    for (int i = 0; i < in.size(); ++i) {
         stream << in[i] << "\n";
     }
     return stream;

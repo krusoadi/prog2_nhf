@@ -2,7 +2,7 @@
 #define PROG2_NHF_EXCEPTIONS_HPP
 
 #include <exception>
-
+#include <string>
 enum errors {
     GenericError,
     NotDefinedError,
@@ -16,10 +16,10 @@ enum errors {
 
 class Exceptions : public std::exception {
     errors type;
-    const char* msg;
+    std::string msg;
 public:
     explicit Exceptions(errors errorType, const char* message = "");
-    const char* what() const noexcept override;
+    [[nodiscard]] const char* what() const noexcept override;
 
 };
 
