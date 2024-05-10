@@ -6,6 +6,8 @@
 #include <iterator>
 #include <cstddef>
 
+// Every method in the class are listed down below in declaration order
+
 template<class T>
 
 class TContainer {
@@ -16,33 +18,6 @@ private:
     void delPtr();
 
 public:
-    // Iterator TODO megnezni, hogy a RandomAccessIterator-nak lenne-e elonye
-
-    struct Iterator {
-        using iterator_category = std::bidirectional_iterator_tag;
-        using difference_tag = std::ptrdiff_t;
-        using value_type = T;
-        using pointer = T*;
-        using reference = T&;
-
-        explicit Iterator(pointer ptr) : it_ptr(ptr) {}
-
-        reference operator*() const {return *it_ptr;}
-        pointer operator->() {return it_ptr;}
-
-        Iterator& operator++() {it_ptr++; return *this;}
-        Iterator operator++(int) {Iterator temp = *this; ++(*this); return temp;}
-
-        Iterator& operator--() {it_ptr--; return *this;}
-        Iterator operator--(int) {Iterator temp = *this; --(*this); return temp;}
-
-        friend bool operator==(const Iterator& a, const Iterator& b) {return a.it_ptr == b.it_ptr;}
-        friend bool operator !=(const Iterator& a, const Iterator& b) {return a.it_ptr != b.it_ptr;}
-
-    private:
-        pointer it_ptr;
-    };
-
     // Constructors, Destructors
 
     TContainer();
@@ -76,6 +51,10 @@ public:
     void clear();
     void swap(int n, int m);
 
+    // Iterator TODO megnezni, hogy a RandomAccessIterator-nak lenne-e elonye
+
+    struct Iterator;
+
     // Iterator methods
 
     Iterator begin();
@@ -85,39 +64,6 @@ public:
     Iterator rend();
 
 };
-
-
-template<class T>
-typename TContainer<T>::Iterator TContainer<T>::begin() {
-    if (this->isEmpty()) {
-        throw Exceptions(EmptyContainer, "Cannot use iterator on an empty TContainer");
-    }
-    return TContainer::Iterator(&vars[0]);
-}
-
-template<class T>
-typename TContainer<T>::Iterator TContainer<T>::end() {
-    if (this->isEmpty()) {
-        throw Exceptions(EmptyContainer, "Cannot use iterator on an empty TContainer");
-    }
-    return TContainer::Iterator(&vars[this->num]);
-}
-
-template<class T>
-typename TContainer<T>::Iterator TContainer<T>::rbegin() {
-    if (this->isEmpty()) {
-        throw Exceptions(EmptyContainer, "Cannot use iterator on an empty TContainer");
-    }
-    return TContainer::Iterator(&vars[num - 1]);
-}
-
-template<class T>
-typename TContainer<T>::Iterator TContainer<T>::rend() {
-    if (this->isEmpty()) {
-        throw Exceptions(EmptyContainer, "Cannot use iterator on an empty TContainer");
-    }
-    return TContainer::Iterator(&vars[-1]); // BRUH??????
-}
 
 template<class T>
 void TContainer<T>::delPtr() {
@@ -325,5 +271,67 @@ std::ostream& operator<<(std::ostream& stream, TContainer<T> &in) {
     }
     return stream;
 }
+
+// Iterator, adn its functions
+
+template <class T> struct TContainer<T>::Iterator {
+    using iterator_category = std::bidirectional_iterator_tag;
+    using difference_tag = std::ptrdiff_t;
+    using value_type = T;
+    using pointer = T*;
+    using reference = T&;
+
+    explicit Iterator(pointer ptr) : it_ptr(ptr) {}
+
+    reference operator*() const {return *it_ptr;}
+    pointer operator->() {return it_ptr;}
+
+    Iterator& operator++() {it_ptr++; return *this;}
+    Iterator operator++(int) {Iterator temp = *this; ++(*this); return temp;}
+
+    Iterator& operator--() {it_ptr--; return *this;}
+    Iterator operator--(int) {Iterator temp = *this; --(*this); return temp;}
+
+    friend bool operator==(const Iterator& a, const Iterator& b) {return a.it_ptr == b.it_ptr;}
+    friend bool operator !=(const Iterator& a, const Iterator& b) {return a.it_ptr != b.it_ptr;}
+
+private:
+    pointer it_ptr;
+};
+
+template<class T>
+typename TContainer<T>::Iterator TContainer<T>::begin() {
+    if (this->isEmpty()) {
+        throw Exceptions(EmptyContainer, "Cannot use iterator on an empty TContainer");
+    }
+    return TContainer::Iterator(&vars[0]);
+}
+
+template<class T>
+typename TContainer<T>::Iterator TContainer<T>::end() {
+    if (this->isEmpty()) {
+        throw Exceptions(EmptyContainer, "Cannot use iterator on an empty TContainer");
+    }
+    return TContainer::Iterator(&vars[this->num]);
+}
+
+template<class T>
+typename TContainer<T>::Iterator TContainer<T>::rbegin() {
+    if (this->isEmpty()) {
+        throw Exceptions(EmptyContainer, "Cannot use iterator on an empty TContainer");
+    }
+    return TContainer::Iterator(&vars[num - 1]);
+}
+
+template<class T>
+typename TContainer<T>::Iterator TContainer<T>::rend() {
+    if (this->isEmpty()) {
+        throw Exceptions(EmptyContainer, "Cannot use iterator on an empty TContainer");
+    }
+    return TContainer::Iterator(&vars[-1]); // BRUH??????
+}
+
+
+
 
 #endif //PROG2_NHF_TCONTAINER_HPP
