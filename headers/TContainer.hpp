@@ -74,6 +74,19 @@ public:
 };
 
 template<class T>
+void TContainer<T>::delPtr() {
+    if (!isEmpty()) {
+        delete[] this->vars;
+        this->vars = nullptr;
+    }
+}
+
+template<class T>
+void TContainer<T>::makePtr(int n) {
+    this->vars = new T[n];
+}
+
+template<class T>
 void TContainer<T>::resize(int n) {
     T* temp = new T[n];
 
@@ -93,19 +106,6 @@ void TContainer<T>::checkIndex(int i) {
     if (i < 0) {
         throw Exceptions(NegativeIndex, "Negative Indexed when adding new element");
     }
-}
-
-template<class T>
-void TContainer<T>::delPtr() {
-    if (!isEmpty()) {
-        delete[] this->vars;
-        this->vars = nullptr;
-    }
-}
-
-template<class T>
-void TContainer<T>::makePtr(int n) {
-    this->vars = new T[n];
 }
 
 template<class T>
@@ -143,18 +143,13 @@ TContainer<T>::~TContainer() {
 
 template<class T>
 void TContainer<T>::add_back(T newVar) {
-    try {
-        resize(this->num + 1);
-        this->vars[num-1] = newVar;
-    } catch (Exceptions &e) {
-        delPtr();
-        std::cerr << e.what();
-    }
+    resize(this->num + 1);
+    this->vars[num-1] = newVar;
 }
 
 template<class T>
 void TContainer<T>::add_front(T newVar) { // Maybe use resize, but that would be 2 loop.
-    T* temp = new T[num + 1];
+    T *temp = new T[num + 1];
     temp[0] = newVar;
 
     for (int i = 0; i < num; ++i) {
@@ -163,13 +158,14 @@ void TContainer<T>::add_front(T newVar) { // Maybe use resize, but that would be
     num++;
     delPtr();
     this->vars = temp;
+
 }
 
 template<class T>
 void TContainer<T>::add_index(T newVar, int n) {
     checkIndex(n);
 
-    T* temp = new T[++num];
+    T *temp = new T[++num];
 
     bool reached_n = false;
 
@@ -186,6 +182,7 @@ void TContainer<T>::add_index(T newVar, int n) {
 
     delPtr();
     this->vars = temp;
+
 }
 
 template<class T>
@@ -193,6 +190,7 @@ T TContainer<T>::pop_back() {
     if(isEmpty()) {
         throw Exceptions(EmptyContainer, "Cannot pop from an empty container (back).");
     }
+
     T retVal = this->vars[num-1];
     resize(num-1);
     return retVal;
