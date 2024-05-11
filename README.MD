@@ -5,6 +5,13 @@ This project is my homework for my Programming II. course.
 
 ## Classes
 
+### [TContainer](headers/TContainer.hpp)
+
+Most of the project were not allowed to use the [Standard Template Library](https://www.geeksforgeeks.org/the-c-standard-template-library-stl/),
+so I needed to write an own template storage class, which is TContainer.
+It's a Normal template class with a dynamic array, made to mimic the [std::vector](https://en.cppreference.com/w/cpp/container/vector).
+Unfortunately it's not as (and never meant to be) optimal as an STL container, it works for this project perfectly. 
+
 ### [Currency](headers/Currency.h)
 The Currency class is fully static, its main purpose is to make currency modifiable
 and random. It stores the currency SYMBOLS too.
@@ -26,15 +33,14 @@ available shares and the name of the share. With every buy, and sell, the price 
 
 ### [OwnedShare](headers/Share.hpp)
 
-These are the shares, that a user can obtain. The object only stores the number of bought shares, and a pointer
-to its Share object. Every detail about the share is stored in the Master object, to keep up-to-date prices and 
+These are the shares, that a user can obtain. The object only stores the number of bought shares, and the ID
+of its Share object. Every detail about the share is stored in the Master object, to keep up-to-date prices and 
 available shares.
 
 ### [BankAccount](headers/BankAccount.hpp)
 
 This class stores data, about users, with a generated ID. The users can buy shares, deposit etc.
 
-> [!WARNING]
-> Still heavily under development! :laughing:
+
 
 
