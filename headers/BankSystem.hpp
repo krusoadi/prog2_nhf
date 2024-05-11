@@ -10,6 +10,23 @@ private:
     TContainer<Share> bankShares;
     Money bankMoney;
 public:
+    // Constructor, Destructors
+
+    BankSystem();
+    BankSystem(const Money& initMoney);
+    ~BankSystem() = default;
+
+    //Getters TODO
+
+    [[nodiscard]] const Money &getBankMoney() const;
+
+    //Get...By...
+
+    [[nodiscard]] Share& getShareByChild(const OwnedShare& in) const;
+
+    // New Queries
+
+    void addNewUser(const BankAccount& user);
 
 };
 

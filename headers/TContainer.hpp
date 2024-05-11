@@ -17,7 +17,7 @@ private:
 
     void delPtr();
     void makePtr(int n);
-    void checkIndex(int i);
+    void checkIndex(int i) const;
     void resize(int n);
 
 public:
@@ -40,10 +40,10 @@ public:
 
     // Operator Overloads
 
-    T& operator[](int n);
+    T& operator[](int n) const;
 
     // Status Check methods
-    bool isEmpty();
+    bool isEmpty() const;
 
     // Getters
 
@@ -57,7 +57,7 @@ public:
     //Search by an independent identity, throws compile time error, if wrongly used.
 
     template<class Y> // Needed due to object-type independence (Share-OwnedShare comparison)
-            int search(Y identity);
+            int search(Y identity) const;
 
     // Iterator TODO RandomAccessIterator, BidirectionalIterator or ForwardIterator suits better?
 
@@ -99,7 +99,7 @@ void TContainer<T>::resize(int n) {
 }
 
 template<class T>
-void TContainer<T>::checkIndex(int i) {
+void TContainer<T>::checkIndex(int i) const {
     if (i > num) {
         throw Exceptions(EmptyContainer, "Over indexed TContainer, when adding a new element.");
     }
@@ -243,7 +243,7 @@ T TContainer<T>::pop_index(int n) {
 }
 
 template<class T>
-T& TContainer<T>::operator[](int n) {
+T& TContainer<T>::operator[](int n) const {
     if(isEmpty()) {
         throw Exceptions(EmptyContainer, "Cannot get an indexed item from an empty container.");
     }
@@ -252,7 +252,7 @@ T& TContainer<T>::operator[](int n) {
 }
 
 template<class T>
-bool TContainer<T>::isEmpty() {
+bool TContainer<T>::isEmpty() const {
     return this->vars == nullptr;
 }
 
@@ -283,7 +283,7 @@ void TContainer<T>::swap(int n, int m) {
 
 template<class T>
 template<class Y>
-int TContainer<T>::search(Y identity) {
+int TContainer<T>::search(const Y identity) const {
     if(this->isEmpty()) {
         throw Exceptions(EmptyContainer, "Cannot search in an empty Container.");
     }
