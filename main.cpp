@@ -8,6 +8,8 @@
 int main() {
     auto temp = IDManager();
 
+    std::cout << temp << std::endl;
+
     return 0;
 }
 

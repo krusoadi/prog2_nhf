@@ -46,6 +46,6 @@ IDManager::IDManager(int previousID) {
     this->id = previousID;
 }
 
-std::ostream & operator<<(const IDManager& in, std::ostream& stream) {
+std::ostream & operator<<(std::ostream& stream, const IDManager& in) {
     return stream << "ID:" << in.getId();
 }
