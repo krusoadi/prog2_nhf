@@ -25,5 +25,7 @@ public:
     [[nodiscard]] unsigned int getId() const;
 };
 
+std::ostream & operator<<(const IDManager& in, std::ostream& stream);
+
 
 #endif //PROG2_NHF_IDMANAGER_H

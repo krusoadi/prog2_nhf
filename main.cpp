@@ -1,11 +1,18 @@
 #include <iostream>
 #include "headers/BankAccount.hpp"
-#include "headers/TContainer.hpp"
+#include "headers/IDManager.h"
 
 // Tested: add_back, add_front, pop_front, pop_back, pop_index, add_index, size, isEmpty, Constructors (all of them)
 // Need to check if the program leaks memory
 
 int main() {
+    auto temp = IDManager();
+
+    return 0;
+}
+
+/*
+
     Currency::updateCurrency();
     Currency::printCurrency();
 
@@ -71,8 +78,8 @@ int main() {
 
     tempAcc.revealShares();
 
-    return 0;
-}
+*/
+
 
 /*
 

@@ -15,6 +15,6 @@ Share &BankSystem::getShareByChild(const OwnedShare& in) const {
 }
 
 void BankSystem::addNewUser(const BankAccount& user) {
-    this->users.add_back(user);
+    //this->users.add_back(user);
 }
 
