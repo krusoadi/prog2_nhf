@@ -24,7 +24,7 @@ public:
     // Constructors, Destructors
 
     TContainer();
-    explicit TContainer(T first);
+    [[maybe_unused]] explicit TContainer(T first);
     TContainer(const TContainer<T>& other);
     ~TContainer();
 
@@ -112,7 +112,7 @@ template<class T>
 TContainer<T>::TContainer(): vars(nullptr), num(0)  {}
 
 template<class T>
-TContainer<T>::TContainer(T first): num(1) {
+[[maybe_unused]] TContainer<T>::TContainer(T first): num(1) {
     try {
         makePtr(num);
         this->vars[0] = first;
