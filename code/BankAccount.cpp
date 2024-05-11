@@ -32,7 +32,7 @@ unsigned int BankAccount::getId() const {
     return ID;
 }
 
-void BankAccount::setMoney(const Money& in) {
+[[maybe_unused]] void BankAccount::setMoney(const Money& in) {
     this->userMoney = in;
 }
 
@@ -47,7 +47,7 @@ int BankAccount::getGeneratedID() {
     return dis(gen);
 }
 
-void BankAccount::setName(const std::string &newUserName) {
+[[maybe_unused]] void BankAccount::setName(const std::string &newUserName) {
     this->name = newUserName;
 }
 
@@ -66,16 +66,16 @@ std::string BankAccount::getGender() const {
     return {"Female"};
 }
 
-bool BankAccount::getisWorker() const {
+[[maybe_unused]] bool BankAccount::getIsWorker() const {
     return isWorker;
 }
 
-void BankAccount::setIsWorker(bool isWorkerIn) {
+[[maybe_unused]] void BankAccount::setIsWorker(bool isWorkerIn) {
     BankAccount::isWorker = isWorkerIn;
 }
 
-void BankAccount::BuyShares(Share& Stype, int amount) { // Tesztelve, eddig hibatlan
-    Money priceOfShares = Stype.getValue();
+void BankAccount::BuyShares(Share& SType, int amount) { // Tesztelve, eddig hibatlan
+    Money priceOfShares = SType.getValue();
     priceOfShares *= amount;
 
     if (this->userMoney < priceOfShares) {
@@ -87,32 +87,32 @@ void BankAccount::BuyShares(Share& Stype, int amount) { // Tesztelve, eddig hiba
 
     if (!userShares.isEmpty()) {
         for (auto & userShare : userShares) {
-            if (userShare.getMasterShareId() == Stype.getShareId()) {
-                Stype.sellToUser(amount, userShare);
+            if (userShare.getMasterShareId() == SType.getShareId()) {
+                SType.sellToUser(amount, userShare);
                 return;
             }
         }
     }
 
     OwnedShare temp;
-    Stype.sellToUser(amount, temp);
+    SType.sellToUser(amount, temp);
     if (temp.getMasterShareId() != -1) {
         this->userShares.add_back(temp);
     }
 }
 
-void BankAccount::SellShares(Share& type, int amount) {
+void BankAccount::SellShares(Share& SType, int amount) {
     if (userShares.isEmpty()) {
         throw Exceptions(NotEnoughShares, "Tried to sell shares, but didn't buy earlier.");
     }
     for (auto i = userShares.begin(); i != userShares.end(); ++i) {
-        if ((*i).getMasterShareId() == type.getShareId()) {
+        if ((*i).getMasterShareId() == SType.getShareId()) {
 
             if (amount <= (*i).getAmount()) { // Mivel a kovetkezo fuggveny nezne ezt meg ezert itt is kell.
-                this->addMoney((*i).showValue(&type)); // Visszaadjuk a penzet a felhasznalonak
+                this->addMoney((*i).showValue(&SType)); // Visszaadjuk a penzet a felhasznalonak
             }
 
-            type.buyFromUser(amount, (*i));
+            SType.buyFromUser(amount, (*i));
 
             if ((*i).getAmount() == 0) {
                 // TODO could be unsafe to static_cast size_t to int???

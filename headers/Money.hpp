@@ -29,12 +29,12 @@ public:
 
     // Setters
 
-    void setCurrency(CurrencyTypes cur);
-    void setValue(double val);
+    [[maybe_unused]] void setCurrency(CurrencyTypes cur);
+    [[maybe_unused]] void setValue(double val);
 
     // Converters (for object)
 
-    [[nodiscard]] Money convertCurrency(CurrencyTypes dest) const;
+    [[maybe_unused]] [[nodiscard]] Money convertCurrency(CurrencyTypes dest) const;
 
     // Arithmetic Operators
 

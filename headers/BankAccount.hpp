@@ -35,14 +35,14 @@ public:
     [[nodiscard]] const std::string& getName() const;
 
     [[nodiscard]] std::string getGender() const;
-    [[nodiscard]] bool getisWorker() const;
+    [[maybe_unused]] [[nodiscard]] bool getIsWorker() const;
 
 
     // Setters
 
-    void setMoney(const Money& in);
-    void setName(const std::string &name);
-    void setIsWorker(bool isWorkerIn);
+    [[maybe_unused]] void setMoney(const Money& in);
+    [[maybe_unused]] void setName(const std::string &name);
+    [[maybe_unused]] void setIsWorker(bool isWorkerIn);
 
     // Static ID generator method
 
@@ -55,8 +55,8 @@ public:
 
     // Share managing functions
 
-    void BuyShares(Share& Stype, int amount);
-    void SellShares(Share& type, int amount);
+    void BuyShares(Share& SType, int amount);
+    void SellShares(Share& SType, int amount);
 
     // Share printer (Debug purposes)
 
