@@ -6,9 +6,11 @@
 // Need to check if the program leaks memory
 
 int main() {
-    auto temp = IDManager();
+    auto temp = IDManager(15);
+    auto temp2 = IDManager(15);
 
     std::cout << temp << std::endl;
+    std::cout << temp2 << std::endl;
 
     return 0;
 }

@@ -13,7 +13,7 @@ int IDManager::generateID() {
     int UniqueID = getRandomNumber();
 
     if (!reservedIDs.isEmpty()) {
-        while (reservedIDs.search(UniqueID) == -1) {
+        while (reservedIDs.search(UniqueID) != -1) {
             UniqueID = getRandomNumber();
         }
     }
@@ -21,31 +21,41 @@ int IDManager::generateID() {
     return UniqueID;
 }
 
+IDManager::IDManager(): id(generateID()) {}
+
+IDManager::IDManager(int previousID) {
+    try {
+        if (id < 10000 || id > 99999) {
+            throw Exceptions(InvalidId, "The ID is invalid, not between the supported bounds,"
+                                        " generated a new");
+        }
+
+        if (!reservedIDs.isEmpty()) {
+            if (reservedIDs.search(previousID) != -1) {
+                throw Exceptions(IDAlreadyExists, "Given ID is already used in the system,"
+                                                  "generated a new. ");
+            }
+        }
+    } catch (Exceptions & e) {
+        int newID = generateID();
+        std::cerr << e.what() << "New ID : " << newID << std::endl;
+        this->id = newID;
+        reservedIDs.add_back(newID);
+        return;
+    }
+
+    this->id = previousID;
+    reservedIDs.add_back(previousID);
+}
+
 unsigned int IDManager::getId() const {
     return id;
 }
 
-IDManager::IDManager(): id(generateID()) {}
-
-IDManager::IDManager(const IDManager &other): id(other.id) {}
-
-IDManager::IDManager(int previousID) {
-    if (!reservedIDs.isEmpty()) {
-        try {
-            if (reservedIDs.search(previousID) != -1) {
-                throw Exceptions(IDAlreadyExists, "Given ID is already used in the system,"
-                                                  " generated a new.");
-            }
-        } catch (Exceptions &e) {
-            int newID = generateID();
-            std::cerr << e.what() << "new id : " << newID;
-            this->id = newID;
-            return;
-        }
-    }
-    this->id = previousID;
+bool IDManager::operator==(const IDManager &other) const {
+    return this->id == other.id;
 }
 
 std::ostream & operator<<(std::ostream& stream, const IDManager& in) {
-    return stream << "ID:" << in.getId();
+    return stream << "ID: " << in.getId();
 }
