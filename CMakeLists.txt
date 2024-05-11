@@ -16,4 +16,6 @@ add_executable(prog2_nhf main.cpp
         headers/Share.hpp
         code/Currency.cpp
         headers/Currency.h
-        headers/TContainer.hpp)
+        headers/TContainer.hpp
+        code/IDManager.cpp
+        headers/IDManager.h)

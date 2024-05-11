@@ -11,7 +11,8 @@ enum errors {
     WrongMaster,
     OverIndex,
     EmptyContainer,
-    NegativeIndex
+    NegativeIndex,
+    IDAlreadyExists,
 };
 
 class Exceptions : public std::exception {
