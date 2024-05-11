@@ -9,10 +9,10 @@ BankAccount::BankAccount(const BankAccount &other): ID(other.ID), userMoney(othe
     this->isWorker = other.isWorker;
 }
 
-BankAccount::BankAccount(): ID(BankAccount::getGeneratedID()), userMoney(), isMale(false), isWorker(false) {}
+BankAccount::BankAccount(): ID(IDManager()), userMoney(), isMale(false), isWorker(false) {}
 
 BankAccount::BankAccount(const Money& money, std::string name, bool isMale, bool isWorker):
-        ID(BankAccount::getGeneratedID()), name(std::move(name)), isWorker(isWorker), isMale(isMale)
+        ID(IDManager()), name(std::move(name)), isWorker(isWorker), isMale(isMale)
 {
     if (money.getValue() < 0) {
         throw Exceptions(NegativeMoney, "Negative money was given.");
@@ -29,22 +29,11 @@ const std::string &BankAccount::getName() const {
 }
 
 unsigned int BankAccount::getId() const {
-    return ID;
+    return ID.getId();
 }
 
 [[maybe_unused]] void BankAccount::setMoney(const Money& in) {
     this->userMoney = in;
-}
-
-int BankAccount::getGeneratedID() {
-
-    // Safe C++ 11 random generator
-
-    std::random_device randomizer;
-    std::mt19937 gen(randomizer());
-    std::uniform_int_distribution<>dis(1000,9999);
-
-    return dis(gen);
 }
 
 [[maybe_unused]] void BankAccount::setName(const std::string &newUserName) {

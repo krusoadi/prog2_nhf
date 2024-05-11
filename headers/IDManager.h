@@ -23,7 +23,7 @@ public:
 
     // Getter,== operator
 
-    [[nodiscard]] unsigned int getId() const; // Only needed public method along with the operator
+    [[nodiscard]] int getId() const; // Only needed public method along with the operator
     bool operator==(const IDManager& other) const;
 };
 

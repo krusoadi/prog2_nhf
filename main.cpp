@@ -6,17 +6,6 @@
 // Need to check if the program leaks memory
 
 int main() {
-    auto temp = IDManager(15);
-    auto temp2 = IDManager(15);
-
-    std::cout << temp << std::endl;
-    std::cout << temp2 << std::endl;
-
-    return 0;
-}
-
-/*
-
     Currency::updateCurrency();
     Currency::printCurrency();
 
@@ -82,9 +71,9 @@ int main() {
 
     tempAcc.revealShares();
 
-*/
 
-
+    return 0;
+}
 /*
 
 

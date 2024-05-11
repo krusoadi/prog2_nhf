@@ -3,21 +3,16 @@
 #define PROG2_NHF_SHARE_HPP
 #include "Exceptions.hpp"
 #include "Money.hpp"
+#include "IDManager.h"
 
 class OwnedShare;
 
 class Share {
 private:
-    const int ShareID;
+    IDManager ShareID;
     std::string name; // Name of the Share e.g.: Apple Inc.
     Money value; // Current value of the share
     unsigned int available; // Number of available shares
-
-    // Static ID generator, and current Highest ID, for unique values
-
-    static int currentIDCounter;
-    int static generateID() {if(!currentIDCounter) {initIDCounter();} return currentIDCounter++;}; // egh...
-    void static initIDCounter () {currentIDCounter = 1;}; // TODO finishing and implementing
 
     // New price (after sell/buy) calculators
 

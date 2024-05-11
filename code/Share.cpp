@@ -2,10 +2,8 @@
 #include <utility>
 #include <random>
 
-int Share::currentIDCounter = 0; // TODO method for this!
-
 Share::Share(std::string name, const Money &value, unsigned int available) : name(std::move(name)), value(value),
-available(available), ShareID(generateID()) {}
+available(available), ShareID(IDManager()) {}
 
 double Share::getNewRate(bool decrease) {
     std::random_device randomizer;
@@ -30,7 +28,7 @@ void Share::buyFromUser(int n, OwnedShare& in) {
     if (in.getAmount() < n) {
         throw Exceptions(NotEnoughShares, "There was not enough shares to sell");
     }
-    if (in.getMasterShareId() != this->ShareID) {
+    if (in.getMasterShareId() != this->ShareID.getId()) {
         throw Exceptions(WrongMaster, "Tried to sell back share to a different one.");
     }
     this->available += n;
@@ -39,12 +37,12 @@ void Share::buyFromUser(int n, OwnedShare& in) {
 }
 
 void Share::sellToUser(int n, OwnedShare& in) {
-    if (in.getMasterShareId() != -1 && in.getMasterShareId() != this->ShareID) {
+    if (in.getMasterShareId() != -1 && in.getMasterShareId() != this->ShareID.getId()) {
         throw Exceptions(WrongMaster, "Tried to buy share to a different one.");
     }
     if (this->available >= n) {
         this->available -= n;
-        in.setMasterShareId(this->ShareID);
+        in.setMasterShareId(this->ShareID.getId());
         in.setAmount(in.getAmount() + n);
 
         calculateNewPrice(false);
@@ -66,15 +64,15 @@ unsigned int Share::getAvailable() const {
 }
 
 int Share::getShareId() const {
-    return ShareID;
+    return ShareID.getId();
 }
 
 bool Share::operator==(const OwnedShare &other) const {
-    return this->ShareID == other.getMasterShareId();
+    return this->ShareID.getId() == other.getMasterShareId();
 }
 
 bool Share::operator!=(const OwnedShare &other) const {
-    return this->ShareID != other.getMasterShareId();
+    return this->ShareID.getId() != other.getMasterShareId();
 }
 
 // OwnedShare

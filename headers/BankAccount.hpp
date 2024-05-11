@@ -8,7 +8,7 @@ class BankAccount {
 private:
     // Data of the user
 
-    const unsigned int ID;
+    IDManager ID;
     std::string name;
     bool isMale;
     Money userMoney;
@@ -43,10 +43,6 @@ public:
     [[maybe_unused]] void setMoney(const Money& in);
     [[maybe_unused]] void setName(const std::string &name);
     [[maybe_unused]] void setIsWorker(bool isWorkerIn);
-
-    // Static ID generator method
-
-    static int getGeneratedID();
 
     // Money managing methods
 

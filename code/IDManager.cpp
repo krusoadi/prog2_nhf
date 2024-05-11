@@ -48,7 +48,7 @@ IDManager::IDManager(int previousID) {
     reservedIDs.add_back(previousID);
 }
 
-unsigned int IDManager::getId() const {
+int IDManager::getId() const {
     return id;
 }
 
