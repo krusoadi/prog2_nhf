@@ -5,6 +5,8 @@
 Share::Share(std::string name, const Money &value, unsigned int available) : name(std::move(name)), value(value),
 available(available), ShareID(IDManager()) {}
 
+Share::Share(): value(Money()), available(0) {}
+
 double Share::getNewRate(bool decrease) {
     std::random_device randomizer;
     std::mt19937 gen(randomizer());
@@ -73,6 +75,10 @@ bool Share::operator==(const OwnedShare &other) const {
 
 bool Share::operator!=(const OwnedShare &other) const {
     return this->ShareID.getId() != other.getMasterShareId();
+}
+
+bool Share::operator==(const Share &other) {
+    return this->ShareID == other.ShareID;
 }
 
 // OwnedShare

@@ -22,11 +22,15 @@ public:
 
     //Get...By...
 
-    [[nodiscard]] Share& getShareByChild(const OwnedShare& in) const;
+    [[nodiscard]] Share& getShareByChild(const OwnedShare& in) const; //TODO error handling (ptr approach or dummy-reference)
 
     // New Queries
 
     void addNewUser(const BankAccount& user);
+    void addBankShares(const Share& ShareIn);
+
+    void deleteUser(const BankAccount& user);
+    void deleteBankShares(const Share& ShareIn);
 
 };
 

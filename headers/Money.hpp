@@ -19,6 +19,7 @@ public:
 
     Money(double value, CurrencyTypes currency);
     Money();
+    Money(const Money& other) = default;
 
     ~Money() = default;
 

@@ -22,7 +22,9 @@ private:
 public:
     // Constructors, Destructors
 
+    Share();
     Share(std::string name, const Money &value, unsigned int available);
+    Share(const Share& oth) = default;
     ~Share() = default;
 
     // Getters
@@ -30,6 +32,7 @@ public:
     [[nodiscard]] const std::string &getName() const;
     [[nodiscard]] const Money &getValue() const;
     [[nodiscard]] unsigned int getAvailable() const;
+    [[nodiscard]] int getShareId() const;
 
     // Share Buyer and Seller methods
 
@@ -40,9 +43,7 @@ public:
 
     bool operator==(const OwnedShare& other) const;
     bool operator!=(const OwnedShare& other) const;
-
-    [[nodiscard]] int getShareId() const;
-
+    bool operator==(const Share& other);
 };
 
 std::ostream& operator<<(std::ostream& stream, const Share &in);

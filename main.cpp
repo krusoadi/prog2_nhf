@@ -1,9 +1,5 @@
 #include <iostream>
 #include "headers/BankAccount.hpp"
-#include "headers/IDManager.h"
-
-// Tested: add_back, add_front, pop_front, pop_back, pop_index, add_index, size, isEmpty, Constructors (all of them)
-// Need to check if the program leaks memory
 
 int main() {
     Currency::updateCurrency();
@@ -71,34 +67,5 @@ int main() {
 
     tempAcc.revealShares();
 
-
     return 0;
 }
-/*
-
-
-    TContainer<Money> temp;
-    for (int i = 0; i < 15; i++) {
-        temp.add_back(Money(i, EUR));
-    }
-
-    auto max = temp.size();
-
-    TContainer<Money> test2;
-
-    for (int i = 0; i < max; i++) {
-        test2.add_back(temp[i].convertCurrency(HUF));
-    }
-
-    test2.clear();
-
-    for (auto i : temp) {
-        std::cout << i << "\n";
-    }
-
-    std::cout << std::endl;
-
-    for (auto i =temp.rbegin(); i != temp.rend() ; --i) {
-        std::cout << *i << "\n";
-    }
-*/

@@ -57,6 +57,11 @@ public:
     // Share printer (Debug purposes)
 
     void revealShares();
+
+    // Operators
+
+    bool operator==(const BankAccount& other);
+
 };
 
 std::ostream& operator<<(std::ostream& stream, const BankAccount& in);

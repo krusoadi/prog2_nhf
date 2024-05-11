@@ -118,6 +118,10 @@ void BankAccount::revealShares() {
     }
 }
 
+bool BankAccount::operator==(const BankAccount &other) {
+    return this->ID == other.ID;
+}
+
 std::ostream& operator<<(std::ostream& stream, const BankAccount& in) {
     stream << "Name: " << in.getName() << " (id: " << in.getId() << ") " << in.getGender() <<" : " << in.getMoney();
     return stream;
