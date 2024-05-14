@@ -1,6 +1,6 @@
 
-#ifndef PROG2_NHF_IDMANAGER_H
-#define PROG2_NHF_IDMANAGER_H
+#ifndef PROG2_NHF_IDMANAGER_HPP
+#define PROG2_NHF_IDMANAGER_HPP
 #include "TContainer.hpp"
 #include <random>
 #include "Exceptions.hpp"
@@ -29,4 +29,4 @@ public:
 
 std::ostream & operator<<(std::ostream& stream, const IDManager& in);
 
-#endif //PROG2_NHF_IDMANAGER_H
+#endif //PROG2_NHF_IDMANAGER_HPP

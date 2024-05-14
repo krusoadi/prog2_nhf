@@ -1,4 +1,4 @@
-#include "../headers/Currency.h"
+#include "../headers/Currency.hpp"
 
 const std::string Currency::SYMBOLS[] =  {"Eur", "Ft", "$"};
 

@@ -104,7 +104,8 @@ void BankAccount::SellShares(Share& SType, int amount) {
             SType.buyFromUser(amount, (*i));
 
             if ((*i).getAmount() == 0) {
-                // TODO could be unsafe to static_cast size_t to int???
+                // The index will never reach a higher number than 100
+                // and the instruction set of the processor is 64 bit, so it's safe to static cast the int.
                 userShares.pop_index(static_cast<int>(i.distance(userShares.begin())));
             }
             return;

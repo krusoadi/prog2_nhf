@@ -1,5 +1,5 @@
-#ifndef PROG2_NHF_CURRENCY_H
-#define PROG2_NHF_CURRENCY_H
+#ifndef PROG2_NHF_CURRENCY_HPP
+#define PROG2_NHF_CURRENCY_HPP
 #include <random>
 #include <string>
 #include <iostream>
@@ -37,4 +37,4 @@ public:
     static void printCurrency();
 };
 
-#endif //PROG2_NHF_CURRENCY_H
+#endif //PROG2_NHF_CURRENCY_HPP

@@ -1,11 +1,11 @@
-#include "../headers/IDManager.h"
+#include "../headers/IDManager.hpp"
 
 TContainer<int> IDManager::reservedIDs = TContainer<int>();
 
 int IDManager::getRandomNumber() {
     std::random_device randomizer;
     std::mt19937 gen(randomizer());
-    std::uniform_int_distribution<>dis(10000,99999);
+    std::uniform_int_distribution<>dis(100000,999999);
     return dis(gen);
 }
 
@@ -25,7 +25,7 @@ IDManager::IDManager(): id(generateID()) {}
 
 IDManager::IDManager(int previousID) {
     try {
-        if (id < 10000 || id > 99999) {
+        if (id < 100000 || id > 999999) {
             throw Exceptions(InvalidId, "The ID is invalid, not between the supported bounds,"
                                         " generated a new");
         }

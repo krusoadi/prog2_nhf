@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include "Exceptions.hpp"
-#include "Currency.h"
+#include "Currency.hpp"
 
 class Money {
     double value;

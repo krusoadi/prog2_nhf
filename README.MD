@@ -12,7 +12,7 @@ so I needed to write an own template storage class, which is TContainer.
 It's a Normal template class with a dynamic array, made to mimic the [std::vector](https://en.cppreference.com/w/cpp/container/vector).
 Unfortunately it's not as (and never meant to be) optimal as an STL container, it works for this project perfectly. 
 
-### [Currency](headers/Currency.h)
+### [Currency](headers/Currency.hpp)
 The Currency class is fully static, its main purpose is to make currency modifiable
 and random. It stores the currency SYMBOLS too.
 
