@@ -2,9 +2,7 @@
 #include "headers/BankAccount.hpp"
 #include "headers/UI.hpp"
 int main() {
-
     UI().mainLoop();
-
     return 0;
 }
 

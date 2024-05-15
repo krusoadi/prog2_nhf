@@ -20,4 +20,5 @@ add_executable(prog2_nhf main.cpp
         code/IDManager.cpp
         headers/IDManager.hpp
         code/UI.cpp
-        headers/UI.hpp)
+        headers/UI.hpp
+)

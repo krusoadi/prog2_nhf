@@ -55,10 +55,6 @@ void UI::wrongInput() {
     print(IllegalNumber);
 }
 
-int UI::getIndexIn() const {
-    return indexIn;
-}
-
 void UI::mainLoop() {
     AccountUI();
     if (!this->is_loggedIn) {
@@ -106,6 +102,7 @@ void UI::AccountUI() {
 }
 
 void UI::logIn() { // TODO finish if needed
+    safeInput();
     this->is_loggedIn = true;
 }
 
@@ -117,6 +114,36 @@ void UI::exit() {
     UI::runtime = false;
     this->is_loggedIn = false;
     print(UI::goodbye);
+}
+
+std::string UI::safeInput() {
+    std::string buffer; // full password
+    char tch; // temp character
+
+    while ((tch = static_cast<char>(_getch())) != ENTER) {
+        if (tch != '\b') { // Checks if the char was a backspace
+            std::cout << '*';
+            buffer += tch;
+        } else {
+            if (!buffer.empty()) {
+                std::cout << "\b \b"; // Erasing '*', and moving the cursor back
+                buffer.erase(buffer.length() - 1);
+            }
+        }
+    }
+    print(""); // flush & newline
+    return buffer;
+}
+
+std::string UI::hashStr(const std::string& in) { // The only point of this function is to not store the passwords as they are.
+    unsigned long long hashNumber = 5311;
+
+    for (int i = 0; i < 3; ++i) {
+        for (char tch: in) {
+            hashNumber = ((hashNumber << 5) + hashNumber) + tch;
+        }
+    }
+    return std::to_string(hashNumber);
 }
 
 
