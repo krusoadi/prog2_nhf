@@ -9,16 +9,15 @@
 // Every method in the class are listed down below in declaration order
 
 template<class T>
-
 class TContainer {
 private:
-    T* vars;
-    int num;
+    T* vars; // Stored variables
+    int num; // Number of variables
 
-    void delPtr();
-    void makePtr(int n);
-    void checkIndex(int i) const;
-    void resize(int n);
+    void delPtr(); // Deletes this->vars, if it isn't nullptr.
+    void makePtr(int n); // Creates, an n long array-pointer and assigns to vars
+    void checkIndex(int i) const; // Checks if the given index is valid, throws Exception if not.
+    void resize(int n); // Resizes this->var, and puts back the old values.
 
 public:
     // Constructors, Destructors
@@ -30,46 +29,46 @@ public:
 
     // Add and Pop methods
 
-    void add_back(T newVar);
-    void add_front(T newVar);
-    void add_index(T newVar, int n);
+    void add_back(T newVar); // Adds a new element to the back of the array.
+    void add_front(T newVar); // Adds a new element to the front of the array
+    void add_index(T newVar, int n); // Inserts element to a given index.
 
-    T pop_back();
-    T pop_front();
-    T pop_index(int n);
+    T pop_back(); // Gets the last element from vars, (also deletes)
+    T pop_front(); // Gets the first element from vars, (also deletes)
+    T pop_index(int n); // Gets the given indexed element from vars, (also deletes)
 
     // Operator Overloads
 
     T& operator[](int n) const;
 
     // Status Check methods
-    bool isEmpty() const;
+    [[nodiscard]] bool isEmpty() const; // Checks if the vars is empty (nullptr)
 
     // Getters
 
-    [[nodiscard]] int size() const;
+    [[nodiscard]] int size() const; // returns this->num (size of the vars)
 
     // Other methods
 
-    void clear();
-    void swap(int n, int m);
+    void clear(); // Clears the array and frees memory
+    void swap(int n, int m); // Swaps two elements by the given index
 
     //Search by an independent identity, throws compile time error, if wrongly used.
 
     template<class Y> // Needed due to object-type independence (Share-OwnedShare comparison)
             int search(Y identity) const;
 
-    // Iterator TODO RandomAccessIterator, BidirectionalIterator or ForwardIterator suits better?
+    // Iterator (BidirectionalIterator is more than enough)
 
     struct Iterator;
 
     // Iterator methods
 
-    Iterator begin();
-    Iterator end();
+    Iterator begin(); // Returns an iterator to the first element
+    Iterator end(); // Returns an iterator to the last+1 element
 
-    Iterator rbegin();
-    Iterator rend();
+    Iterator rbegin(); // Reversed begin
+    Iterator rend(); // Reversed end
 
 };
 
@@ -148,7 +147,7 @@ void TContainer<T>::add_back(T newVar) {
 }
 
 template<class T>
-void TContainer<T>::add_front(T newVar) { // Maybe use resize, but that would be 2 loop.
+void TContainer<T>::add_front(T newVar) {
     T *temp = new T[num + 1];
     temp[0] = newVar;
 
@@ -268,11 +267,9 @@ void TContainer<T>::clear() {
 
 template<class T>
 void TContainer<T>::swap(int n, int m) {
-    if (n >= num || m >= num) {
-        throw Exceptions(OverIndex, "Over indexed, when swapping.");
-    } if (n < 0 || m < 0) {
-        throw Exceptions(NegativeIndex, "Negative index was given when swapping.");
-    } if(n == m) {
+    checkIndex(n);
+    checkIndex(m);
+    if(n == m) {
         return;
     }
 
@@ -319,7 +316,7 @@ template <class T> struct TContainer<T>::Iterator {
     Iterator operator--(int) {Iterator temp = *this; --(*this); return temp;}
 
     friend bool operator==(const Iterator& a, const Iterator& b) {return a.it_ptr == b.it_ptr;}
-    friend bool operator !=(const Iterator& a, const Iterator& b) {return a.it_ptr != b.it_ptr;}
+    friend bool operator!=(const Iterator& a, const Iterator& b) {return a.it_ptr != b.it_ptr;}
 
 private:
     pointer it_ptr;
