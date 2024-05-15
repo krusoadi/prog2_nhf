@@ -35,8 +35,7 @@ private: // Private Static variables, functions
 
 private: // Private variables (object related)
     int indexIn; // Given menuIndex
-
-    bool is_loggedIn;
+    bool is_loggedIn; // Flag if the user is logged in
 
 private:
     void AccountUI();

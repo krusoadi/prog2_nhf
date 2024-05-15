@@ -1,8 +1,15 @@
 #include <iostream>
 #include "headers/BankAccount.hpp"
-
+#include "headers/UI.hpp"
 int main() {
-    Currency::updateCurrency();
+
+    UI().mainLoop();
+
+    return 0;
+}
+
+/*
+     Currency::updateCurrency();
     Currency::printCurrency();
 
     Share testShare("Apple Inc.", Money(2000, HUF), 100);
@@ -67,5 +74,4 @@ int main() {
 
     tempAcc.revealShares();
 
-    return 0;
-}
+  */

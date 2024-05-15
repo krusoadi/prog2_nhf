@@ -50,6 +50,8 @@ void UI::print(const std::string& text) {
 }
 
 void UI::wrongInput() {
+    fflush(stdin);
+    std::cin.clear();
     print(IllegalNumber);
 }
 
@@ -60,7 +62,7 @@ int UI::getIndexIn() const {
 void UI::mainLoop() {
     AccountUI();
     if (!this->is_loggedIn) {
-        exit();
+        UI::runtime = false;
     }
 
     while (UI::runtime) {
@@ -82,8 +84,9 @@ UI::UI(): indexIn(0), is_loggedIn(false) {
 
 void UI::AccountUI() {
     while (!is_loggedIn) {
-        print(UI::loginMenu);
+        print(UI::accountTextMenu);
         std::cin >> this->indexIn;
+
 
         switch (indexIn) {
             case 1:
