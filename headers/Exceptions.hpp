@@ -13,7 +13,8 @@ enum errors {
     EmptyContainer,
     NegativeIndex,
     IDAlreadyExists,
-    InvalidId
+    InvalidId,
+    FileError
 };
 
 class Exceptions : public std::exception {

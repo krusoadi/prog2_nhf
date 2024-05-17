@@ -11,6 +11,8 @@ BankAccount::BankAccount(const BankAccount &other): ID(other.ID), userMoney(othe
 
 BankAccount::BankAccount(): ID(IDManager()), userMoney(), isMale(false), isWorker(false) {}
 
+BankAccount::BankAccount(IDManager id): ID(id) {}
+
 BankAccount::BankAccount(const Money& money, std::string name, bool isMale, bool isWorker):
         ID(IDManager()), name(std::move(name)), isWorker(isWorker), isMale(isMale)
 {

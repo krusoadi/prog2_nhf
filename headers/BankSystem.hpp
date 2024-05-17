@@ -1,12 +1,14 @@
 #ifndef PROG2_NHF_BANKSYSTEM_HPP
 #define PROG2_NHF_BANKSYSTEM_HPP
 
-#include "BankAccount.hpp"
+#include "User.hpp"
 #include "TContainer.hpp"
+#include <fstream>
+#include <sstream>
 
 class BankSystem {
 private:
-    TContainer<BankAccount> users;
+    TContainer<User> users;
     TContainer<Share> bankShares;
     Money bankMoney;
 public:
@@ -26,10 +28,12 @@ public:
 
     // New Queries
 
-    void addNewUser(const BankAccount& user);
+    void loadUsers(const std::string& filename);
+
+    void addNewUser(const User& user);
     void addBankShares(const Share& ShareIn);
 
-    void deleteUser(const BankAccount& user);
+    void deleteUser(const User& user);
     void deleteBankShares(const Share& ShareIn);
 
 };
