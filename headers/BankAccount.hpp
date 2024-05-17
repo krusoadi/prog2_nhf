@@ -38,6 +38,9 @@ public:
     [[nodiscard]] std::string getGender() const;
     [[maybe_unused]] [[nodiscard]] bool getIsWorker() const;
 
+    [[nodiscard]] bool getIsMale() const;
+
+    [[nodiscard]] const TContainer<OwnedShare> &getUserShares() const;
 
     // Setters
 

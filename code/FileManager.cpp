@@ -106,5 +106,21 @@ void FileManager::saveUserFile(const TContainer<User>& users) const {
 }
 
 void FileManager::saveAccountsFile(const TContainer<User>& users) {
+    std::ofstream AccountsFile(this->AccountsFileName, std::ios::out);
 
+    if (!AccountsFile.is_open()) {
+        throw Exceptions(FileError, "(FileManager) Couldn't open user file for writing, try again.");
+    }
+
+    for (const auto &user: users) {
+        BankAccount userAcc = user.getUserBank();
+        Money userMoney = userAcc.getMoney();
+        AccountsFile << userAcc.getId() << ";" << userAcc.getName() << ";" << (int)userAcc.getIsMale() << ";";
+        AccountsFile << userMoney.getValue() << ";" << (int)userMoney.getCurrency() << ";" << (int)userAcc.getIsWorker() << "|";
+
+        for (const auto &OShare: userAcc.getUserShares()) {
+            AccountsFile << OShare.getMasterShareId() << ";" << OShare.getAmount() << "|";
+        }
+        AccountsFile << "/n";
+    }
 }

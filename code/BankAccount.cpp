@@ -129,6 +129,14 @@ void BankAccount::loadShares(const OwnedShare &in) {
     this->userShares.add_back(in);
 }
 
+bool BankAccount::getIsMale() const {
+    return isMale;
+}
+
+const TContainer<OwnedShare> &BankAccount::getUserShares() const {
+    return userShares;
+}
+
 std::ostream& operator<<(std::ostream& stream, const BankAccount& in) {
     stream << "Name: " << in.getName() << " (id: " << in.getId() << ") " << in.getGender() <<" : " << in.getMoney();
     return stream;
