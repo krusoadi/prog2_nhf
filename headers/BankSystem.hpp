@@ -29,6 +29,7 @@ public:
     // New Queries
 
     void loadUsers(const std::string& filename);
+    void loadBankAccounts(const std::string& filename);
 
     void addNewUser(const User& user);
     void addBankShares(const Share& ShareIn);

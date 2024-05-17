@@ -20,7 +20,7 @@ public:
     //Getters
 
     [[nodiscard]] const std::string &getUsername() const;
-    [[nodiscard]] const BankAccount &getUserBank() const;
+    [[nodiscard]] const BankAccount getUserBank() const;
     [[nodiscard]] bool MatchPassword(std::string password) const;
 
     //Setters

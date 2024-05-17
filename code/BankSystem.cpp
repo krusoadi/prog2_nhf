@@ -48,13 +48,46 @@ void BankSystem::loadUsers(const std::string& filename) {
 
         std::istringstream lineStream(line);
 
-        std::getline(lineStream, fUsername, ':');
-        std::getline(lineStream, fPassword, ':');
-        std::getline(lineStream, fAccId, ':');
+        std::getline(lineStream, fUsername, ';');
+        std::getline(lineStream, fPassword, ';');
+        std::getline(lineStream, fAccId, ';');
 
         User readIn(fUsername, fPassword, BankAccount(IDManager(std::stoi(fAccId))));
 
         users.add_back(readIn);
+    }
+}
+
+void BankSystem::loadBankAccounts(const std::string &filename) {
+    std::ifstream AccFile(filename, std::ios::in);
+
+    if (!AccFile.is_open()) {
+        throw Exceptions(FileError, "Couldn't open user info file, are you sure it exists?");
+    }
+
+    for (std::string line; std::getline(AccFile, line);)
+    {
+        std::istringstream lineStream(line);
+
+        std::string fID; std::getline(lineStream, fID, ';');
+        std::string Name; std::getline(lineStream, Name, ';');
+        std::string fMale; std::getline(lineStream, fMale, ';');
+        std::string fMoneyAmount; std::getline(lineStream, fMoneyAmount, ';');
+        std::string fCurrency; std::getline(lineStream, fCurrency, ';');
+        std::string fisWorker; std::getline(lineStream, fisWorker, ';');
+
+        IDManager tempId(std::stoi(fID));
+        bool tempMale = std::stoi(fMale);
+        Money tempMoney(std::stod(fMoneyAmount), (CurrencyTypes)std::stoi(fCurrency));
+        bool tempWorker = std::stoi(fisWorker);
+
+        BankAccount tempAcc(tempMoney, Name, tempMale, tempWorker);
+
+        for (auto &it :users) {
+            if (tempAcc == it.getUserBank()) {
+                it.setUserBank(tempAcc);
+            }
+        }
     }
 }
 

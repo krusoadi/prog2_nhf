@@ -21,7 +21,7 @@ void User::setHashedPw(const std::string &hashedPwIn) {
     User::hashedPw = hashedPwIn;
 }
 
-const BankAccount &User::getUserBank() const {
+const BankAccount User::getUserBank() const {
     return userBank;
 }
 

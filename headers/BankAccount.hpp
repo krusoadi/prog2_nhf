@@ -23,7 +23,7 @@ public:
     // Constructors/Destructors
 
     BankAccount();
-    BankAccount(IDManager id);
+    explicit BankAccount(IDManager id);
     BankAccount(const Money& money, std::string name, bool isMale, bool isWorker);
     BankAccount(const BankAccount& other);
 
