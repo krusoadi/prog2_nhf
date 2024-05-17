@@ -126,8 +126,6 @@ void UI::logIn() { // TODO finish if needed
 
 }
 
-
-
 void UI::makeAcc() {
     User newUser;
     std::string newUserName;
@@ -136,6 +134,11 @@ void UI::makeAcc() {
 
     print("\nType in your selected username:");
     std::cin >> newUserName;
+    if (system.isUserNameReserved(newUserName)) {
+        print("Username is already in use please choose an other one.");
+        return;
+    }
+
     print("\n Type in your password");
     newPassword = safeInput();
     print("\nType in your full name:");

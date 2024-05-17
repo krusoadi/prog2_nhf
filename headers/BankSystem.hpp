@@ -38,6 +38,7 @@ public:
     void loadUsers(const TContainer<User>& usersIn);
 
     const User& searchByUserName(const std::string& username);
+    [[nodiscard]] bool isUserNameReserved(const std::string& username) const;
 };
 
 #endif //PROG2_NHF_BANKSYSTEM_HPP

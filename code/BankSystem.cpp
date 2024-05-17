@@ -51,3 +51,12 @@ const User& BankSystem::searchByUserName(const std::string& username) {
     throw Exceptions(UserNotFound, "Couldn't find user.");
 }
 
+bool BankSystem::isUserNameReserved(const std::string& username) const {
+    for (const auto &it: users) {
+        if (it.getUsername() == username) {
+            return true;
+        }
+    }
+    return false;
+}
+
