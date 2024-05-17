@@ -52,7 +52,7 @@ private:
     void exit(); // Exit function
 
 public:
-    UI(const BankSystem& systemIn, FileManager  managerIn);
+    UI(const BankSystem& systemIn, const FileManager&  managerIn);
     void mainLoop();
 };
 

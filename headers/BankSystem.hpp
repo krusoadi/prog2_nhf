@@ -21,8 +21,7 @@ public:
     //Getters TODO
 
     [[nodiscard]] const Money &getBankMoney() const;
-
-    const TContainer<User> &getUsers() const;
+    [[nodiscard]] const TContainer<User> &getUsers() const;
 
     //Get...By...
 
@@ -37,6 +36,8 @@ public:
     void deleteBankShares(const Share& ShareIn);
 
     void loadUsers(const TContainer<User>& usersIn);
+
+    const User& searchByUserName(const std::string& username);
 };
 
 #endif //PROG2_NHF_BANKSYSTEM_HPP

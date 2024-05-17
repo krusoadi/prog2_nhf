@@ -75,7 +75,7 @@ void UI::mainLoop() {
 
 }
 
-UI::UI(const BankSystem& systemIn, FileManager managerIn): indexIn(0), is_loggedIn(false),
+UI::UI(const BankSystem& systemIn, const FileManager& managerIn): indexIn(0), is_loggedIn(false),
 manager(managerIn), system(systemIn) {
     print(UI::welcomeText);
 }
@@ -104,9 +104,29 @@ void UI::AccountUI() {
 }
 
 void UI::logIn() { // TODO finish if needed
-    safeInput();
-    this->is_loggedIn = true;
+    std::string userName;
+    std::string Password;
+
+    print("\nType in your selected username:");
+    std::cin >> userName;
+    print("\n Type in your password");
+    Password = safeInput();
+    std::string hashed = hashStr(Password);
+    try {
+        const User& found = system.searchByUserName(userName);
+        if (!found.MatchPassword(hashed)) {
+            print("Incorrect password, try again!");
+            return;
+        }
+        print("Successfully logged in! Welcome back!");
+        this->is_loggedIn = true;
+    } catch (const Exceptions &e) {
+        std::cerr << e.what();
+    }
+
 }
+
+
 
 void UI::makeAcc() {
     User newUser;
@@ -128,7 +148,7 @@ void UI::makeAcc() {
     manager.saveUsers(system.getUsers());
 
     print("Congratulations, you've just made your first account.");
-    this->is_loggedIn = false;
+    this->is_loggedIn = true;
 }
 
 void UI::exit() {

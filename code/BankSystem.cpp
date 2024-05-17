@@ -42,3 +42,12 @@ const TContainer<User> &BankSystem::getUsers() const {
     return users;
 }
 
+const User& BankSystem::searchByUserName(const std::string& username) {
+    for (const auto &it: users) {
+        if (it.getUsername() == username) {
+            return it;
+        }
+    }
+    throw Exceptions(UserNotFound, "Couldn't find user.");
+}
+
