@@ -43,15 +43,20 @@ const TContainer<User> &BankSystem::getUsers() const {
 }
 
 const User& BankSystem::searchByUserName(const std::string& username) {
-    for (const auto &it: users) {
-        if (it.getUsername() == username) {
-            return it;
+    if (!users.isEmpty()) {
+        for (const auto &it: users) {
+            if (it.getUsername() == username) {
+                return it;
+            }
         }
     }
     throw Exceptions(UserNotFound, "Couldn't find user.");
 }
 
 bool BankSystem::isUserNameReserved(const std::string& username) const {
+    if (users.isEmpty()) {
+        return false;
+    }
     for (const auto &it: users) {
         if (it.getUsername() == username) {
             return true;

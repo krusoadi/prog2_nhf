@@ -108,8 +108,14 @@ void UI::logIn() { // TODO finish if needed
     std::string Password;
 
     print("\nType in your selected username:");
+
     std::cin >> userName;
     print("\n Type in your password");
+    if (!system.isUserNameReserved(userName)) {
+        print("There is no account with this username, please try again!");
+        return;
+    }
+
     Password = safeInput();
     std::string hashed = hashStr(Password);
     try {
@@ -122,6 +128,8 @@ void UI::logIn() { // TODO finish if needed
         this->is_loggedIn = true;
     } catch (const Exceptions &e) {
         std::cerr << e.what();
+        this->is_loggedIn = false;
+
     }
 
 }
