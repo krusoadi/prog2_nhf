@@ -23,6 +23,7 @@ class Exceptions : public std::exception {
 public:
     explicit Exceptions(errors errorType, const char* message = "");
     [[nodiscard]] const char* what() const noexcept override;
+    [[nodiscard]] errors getType() const;
 
 };
 

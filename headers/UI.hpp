@@ -3,6 +3,8 @@
 #include <string>
 #include <iostream>
 #include <conio.h> // for safe password staring
+#include "BankSystem.hpp"
+#include "FileManager.hpp"
 #define ENTER 13
 
 class UI {
@@ -40,6 +42,8 @@ private: // Private Static variables, functions
 private: // Private variables (object related)
     int indexIn; // Given menuIndex
     bool is_loggedIn; // Flag if the user is logged in
+    BankSystem system;
+    FileManager manager;
 
 private:
     void AccountUI(); // Login/Register selector
@@ -48,7 +52,7 @@ private:
     void exit(); // Exit function
 
 public:
-    UI();
+    UI(const BankSystem& systemIn, FileManager  managerIn);
     void mainLoop();
 };
 

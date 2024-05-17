@@ -6,3 +6,7 @@ const char *Exceptions::what() const noexcept {
     return this->msg.c_str(); // due to std::string <--> const char* conversion
 }
 
+errors Exceptions::getType() const {
+    return type;
+}
+

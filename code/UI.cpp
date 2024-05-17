@@ -1,3 +1,5 @@
+#include <utility>
+
 #include "../headers/UI.hpp"
 
 bool UI::runtime = true;
@@ -71,10 +73,10 @@ void UI::mainLoop() {
 
     };
 
-
 }
 
-UI::UI(): indexIn(0), is_loggedIn(false) {
+UI::UI(const BankSystem& systemIn, FileManager managerIn): indexIn(0), is_loggedIn(false),
+manager(managerIn), system(systemIn) {
     print(UI::welcomeText);
 }
 
@@ -106,7 +108,26 @@ void UI::logIn() { // TODO finish if needed
     this->is_loggedIn = true;
 }
 
-void UI::makeAcc() { // TODO finish if needed
+void UI::makeAcc() {
+    User newUser;
+    std::string newUserName;
+    std::string newPassword;
+    std::string name;
+
+    print("\nType in your selected username:");
+    std::cin >> newUserName;
+    print("\n Type in your password");
+    newPassword = safeInput();
+    print("\nType in your full name:");
+    std::cin >> name;
+
+    newUser.setUsername(newUserName);
+    newUser.setHashedPw(hashStr(newPassword));
+    newUser.setUserBank(BankAccount(Money(0, EUR), name, false, true));
+    system.addNewUser(newUser);
+    manager.saveUsers(system.getUsers());
+
+    print("Congratulations, you've just made your first account.");
     this->is_loggedIn = false;
 }
 

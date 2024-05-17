@@ -34,3 +34,11 @@ void BankSystem::deleteBankShares(const Share &ShareIn) {
     catch (Exceptions &e) {std::cerr << e.what() << " Didn't delete Share.\n";}
 }
 
+void BankSystem::loadUsers(const TContainer<User> &usersIn) {
+    this->users = usersIn;
+}
+
+const TContainer<User> &BankSystem::getUsers() const {
+    return users;
+}
+

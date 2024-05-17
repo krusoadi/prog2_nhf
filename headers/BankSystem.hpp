@@ -22,6 +22,8 @@ public:
 
     [[nodiscard]] const Money &getBankMoney() const;
 
+    const TContainer<User> &getUsers() const;
+
     //Get...By...
 
     [[nodiscard]] Share& getShareByChild(const OwnedShare& in) const; //TODO error handling (ptr approach or dummy-reference)
@@ -33,6 +35,8 @@ public:
 
     void deleteUser(const User& user);
     void deleteBankShares(const Share& ShareIn);
+
+    void loadUsers(const TContainer<User>& usersIn);
 };
 
 #endif //PROG2_NHF_BANKSYSTEM_HPP

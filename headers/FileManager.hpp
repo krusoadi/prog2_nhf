@@ -20,6 +20,7 @@ private:
     void saveAccountsFile(const TContainer<User>& users);
 public:
     FileManager(std::string  userFile, std::string  accountFile, std::string  shareFile);
+    FileManager(const FileManager& other) = default;
     TContainer<User> loadUsers();
     void saveUsers(const TContainer<User>& users);
 

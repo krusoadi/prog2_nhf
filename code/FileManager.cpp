@@ -9,7 +9,7 @@ void FileManager::loadUserFile(TContainer<User>& users) {
     std::ifstream userFile(this->UserFileName, std::ios::in);
 
     if (!userFile.is_open()) {
-        throw Exceptions(FileError, "(FileManager) Couldn't open user info file, are you sure it exists?");
+        throw Exceptions(FileError, "(FileManager) Couldn't open user info file, are you sure it exists?\n");
     }
 
     for (std::string line; std::getline(userFile, line);) {
@@ -33,7 +33,7 @@ void FileManager::loadAccountFile(TContainer<User> &users) {
     std::ifstream AccFile(this->AccountsFileName, std::ios::in); //AccountsFile
 
     if (!AccFile.is_open()) {
-        throw Exceptions(FileError, "(FileManager) Couldn't open BankAccount info file, are you sure it exists?");
+        throw Exceptions(FileError, "(FileManager) Couldn't open BankAccount info file, are you sure it exists?\n");
     }
 
     for (std::string line; std::getline(AccFile, line);)
@@ -47,22 +47,23 @@ void FileManager::loadAccountFile(TContainer<User> &users) {
         std::string fCurrency; std::getline(lineStream, fCurrency, ';');
         std::string fisWorker; std::getline(lineStream, fisWorker, '|');
 
-        IDManager tempId(std::stoi(fID));
+        int tempId = std::stoi(fID);
         bool tempMale = std::stoi(fMale);
         Money tempMoney(std::stod(fMoneyAmount), (CurrencyTypes)std::stoi(fCurrency));
         bool tempWorker = std::stoi(fisWorker);
 
         BankAccount tempAcc(tempMoney, Name, tempMale, tempWorker);
 
-        for (std::string ShareLine; std::getline(AccFile, ShareLine, '|');) {
+        for (std::string ShareLine; std::getline(lineStream, ShareLine, '|');) {
             std::istringstream ShareLineStream(ShareLine);
             OwnedShare tempOS = loadOwnedShare(ShareLineStream);
             tempAcc.loadShares(tempOS);
 
         }
         for (auto &it :users) {
-            if (tempAcc == it.getUserBank()) {
+            if (tempId == it.getUserBank().getId()) {
                 it.setUserBank(tempAcc);
+                return;
             }
         }
     }
@@ -97,11 +98,12 @@ void FileManager::saveUserFile(const TContainer<User>& users) const {
     std::ofstream UserFile(this->UserFileName, std::ios::out);
 
     if (!UserFile.is_open()) {
-        throw Exceptions(FileError, "(FileManager) Couldn't open user file for writing, try again.");
+        throw Exceptions(FileError, "(FileManager) Couldn't open user file for writing, try again.\n");
     }
-
-    for (const auto & user : users) {
-        UserFile << user.getUsername() << ":" << user.getHashedPw() << ";" << user.getUserBank().getId() << "\n";
+    if (!users.isEmpty()) {
+        for (const auto & user : users) {
+            UserFile << user.getUsername() << ";" << user.getHashedPw() << ";" << user.getUserBank().getId() << "\n";
+        }
     }
 }
 
@@ -109,18 +111,22 @@ void FileManager::saveAccountsFile(const TContainer<User>& users) {
     std::ofstream AccountsFile(this->AccountsFileName, std::ios::out);
 
     if (!AccountsFile.is_open()) {
-        throw Exceptions(FileError, "(FileManager) Couldn't open user file for writing, try again.");
+        throw Exceptions(FileError, "(FileManager) Couldn't open user file for writing, try again.\n");
     }
-
-    for (const auto &user: users) {
-        BankAccount userAcc = user.getUserBank();
-        Money userMoney = userAcc.getMoney();
-        AccountsFile << userAcc.getId() << ";" << userAcc.getName() << ";" << (int)userAcc.getIsMale() << ";";
-        AccountsFile << userMoney.getValue() << ";" << (int)userMoney.getCurrency() << ";" << (int)userAcc.getIsWorker() << "|";
-
-        for (const auto &OShare: userAcc.getUserShares()) {
-            AccountsFile << OShare.getMasterShareId() << ";" << OShare.getAmount() << "|";
+    if (!users.isEmpty()) {
+        for (const auto &user: users) {
+            BankAccount userAcc = user.getUserBank();
+            Money userMoney = userAcc.getMoney();
+            AccountsFile << userAcc.getId() << ";" << userAcc.getName() << ";" << (int) userAcc.getIsMale() << ";";
+            AccountsFile << userMoney.getValue() << ";" << (int) userMoney.getCurrency() << ";"
+                         << (int) userAcc.getIsWorker() << "|";
+            if(!userAcc.getUserShares().isEmpty()) {
+                for (const auto &OShare: userAcc.getUserShares()) {
+                    AccountsFile << OShare.getMasterShareId() << ";" << OShare.getAmount() << "|";
+                }
+            }
+            AccountsFile << "\n";
         }
-        AccountsFile << "/n";
     }
 }
+

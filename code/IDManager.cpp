@@ -25,7 +25,7 @@ IDManager::IDManager(): id(generateID()) {}
 
 IDManager::IDManager(int previousID) {
     try {
-        if (id < 100000 || id > 999999) {
+        if (previousID < 100000 || previousID > 999999) {
             throw Exceptions(InvalidId, "The ID is invalid, not between the supported bounds,"
                                         " generated a new");
         }

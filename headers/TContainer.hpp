@@ -40,6 +40,7 @@ public:
     // Operator Overloads
 
     T& operator[](int n) const;
+    TContainer<T>& operator=(const TContainer<T>& other);
 
     // Status Check methods
     [[nodiscard]] bool isEmpty() const; // Checks if the vars is empty (nullptr)
@@ -79,6 +80,21 @@ public:
     ConstIterator end() const;
 
 };
+
+template<class T>
+TContainer<T>& TContainer<T>::operator=(const TContainer<T> &other) {
+    if (this != &other) {
+        delPtr();
+
+        num = other.num;
+        makePtr(num);
+        for (int i = 0; i < num; ++i) {
+            vars[i] = other.vars[i];
+        }
+    }
+    return *this;
+}
+
 template<class T>
 void TContainer<T>::delPtr() {
     if (!isEmpty()) {
@@ -130,7 +146,6 @@ template<class T>
 
 template<class T>
 TContainer<T>::TContainer(const TContainer<T> &other): num(other.num) {
-
     try {
         makePtr(num);
         for (int i = 0; i < num; ++i) {
