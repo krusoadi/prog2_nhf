@@ -15,7 +15,7 @@ public:
     // Constructor, Destructors
 
     BankSystem();
-    BankSystem(const Money& initMoney);
+    explicit BankSystem(const Money& initMoney);
     ~BankSystem() = default;
 
     //Getters TODO

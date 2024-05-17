@@ -149,8 +149,12 @@ void UI::makeAcc() {
 
     print("\n Type in your password");
     newPassword = safeInput();
-    print("\nType in your full name:");
+    print("\nType in your first name:");
     std::cin >> name;
+    print("\nType in your last name:");
+    std::string last;
+    std::cin >> last;
+    name += " " + last;
 
     newUser.setUsername(newUserName);
     newUser.setHashedPw(hashStr(newPassword));

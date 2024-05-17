@@ -17,7 +17,6 @@ private: // Object related private variables
 public:
     IDManager(); // Only use this, when new ID will be assigned
     explicit IDManager(int previousID); // Only use this, when the object is read from file, and already has an ID
-
     IDManager(const IDManager&other) = default; // Copy constructor, used directly in TContainers
     ~IDManager() = default;
 
