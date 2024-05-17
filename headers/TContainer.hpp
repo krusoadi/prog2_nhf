@@ -75,9 +75,10 @@ public:
 
     ConstIterator cbegin() const;
     ConstIterator cend() const;
+    ConstIterator begin() const;
+    ConstIterator end() const;
 
 };
-
 template<class T>
 void TContainer<T>::delPtr() {
     if (!isEmpty()) {
@@ -400,8 +401,21 @@ typename TContainer<T>::ConstIterator TContainer<T>::cend() const {
     }
     return TContainer::ConstIterator(&vars[this->num]);
 }
+template<class T>
+typename TContainer<T>::ConstIterator TContainer<T>::begin() const {
+    if (this->isEmpty()) {
+        throw Exceptions(EmptyContainer, "Cannot use const iterator on an empty TContainer");
+    }
+    return TContainer::ConstIterator(&vars[0]);
+}
 
-
+template<class T>
+typename TContainer<T>::ConstIterator TContainer<T>::end() const {
+    if (this->isEmpty()) {
+        throw Exceptions(EmptyContainer, "Cannot use const iterator on an empty TContainer");
+    }
+    return TContainer::ConstIterator(&vars[this->num]);
+}
 
 template<class T>
 std::ostream& operator<<(std::ostream& stream, TContainer<T> &in) {

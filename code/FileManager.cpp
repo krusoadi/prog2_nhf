@@ -100,8 +100,8 @@ void FileManager::saveUserFile(const TContainer<User>& users) const {
         throw Exceptions(FileError, "(FileManager) Couldn't open user file for writing, try again.");
     }
 
-    for (auto &i : users) {
-
+    for (const auto & user : users) {
+        UserFile << user.getUsername() << ":" << user.getHashedPw() << ";" << user.getUserBank().getId() << "\n";
     }
 }
 

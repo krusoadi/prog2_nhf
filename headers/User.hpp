@@ -20,8 +20,9 @@ public:
     //Getters
 
     [[nodiscard]] const std::string &getUsername() const;
-    [[nodiscard]] const BankAccount getUserBank() const;
+    [[nodiscard]] BankAccount getUserBank() const;
     [[nodiscard]] bool MatchPassword(std::string password) const;
+    [[nodiscard]] const std::string &getHashedPw() const;
 
     //Setters
 
