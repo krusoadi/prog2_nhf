@@ -36,7 +36,3 @@ bool User::operator==(const User &other) {
 bool User::MatchPassword(std::string password) const {
     return this->hashedPw == password;
 }
-
-BankAccount &User::loadBankaccount() {
-    return this->userBank.giveBankReference();
-}

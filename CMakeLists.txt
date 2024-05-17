@@ -23,4 +23,6 @@ add_executable(prog2_nhf main.cpp
         headers/UI.hpp
         code/User.cpp
         headers/User.hpp
+        code/FileManager.cpp
+        headers/FileManager.hpp
 )

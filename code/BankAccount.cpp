@@ -129,10 +129,6 @@ void BankAccount::loadShares(const OwnedShare &in) {
     this->userShares.add_back(in);
 }
 
-BankAccount &BankAccount::giveBankReference() {
-    return *this;
-}
-
 std::ostream& operator<<(std::ostream& stream, const BankAccount& in) {
     stream << "Name: " << in.getName() << " (id: " << in.getId() << ") " << in.getGender() <<" : " << in.getMoney();
     return stream;

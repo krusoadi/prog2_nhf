@@ -28,7 +28,6 @@ public:
     void setUserBank(const BankAccount &userBankIn);
     void setHashedPw(const std::string &hashedPwIn);
     void setUsername(const std::string &usernameIn);
-    BankAccount& loadBankaccount();
 
     bool operator==(const User& other);
 };

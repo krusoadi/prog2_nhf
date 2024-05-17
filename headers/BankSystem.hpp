@@ -7,7 +7,7 @@
 #include <sstream>
 
 class BankSystem {
-private:
+private: // Variables
     TContainer<User> users;
     TContainer<Share> bankShares;
     Money bankMoney;
@@ -28,18 +28,11 @@ public:
 
     // New Queries
 
-
-
     void addNewUser(const User& user);
     void addBankShares(const Share& ShareIn);
 
     void deleteUser(const User& user);
     void deleteBankShares(const Share& ShareIn);
-
-    void loadUsers(const std::string& filename);
-    void loadBankAccounts(const std::string& filename);
-    void loadOwnedShares(const std::string& filename);
-
 };
 
 #endif //PROG2_NHF_BANKSYSTEM_HPP
