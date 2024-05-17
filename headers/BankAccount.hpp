@@ -63,6 +63,10 @@ public:
 
     bool operator==(const BankAccount& other);
 
+    void loadShares(const OwnedShare& in);
+
+    BankAccount& giveBankReference();
+
 };
 
 std::ostream& operator<<(std::ostream& stream, const BankAccount& in);

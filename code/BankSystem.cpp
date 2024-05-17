@@ -59,7 +59,7 @@ void BankSystem::loadUsers(const std::string& filename) {
 }
 
 void BankSystem::loadBankAccounts(const std::string &filename) {
-    std::ifstream AccFile(filename, std::ios::in);
+    std::ifstream AccFile(filename, std::ios::in); //AccountsFile
 
     if (!AccFile.is_open()) {
         throw Exceptions(FileError, "Couldn't open user info file, are you sure it exists?");
@@ -86,6 +86,35 @@ void BankSystem::loadBankAccounts(const std::string &filename) {
         for (auto &it :users) {
             if (tempAcc == it.getUserBank()) {
                 it.setUserBank(tempAcc);
+            }
+        }
+    }
+}
+
+void BankSystem::loadOwnedShares(const std::string &filename) {
+    std::ifstream OSFile(filename, std::ios::in); //OwnedShareFile
+
+    if (!OSFile.is_open()) {
+        throw Exceptions(FileError, "Couldn't open user info file, are you sure it exists?");
+    }
+
+    for (std::string line; std::getline(OSFile, line);) {
+        std::istringstream lineStream(line);
+
+        std::string fUserID; std::getline(lineStream, fUserID, ';'); //ID of the User who owns it
+        std::string fOSMID; std::getline(lineStream, fOSMID, ';'); // file OwnedShare Master ID
+        std::string fAmount; std::getline(lineStream, fAmount, ';'); // OwnedShare Amount
+
+        int userIDTemp = std::stoi(fUserID);
+        IDManager OSMIDTemp(std::stoi(fOSMID));
+        int AmountTemp =std::stoi(fAmount);
+
+        OwnedShare tempOS(AmountTemp);
+        tempOS.setMasterShareId(OSMIDTemp.getId());
+
+        for (auto &i: users) {
+            if (i.getUserBank().getId() == userIDTemp) {
+                i.loadBankaccount().loadShares(tempOS);
             }
         }
     }
