@@ -93,8 +93,16 @@ void FileManager::saveUsers(const TContainer<User>& users) {
     saveAccountsFile(users);
 }
 
-void FileManager::saveUserFile(const TContainer<User>& users) {
+void FileManager::saveUserFile(const TContainer<User>& users) const {
+    std::ofstream UserFile(this->UserFileName, std::ios::out);
 
+    if (!UserFile.is_open()) {
+        throw Exceptions(FileError, "(FileManager) Couldn't open user file for writing, try again.");
+    }
+
+    for (auto &i : users) {
+
+    }
 }
 
 void FileManager::saveAccountsFile(const TContainer<User>& users) {

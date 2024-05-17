@@ -70,6 +70,12 @@ public:
     Iterator rbegin(); // Reversed begin
     Iterator rend(); // Reversed end
 
+    // Const Iterator
+    struct ConstIterator;
+
+    ConstIterator cbegin() const;
+    ConstIterator cend() const;
+
 };
 
 template<class T>
@@ -351,8 +357,51 @@ typename TContainer<T>::Iterator TContainer<T>::rend() {
     if (this->isEmpty()) {
         throw Exceptions(EmptyContainer, "Cannot use iterator on an empty TContainer");
     }
-    return TContainer::Iterator(&vars[-1]); // BRUH??????
+    return TContainer::Iterator(&vars[-1]);
 }
+
+template <class T> struct TContainer<T>::ConstIterator {
+    using iterator_category = std::bidirectional_iterator_tag;
+    using difference_tag = std::ptrdiff_t;
+    using value_type = T;
+    using pointer = const T*;
+    using reference = const T&;
+
+    explicit ConstIterator(pointer ptr) : it_ptr(ptr) {};
+
+    difference_tag distance(ConstIterator other) {return std::distance(this->it_ptr, other.it_ptr);}
+    reference operator*() const {return *it_ptr;}
+    pointer operator->() const {return it_ptr;}
+    ConstIterator& operator++() {it_ptr++; return *this;}
+    ConstIterator operator++(int) {ConstIterator temp = *this; ++(*this); return temp;}
+
+    ConstIterator& operator--() {it_ptr--; return *this;}
+    ConstIterator operator--(int) {ConstIterator temp = *this; --(*this); return temp;}
+
+    friend bool operator==(const ConstIterator& a, const ConstIterator& b) {return a.it_ptr == b.it_ptr;}
+    friend bool operator!=(const ConstIterator& a, const ConstIterator& b) {return a.it_ptr != b.it_ptr;}
+
+private:
+    pointer it_ptr;
+};
+
+template<class T>
+typename TContainer<T>::ConstIterator TContainer<T>::cbegin() const {
+    if (this->isEmpty()) {
+        throw Exceptions(EmptyContainer, "Cannot use const iterator on an empty TContainer");
+    }
+    return TContainer::ConstIterator(&vars[0]);
+}
+
+template<class T>
+typename TContainer<T>::ConstIterator TContainer<T>::cend() const {
+    if (this->isEmpty()) {
+        throw Exceptions(EmptyContainer, "Cannot use const iterator on an empty TContainer");
+    }
+    return TContainer::ConstIterator(&vars[this->num]);
+}
+
+
 
 template<class T>
 std::ostream& operator<<(std::ostream& stream, TContainer<T> &in) {

@@ -16,7 +16,7 @@ private: // Private File Data Loaders
     void loadAccountFile(TContainer<User>& users);
     static OwnedShare loadOwnedShare(std::istringstream &lineStream);
 private:
-    void saveUserFile(const TContainer<User>& users);
+    void saveUserFile(const TContainer<User>& users) const;
     void saveAccountsFile(const TContainer<User>& users);
 public:
     FileManager(std::string  userFile, std::string  accountFile, std::string  shareFile);
