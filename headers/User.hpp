@@ -6,40 +6,30 @@
 
 class User {
 private:
-    std::string username;
-    std::string hashedPw;
-    BankAccount userBank;
+    std::string username; // Username
+    std::string hashedPw; // Hashed password of the user
+    BankAccount userBank; //  Users Bank account
 
 public:
     //Constructor, Destructor
     User() = default;
-
     User(std::string username, std::string hashedPw, const BankAccount &userBank);
-
     User(const User &other) = default;
-
     ~User() = default;
-
 
     //Getters
 
     [[nodiscard]] const std::string &getUsername() const;
-
     [[nodiscard]] BankAccount &getUserBank();
     [[nodiscard]] BankAccount getUserBank() const;
-
     [[nodiscard]] bool MatchPassword(const std::string& password) const;
-
     [[nodiscard]] const std::string &getHashedPw() const;
 
     //Setters
 
     void setUserBank(const BankAccount &userBankIn);
-
     void setHashedPw(const std::string &hashedPwIn);
-
     void setUsername(const std::string &usernameIn);
-
     bool operator==(const User &other);
 };
 

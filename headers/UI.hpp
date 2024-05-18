@@ -12,7 +12,7 @@
 class UI {
 private: // Private Static variables, functions
 
-    // Static Const Strings
+    // Static Const Strings, which  needs to be stored, in the program
 
     static const std::string welcomeText;
     static const std::string menuText;
@@ -32,42 +32,41 @@ private: // Private Static variables, functions
 
     // Static variables
 
-    static bool runtime;
+    static bool runtime; // Main flag for runtime
 
     // Static Functions
 
-    static void print(const std::string &text);
+    static void print(const std::string &text); // Prints out a string (for convention)
 
-    static void wrongInput();
+    static void wrongInput(); // Restores the IO when wrong input was given
 
     static std::string safeInput(); // for passwords, it stars out the input;
-    static std::string
-    hashStr(const std::string &in); // NOT SAFE hash, just for not storing the passwords as they are :)
+    static std::string hashStr(const std::string &in); // Hashing function (really primitive hash)
 
 private: //Private variables (user related)
     int indexIn; // Given menuIndex
     bool is_loggedIn; // Flag if the user is logged in
-    User thisUser;
+    User thisUser; // The current users data stored here too, but needs to be refreshed always
 
 private: // Private variables (object related)
-    BankSystem system;
-    FileManager manager;
+    BankSystem system; // The system where the banks data stored
+    FileManager manager; // The IO manager class.
 
 private:
     void AccountUI(); // Login/Register selector
     void logIn(); // Login panel
     void makeAcc(); // Register [register keyword is reserved]
     void exit(); // Exit function
-    void depositMoney();
-    void withdrawMoney();
-    void refreshUser();
-    void myAccount();
-    void mainMenuFunctions();
+    void depositMoney(); // Money deposit function
+    void withdrawMoney();// Money withdraw function
+    void refreshUser(); // Loads changes to our user.
+    void myAccount(); // Prints info about the users account
+    void mainMenuFunctions(); // Switch case of the menu
 
 public:
-    UI(const BankSystem &systemIn, const FileManager &managerIn);
-    ~UI();
-    void mainLoop();
+    UI(const BankSystem &systemIn, const FileManager &managerIn); // Only constructor needed
+    ~UI(); // We need the destructor, because with every quit we save the data.
+    void mainLoop(); // Main menus loop.
 };
 
 

@@ -63,7 +63,7 @@ void FileManager::loadAccountFile(TContainer<User> &users) {
         for (std::string ShareLine; std::getline(lineStream, ShareLine, '|');) {
             std::istringstream ShareLineStream(ShareLine);
             OwnedShare tempOS = loadOwnedShare(ShareLineStream);
-            tempAcc.loadShares(tempOS);
+            tempAcc.loadOShares(tempOS);
 
         }
         for (auto &it: users) {

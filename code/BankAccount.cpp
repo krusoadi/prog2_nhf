@@ -127,7 +127,7 @@ bool BankAccount::operator==(const BankAccount &other) {
     return this->ID == other.ID;
 }
 
-void BankAccount::loadShares(const OwnedShare &in) {
+void BankAccount::loadOShares(const OwnedShare &in) {
     this->userShares.add_back(in);
 }
 

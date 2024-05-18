@@ -2,7 +2,7 @@
 #include "headers/BankAccount.hpp"
 #include "headers/UI.hpp"
 
-int main() {
+int main() { // TODO IDManagement when an ID is not reserved anymore
     BankSystem system(Money(15000, EUR));
     FileManager manager("..\\files\\test.txt", "..\\files\\test2.txt", "..\\files\\test3.txt");
 

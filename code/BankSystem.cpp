@@ -42,7 +42,7 @@ const TContainer<User> &BankSystem::getUsers() const {
     return users;
 }
 
-const User &BankSystem::searchByUserName(const std::string &username) {
+const User &BankSystem::getConstUser(const std::string &username) {
     if (!users.isEmpty()) {
         for (const auto &it: users) {
             if (it.getUsername() == username) {

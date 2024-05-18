@@ -3,10 +3,8 @@
 
 #include <exception>
 #include <string>
-
+// Errors used in the program, to get these you have to call e.getType() (e = Exception &e)
 enum errors {
-    GenericError,
-    NotDefinedError,
     NegativeMoney,
     NotEnoughShares,
     WrongMaster,
@@ -20,15 +18,15 @@ enum errors {
 };
 
 class Exceptions : public std::exception {
-    errors type;
-    std::string msg;
+    errors type; //  enum errors
+    std::string msg; // Message when thrown an Exception
 public:
+    // Constructor
     explicit Exceptions(errors errorType, const char *message = "");
 
+    // Getters
     [[nodiscard]] const char *what() const noexcept override;
-
     [[nodiscard]] errors getType() const;
-
 };
 
 

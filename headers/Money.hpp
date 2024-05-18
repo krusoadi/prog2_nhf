@@ -6,21 +6,17 @@
 #include "Currency.hpp"
 
 class Money {
-    double value;
+    double value; // Stored amount of currency
     CurrencyTypes moneyCurr; // acronym for Money Currency
 
-    // Static Private currency converter
-
+    // Static Private currency converter for the class methods. Transfers currency for operations
     static Money TransferCurrency(CurrencyTypes our, const Money &other);
 
 public:
 
     // Constructors, Destructors
-
-    Money(double value, CurrencyTypes currency);
-
     Money();
-
+    Money(double value, CurrencyTypes currency);
     Money(const Money &other) = default;
 
     ~Money() = default;
@@ -28,41 +24,32 @@ public:
     // Getters
 
     [[nodiscard]] double getValue() const;
-
     [[nodiscard]] CurrencyTypes getCurrency() const;
 
-    // Setters
+    // Setters TODO check if they are needed.
 
     [[maybe_unused]] void setCurrency(CurrencyTypes cur);
-
     [[maybe_unused]] void setValue(double val);
 
-    // Converters (for object)
+    // Converters (for object) TODO check if safe to delete
 
     [[maybe_unused]] [[nodiscard]] Money convertCurrency(CurrencyTypes dest) const;
 
     // Arithmetic Operators
 
     Money operator+(const Money &other);
-
     Money operator-(const Money &other);
-
     Money operator*(double rate);
-
     Money operator*(int amount);
 
     Money &operator+=(const Money &other);
-
     Money &operator-=(const Money &other);
-
     Money &operator*=(double rate);
 
     // Compare operators
 
     bool operator==(const Money &other);
-
     bool operator<(const Money &other);
-
     bool operator>(const Money &other);
 };
 

@@ -25,9 +25,6 @@ public:
     // Getter,== operator
 
     [[nodiscard]] int getId() const; // Only needed public method along with the operator
-    ///
-    /// \param other
-    /// \return
     bool operator==(const IDManager &other) const;
 };
 

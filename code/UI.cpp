@@ -120,7 +120,7 @@ void UI::logIn() {
     std::string hashed = hashStr(Password);
 
     try {
-        const User &found = system.searchByUserName(userName);
+        const User &found = system.getConstUser(userName);
         if (!found.MatchPassword(hashed)) {
             print("Incorrect password, try again!\n");
             return;
@@ -237,7 +237,7 @@ void UI::depositMoney() {
 }
 
 void UI::refreshUser() {
-    auto refresh = this->system.searchByUserName(thisUser.getUsername());
+    auto refresh = this->system.getConstUser(thisUser.getUsername());
     this->thisUser = refresh;
 }
 

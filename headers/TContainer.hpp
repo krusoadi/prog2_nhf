@@ -23,25 +23,21 @@ public:
     // Constructors, Destructors
 
     TContainer();
-
     [[maybe_unused]] explicit TContainer(T first);
-
     TContainer(const TContainer<T> &other);
-
     ~TContainer();
 
     // Add and Pop methods
 
     void add_back(T newVar); // Adds a new element to the back of the array.
-    void add_front(T newVar); // Adds a new element to the front of the array
-    void add_index(T newVar, int n); // Inserts element to a given index.
+    [[maybe_unused]] void add_front(T newVar); // Adds a new element to the front of the array
+    [[maybe_unused]] void add_index(T newVar, int n); // Inserts element to a given index.
 
-    T pop_back(); // Gets the last element from vars, (also deletes)
-    T pop_front(); // Gets the first element from vars, (also deletes)
+    [[maybe_unused]] T pop_back(); // Gets the last element from vars, (also deletes)
+    [[maybe_unused]] T pop_front(); // Gets the first element from vars, (also deletes)
     T pop_index(int n); // Gets the given indexed element from vars, (also deletes)
 
     // Operator Overloads
-
     T &operator[](int n) const;
 
     TContainer<T> &operator=(const TContainer<T> &other);
@@ -60,8 +56,7 @@ public:
 
     //Search by an independent identity, throws compile time error, if wrongly used.
 
-    template<class Y>
-    // Needed due to object-type independence (Share-OwnedShare comparison)
+    template<class Y> // Needed due to object-type independence (Share-OwnedShare comparison)
     int search(Y identity) const;
 
     // Iterator (BidirectionalIterator is more than enough)
@@ -73,18 +68,16 @@ public:
     Iterator begin(); // Returns an iterator to the first element
     Iterator end(); // Returns an iterator to the last+1 element
 
-    Iterator rbegin(); // Reversed begin
-    Iterator rend(); // Reversed end
+    [[maybe_unused]] Iterator rbegin(); // Reversed begin
+    [[maybe_unused]] Iterator rend(); // Reversed end
 
     // Const Iterator
     struct ConstIterator;
 
-    ConstIterator cbegin() const;
+    [[maybe_unused]] ConstIterator cbegin() const; // Constant Iterator begin
+    [[maybe_unused]] ConstIterator cend() const; // Constant Iterator end
 
-    ConstIterator cend() const;
-
-    ConstIterator begin() const;
-
+    ConstIterator begin() const; //TODO make these the main constant iterators
     ConstIterator end() const;
 
 };
@@ -177,7 +170,7 @@ void TContainer<T>::add_back(T newVar) {
 }
 
 template<class T>
-void TContainer<T>::add_front(T newVar) {
+[[maybe_unused]] void TContainer<T>::add_front(T newVar) {
     T *temp = new T[num + 1];
     temp[0] = newVar;
 
@@ -191,7 +184,7 @@ void TContainer<T>::add_front(T newVar) {
 }
 
 template<class T>
-void TContainer<T>::add_index(T newVar, int n) {
+[[maybe_unused]] void TContainer<T>::add_index(T newVar, int n) {
     checkIndex(n);
 
     T *temp = new T[++num];
@@ -215,7 +208,7 @@ void TContainer<T>::add_index(T newVar, int n) {
 }
 
 template<class T>
-T TContainer<T>::pop_back() {
+[[maybe_unused]] T TContainer<T>::pop_back() {
     if (isEmpty()) {
         throw Exceptions(EmptyContainer, "Cannot pop from an empty container (back).");
     }
@@ -226,7 +219,7 @@ T TContainer<T>::pop_back() {
 }
 
 template<class T>
-T TContainer<T>::pop_front() {
+[[maybe_unused]] T TContainer<T>::pop_front() {
     if (isEmpty()) {
         throw Exceptions(EmptyContainer, "Cannot pop from an empty container (front).");
     }
@@ -327,15 +320,16 @@ int TContainer<T>::search(const Y identity) const {
 // Iterator, and its functions
 
 template<class T>
-struct TContainer<T>::Iterator {
-    using iterator_category = std::bidirectional_iterator_tag;
-    using difference_tag = std::ptrdiff_t;
+struct TContainer<T>::Iterator { //TODO comment this and the ConstIterator
+    using iterator_category = std::bidirectional_iterator_tag; // Iterator type
+    using difference_tag = std::ptrdiff_t; // Difference of two iterator
     using value_type = T;
     using pointer = T *;
     using reference = T &;
 
     explicit Iterator(pointer ptr) : it_ptr(ptr) {}
 
+    // Returns the index where the iterator is
     difference_tag distance(Iterator other) { return std::distance(this->it_ptr, other.it_ptr); }
 
     reference operator*() const { return *it_ptr; }
@@ -389,7 +383,7 @@ typename TContainer<T>::Iterator TContainer<T>::end() {
 }
 
 template<class T>
-typename TContainer<T>::Iterator TContainer<T>::rbegin() {
+[[maybe_unused]] typename TContainer<T>::Iterator TContainer<T>::rbegin() {
     if (this->isEmpty()) {
         throw Exceptions(EmptyContainer, "Cannot use iterator on an empty TContainer");
     }
@@ -397,7 +391,7 @@ typename TContainer<T>::Iterator TContainer<T>::rbegin() {
 }
 
 template<class T>
-typename TContainer<T>::Iterator TContainer<T>::rend() {
+[[maybe_unused]] typename TContainer<T>::Iterator TContainer<T>::rend() {
     if (this->isEmpty()) {
         throw Exceptions(EmptyContainer, "Cannot use iterator on an empty TContainer");
     }
@@ -451,7 +445,7 @@ private:
 };
 
 template<class T>
-typename TContainer<T>::ConstIterator TContainer<T>::cbegin() const {
+[[maybe_unused]] typename TContainer<T>::ConstIterator TContainer<T>::cbegin() const {
     if (this->isEmpty()) {
         throw Exceptions(EmptyContainer, "Cannot use const iterator on an empty TContainer");
     }
@@ -459,7 +453,7 @@ typename TContainer<T>::ConstIterator TContainer<T>::cbegin() const {
 }
 
 template<class T>
-typename TContainer<T>::ConstIterator TContainer<T>::cend() const {
+[[maybe_unused]] typename TContainer<T>::ConstIterator TContainer<T>::cend() const {
     if (this->isEmpty()) {
         throw Exceptions(EmptyContainer, "Cannot use const iterator on an empty TContainer");
     }
