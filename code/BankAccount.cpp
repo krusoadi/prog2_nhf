@@ -46,6 +46,9 @@ void BankAccount::addMoney(const Money &in) {
 }
 
 void BankAccount::subtractMoney(const Money &in) {
+    if (this->userMoney < in) {
+        throw Exceptions(NegativeMoney, "The user does not have enough money to do this.");
+    }
     this->userMoney -= in;
 }
 
@@ -64,12 +67,12 @@ std::string BankAccount::getGender() const {
     BankAccount::isWorker = isWorkerIn;
 }
 
-void BankAccount::BuyShares(Share &SType, int amount) { // Tesztelve, eddig hibatlan
+void BankAccount::BuyShares(Share &SType, int amount) {
     Money priceOfShares = SType.getValue();
     priceOfShares *= amount;
 
     if (this->userMoney < priceOfShares) {
-        printf("Tesztszoveg, nincs eleg penze :(");
+        printf("User does not have enough money.");
         return;
     }
 

@@ -44,9 +44,12 @@ private: // Private Static variables, functions
     static std::string
     hashStr(const std::string &in); // NOT SAFE hash, just for not storing the passwords as they are :)
 
-private: // Private variables (object related)
+private: //Private variables (user related)
     int indexIn; // Given menuIndex
     bool is_loggedIn; // Flag if the user is logged in
+    User thisUser;
+
+private: // Private variables (object related)
     BankSystem system;
     FileManager manager;
 
@@ -55,10 +58,15 @@ private:
     void logIn(); // Login panel
     void makeAcc(); // Register [register keyword is reserved]
     void exit(); // Exit function
+    void depositMoney();
+    void withdrawMoney();
+    void refreshUser();
+    void myAccount();
+    void mainMenuFunctions();
 
 public:
     UI(const BankSystem &systemIn, const FileManager &managerIn);
-
+    ~UI();
     void mainLoop();
 };
 

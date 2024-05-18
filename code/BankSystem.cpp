@@ -65,3 +65,14 @@ bool BankSystem::isUserNameReserved(const std::string &username) const {
     return false;
 }
 
+User &BankSystem::getUserByUsername(const std::string &username) {
+    if (!users.isEmpty()) {
+        for (auto &it: users) {
+            if (it.getUsername() == username) {
+                return it;
+            }
+        }
+    }
+    throw Exceptions(UserNotFound, "Couldn't find user.");
+}
+

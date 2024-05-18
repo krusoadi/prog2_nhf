@@ -25,9 +25,10 @@ public:
 
     [[nodiscard]] const std::string &getUsername() const;
 
+    [[nodiscard]] BankAccount &getUserBank();
     [[nodiscard]] BankAccount getUserBank() const;
 
-    [[nodiscard]] bool MatchPassword(std::string password) const;
+    [[nodiscard]] bool MatchPassword(const std::string& password) const;
 
     [[nodiscard]] const std::string &getHashedPw() const;
 

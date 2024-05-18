@@ -21,8 +21,8 @@ void User::setHashedPw(const std::string &hashedPwIn) {
     User::hashedPw = hashedPwIn;
 }
 
-BankAccount User::getUserBank() const {
-    return userBank;
+BankAccount &User::getUserBank() {
+    return this->userBank;
 }
 
 void User::setUserBank(const BankAccount &userBankIn) {
@@ -33,7 +33,11 @@ bool User::operator==(const User &other) {
     return (this->username == other.username) && (this->userBank == other.userBank);
 }
 
-bool User::MatchPassword(std::string password) const {
+bool User::MatchPassword(const std::string& password) const {
     return this->hashedPw == password;
+}
+
+BankAccount User::getUserBank() const {
+    return this->userBank;
 }
 

@@ -1,5 +1,3 @@
-#include <utility>
-
 #include "../headers/UI.hpp"
 
 bool UI::runtime = true;
@@ -48,7 +46,11 @@ const std::string UI::goodbye = "\nThank you for using this app, have a nice day
 const std::string UI::IllegalNumber = "\nThe menu point you gave is not defined. Please retry\n";
 
 void UI::print(const std::string &text) {
-    std::cout << text << std::endl;
+    std::cout << text;
+}
+
+UI::~UI() {
+    this->manager.saveUsers(this->system.getUsers());
 }
 
 void UI::wrongInput() {
@@ -66,11 +68,7 @@ void UI::mainLoop() {
     while (UI::runtime) {
         print(UI::menuText);
         std::cin >> indexIn;
-
-        if (indexIn == 6) {
-            exit();
-        }
-
+        mainMenuFunctions();
     };
 
 }
@@ -103,33 +101,34 @@ void UI::AccountUI() {
     }
 }
 
-void UI::logIn() { // TODO finish if needed
+void UI::logIn() {
     std::string userName;
     std::string Password;
 
     print("\nType in your selected username:");
 
     std::cin >> userName;
-    print("\n Type in your password");
     if (!system.isUserNameReserved(userName)) {
-        print("There is no account with this username, please try again!");
+        print("There is no account with this username, please try again!\n");
         return;
     }
 
+    print("\n Type in your password");
     Password = safeInput();
     std::string hashed = hashStr(Password);
+
     try {
         const User &found = system.searchByUserName(userName);
         if (!found.MatchPassword(hashed)) {
-            print("Incorrect password, try again!");
+            print("Incorrect password, try again!\n");
             return;
         }
-        print("Successfully logged in! Welcome back!");
+        print("\nSuccessfully logged in! Welcome back\n");
         this->is_loggedIn = true;
+        this->thisUser = found;
     } catch (const Exceptions &e) {
         std::cerr << e.what();
         this->is_loggedIn = false;
-
     }
 
 }
@@ -143,15 +142,15 @@ void UI::makeAcc() {
     print("\nType in your selected username:");
     std::cin >> newUserName;
     if (system.isUserNameReserved(newUserName)) {
-        print("Username is already in use please choose an other one.");
+        print("\nUsername is already in use please choose an other one.\n");
         return;
     }
 
-    print("\n Type in your password");
+    print("\n Type in your password >");
     newPassword = safeInput();
-    print("\nType in your first name:");
+    print("\nType in your first name >");
     std::cin >> name;
-    print("\nType in your last name:");
+    print("\nType in your last name >");
     std::string last;
     std::cin >> last;
     name += " " + last;
@@ -161,8 +160,9 @@ void UI::makeAcc() {
     newUser.setUserBank(BankAccount(Money(0, EUR), name, false, true));
     system.addNewUser(newUser);
     manager.saveUsers(system.getUsers());
+    this->thisUser = newUser;
 
-    print("Congratulations, you've just made your first account.");
+    print("\nCongratulations, you've just made your first account.\n");
     this->is_loggedIn = true;
 }
 
@@ -201,6 +201,110 @@ UI::hashStr(const std::string &in) { // The only point of this function is to no
         }
     }
     return std::to_string(hashNumber);
+}
+
+void UI::depositMoney() {
+    print("Type in the amount you want to deposit >");
+    double amount;
+    std::cin >> amount;
+
+    print("\n");
+
+    print("Please select currency (1 = EUR, 2 = HUF, 3 = USD >");
+    int type;
+    CurrencyTypes finalType;
+    std::cin >> type;
+
+    switch (type) {
+        case 1:
+            finalType = EUR;
+            break;
+        case 2:
+            finalType = HUF;
+            break;
+        case 3:
+            finalType = USD;
+            break;
+        default:
+            wrongInput();
+            return;
+    }
+    Money in(amount, finalType);
+    this->system.getUserByUsername(thisUser.getUsername()).getUserBank().addMoney(in);
+    refreshUser();
+    print("\nSuccessfully added the amount of money.\n");
+}
+
+void UI::refreshUser() {
+    auto refresh = this->system.searchByUserName(thisUser.getUsername());
+    this->thisUser = refresh;
+}
+
+void UI::withdrawMoney() {
+    print("Type in the amount you want to withdraw >");
+    double amount;
+    std::cin >> amount;
+
+    print("\n");
+
+    print("Please select currency (1 = EUR, 2 = HUF, 3 = USD >");
+    int type;
+    CurrencyTypes finalType;
+    std::cin >> type;
+
+    switch (type) {
+        case 1:
+            finalType = EUR;
+            break;
+        case 2:
+            finalType = HUF;
+            break;
+        case 3:
+            finalType = USD;
+            break;
+        default:
+            wrongInput();
+            return;
+    }
+    Money in(amount, finalType);
+    try {
+        this->system.getUserByUsername(thisUser.getUsername()).getUserBank().subtractMoney(in);
+    } catch (const Exceptions &e) {
+        if (e.getType() == NegativeMoney) {
+            print(e.what());
+            return;
+        } else {
+            std::cerr << e.what();
+            return;
+        }
+    }
+    refreshUser();
+    print("\nSuccessfully withdrew the amount of money.\n");
+}
+
+void UI::myAccount() {
+    print("Your account: ");
+    std::cout << this->thisUser.getUserBank() << std::endl;
+}
+
+void UI::mainMenuFunctions() {
+    switch (indexIn) {
+        case 1:
+            depositMoney();
+            break;
+        case 2:
+            withdrawMoney();
+            break;
+        case 3:
+            myAccount();
+            break;
+        case 6:
+            exit();
+            return;
+        default:
+            wrongInput();
+            return;
+    }
 }
 
 

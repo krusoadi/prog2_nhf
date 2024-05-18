@@ -8,6 +8,7 @@
 
 class IDManager {
 private: // Static private variables
+
     static TContainer<int> reservedIDs; // Already in use IDs
     int static getRandomNumber(); // Random number generator for IDs
     int static generateID(); // This does the checking of the generated, id, and adding it to the reserved
@@ -24,6 +25,9 @@ public:
     // Getter,== operator
 
     [[nodiscard]] int getId() const; // Only needed public method along with the operator
+    ///
+    /// \param other
+    /// \return
     bool operator==(const IDManager &other) const;
 };
 

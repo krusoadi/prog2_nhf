@@ -46,6 +46,8 @@ public:
     const User &searchByUserName(const std::string &username);
 
     [[nodiscard]] bool isUserNameReserved(const std::string &username) const;
+
+    User & getUserByUsername(const std::string &username);
 };
 
 #endif //PROG2_NHF_BANKSYSTEM_HPP
