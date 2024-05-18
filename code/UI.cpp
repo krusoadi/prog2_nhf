@@ -2,7 +2,7 @@
 
 bool UI::runtime = true;
 
-const std::string UI::welcomeText = "Welcome To NewVille Bank, this program is made by Adam Krusoczki"
+const std::string UI::welcomeText = "\nWelcome To NewVille Bank, this program is made by Adam Krusoczki"
                                     "My github link is www.github.com/krusoadi\n\n";
 
 const std::string UI::menuText = "Please type in your selected menu point. Options:\n\n"
@@ -35,9 +35,9 @@ const std::string UI::accountTextMenu = "Please type in your selected menu point
 const std::string UI::loginMenu = "You will need a name and password to log in."
                                   "Press any key if you are ready!\n";
 
-const std::string UI::username = "\nUsername >";
+const std::string UI::usernameTXT = "\nUsername >";
 
-const std::string UI::password = "\nPassword >";
+const std::string UI::passwordTXT = "\nPassword >";
 
 const std::string UI::logOut = "\nAre you sure you want to log out? (y/n)\n";
 
@@ -67,6 +67,7 @@ void UI::mainLoop() {
 
     while (UI::runtime) {
         print(UI::menuText);
+        print("\n>");
         std::cin >> indexIn;
         mainMenuFunctions();
     };
@@ -76,6 +77,7 @@ void UI::mainLoop() {
 UI::UI(const BankSystem &systemIn, const FileManager &managerIn) : indexIn(0), is_loggedIn(false),
                                                                    manager(managerIn), system(systemIn) {
     print(UI::welcomeText);
+    Currency::updateCurrency();
 }
 
 void UI::AccountUI() {
@@ -105,15 +107,15 @@ void UI::logIn() {
     std::string userName;
     std::string Password;
 
-    print("\nType in your selected username:");
+    print(usernameTXT);
 
     std::cin >> userName;
     if (!system.isUserNameReserved(userName)) {
-        print("There is no account with this username, please try again!\n");
+        print("\nThere is no account with this username, please try again!\n");
         return;
     }
 
-    print("\n Type in your password");
+    print(passwordTXT);
     Password = safeInput();
     std::string hashed = hashStr(Password);
 
@@ -123,7 +125,7 @@ void UI::logIn() {
             print("Incorrect password, try again!\n");
             return;
         }
-        print("\nSuccessfully logged in! Welcome back\n");
+        print("\n\nSuccessfully logged in! Welcome back\n");
         this->is_loggedIn = true;
         this->thisUser = found;
     } catch (const Exceptions &e) {
@@ -139,14 +141,14 @@ void UI::makeAcc() {
     std::string newPassword;
     std::string name;
 
-    print("\nType in your selected username:");
+    print(usernameTXT);
     std::cin >> newUserName;
     if (system.isUserNameReserved(newUserName)) {
         print("\nUsername is already in use please choose an other one.\n");
         return;
     }
 
-    print("\n Type in your password >");
+    print(passwordTXT);
     newPassword = safeInput();
     print("\nType in your first name >");
     std::cin >> name;
@@ -191,8 +193,7 @@ std::string UI::safeInput() {
     return buffer;
 }
 
-std::string
-UI::hashStr(const std::string &in) { // The only point of this function is to not store the passwords as they are.
+std::string UI::hashStr(const std::string &in) { // The only point of this function is to not store the passwords as they are.
     unsigned long long hashNumber = 5311;
 
     for (int i = 0; i < 3; ++i) {
@@ -287,6 +288,7 @@ void UI::myAccount() {
     std::cout << this->thisUser.getUserBank() << std::endl;
 }
 
+
 void UI::mainMenuFunctions() {
     switch (indexIn) {
         case 1:
@@ -298,6 +300,11 @@ void UI::mainMenuFunctions() {
         case 3:
             myAccount();
             break;
+        case 5:
+            print("\n");
+            Currency::printCurrency();
+            print("\n");
+            break;
         case 6:
             exit();
             return;
@@ -306,5 +313,4 @@ void UI::mainMenuFunctions() {
             return;
     }
 }
-
 

@@ -22,8 +22,8 @@ private: // Private Static variables, functions
 
     static const std::string accountTextMenu;
     static const std::string loginMenu;
-    static const std::string username;
-    static const std::string password;
+    static const std::string usernameTXT;
+    static const std::string passwordTXT;
 
     static const std::string logOut;
     static const std::string goodbye;
