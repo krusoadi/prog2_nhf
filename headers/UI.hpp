@@ -1,10 +1,12 @@
 #ifndef PROG2_NHF_UI_HPP
 #define PROG2_NHF_UI_HPP
+
 #include <string>
 #include <iostream>
 #include <conio.h> // for safe password staring
 #include "BankSystem.hpp"
 #include "FileManager.hpp"
+
 #define ENTER 13
 
 class UI {
@@ -34,10 +36,13 @@ private: // Private Static variables, functions
 
     // Static Functions
 
-    static void print(const std::string& text);
+    static void print(const std::string &text);
+
     static void wrongInput();
+
     static std::string safeInput(); // for passwords, it stars out the input;
-    static std::string hashStr(const std::string& in); // NOT SAFE hash, just for not storing the passwords as they are :)
+    static std::string
+    hashStr(const std::string &in); // NOT SAFE hash, just for not storing the passwords as they are :)
 
 private: // Private variables (object related)
     int indexIn; // Given menuIndex
@@ -52,7 +57,8 @@ private:
     void exit(); // Exit function
 
 public:
-    UI(const BankSystem& systemIn, const FileManager&  managerIn);
+    UI(const BankSystem &systemIn, const FileManager &managerIn);
+
     void mainLoop();
 };
 

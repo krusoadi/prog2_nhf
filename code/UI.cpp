@@ -30,9 +30,9 @@ const std::string UI::workerMenuText = "Please type in your selected menu point.
                                        "5. Log out\n";
 
 const std::string UI::accountTextMenu = "Please type in your selected menu point. Options:\n\n"
-                                      "1. Login\n"
-                                      "2. Register\n"
-                                      "3. Exit\n";
+                                        "1. Login\n"
+                                        "2. Register\n"
+                                        "3. Exit\n";
 
 const std::string UI::loginMenu = "You will need a name and password to log in."
                                   "Press any key if you are ready!\n";
@@ -47,7 +47,7 @@ const std::string UI::goodbye = "\nThank you for using this app, have a nice day
 
 const std::string UI::IllegalNumber = "\nThe menu point you gave is not defined. Please retry\n";
 
-void UI::print(const std::string& text) {
+void UI::print(const std::string &text) {
     std::cout << text << std::endl;
 }
 
@@ -75,8 +75,8 @@ void UI::mainLoop() {
 
 }
 
-UI::UI(const BankSystem& systemIn, const FileManager& managerIn): indexIn(0), is_loggedIn(false),
-manager(managerIn), system(systemIn) {
+UI::UI(const BankSystem &systemIn, const FileManager &managerIn) : indexIn(0), is_loggedIn(false),
+                                                                   manager(managerIn), system(systemIn) {
     print(UI::welcomeText);
 }
 
@@ -119,7 +119,7 @@ void UI::logIn() { // TODO finish if needed
     Password = safeInput();
     std::string hashed = hashStr(Password);
     try {
-        const User& found = system.searchByUserName(userName);
+        const User &found = system.searchByUserName(userName);
         if (!found.MatchPassword(hashed)) {
             print("Incorrect password, try again!");
             return;
@@ -191,7 +191,8 @@ std::string UI::safeInput() {
     return buffer;
 }
 
-std::string UI::hashStr(const std::string& in) { // The only point of this function is to not store the passwords as they are.
+std::string
+UI::hashStr(const std::string &in) { // The only point of this function is to not store the passwords as they are.
     unsigned long long hashNumber = 5311;
 
     for (int i = 0; i < 3; ++i) {

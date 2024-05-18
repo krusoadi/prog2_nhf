@@ -1,8 +1,10 @@
 #ifndef PROG2_NHF_CURRENCY_HPP
 #define PROG2_NHF_CURRENCY_HPP
+
 #include <random>
 #include <string>
 #include <iostream>
+
 #define END 3 // Max number of currencies
 
 enum CurrencyTypes {
@@ -34,6 +36,7 @@ public:
     // Static methods for updating and printing the currencies
 
     static void updateCurrency();
+
     static void printCurrency();
 };
 

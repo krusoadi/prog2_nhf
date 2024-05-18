@@ -1,5 +1,6 @@
 #ifndef PROG2_NHF_FILEMANAGER_HPP
 #define PROG2_NHF_FILEMANAGER_HPP
+
 #include "Exceptions.hpp"
 #include "TContainer.hpp"
 #include "User.hpp"
@@ -12,17 +13,25 @@ private: // File Name Variables
     std::string AccountsFileName;
     std::string BankShareFileName;
 private: // Private File Data Loaders
-    void loadUserFile(TContainer<User>& users);
-    void loadAccountFile(TContainer<User>& users);
+    void loadUserFile(TContainer<User> &users);
+
+    void loadAccountFile(TContainer<User> &users);
+
     static OwnedShare loadOwnedShare(std::istringstream &lineStream);
+
 private:
-    void saveUserFile(const TContainer<User>& users) const;
-    void saveAccountsFile(const TContainer<User>& users);
+    void saveUserFile(const TContainer<User> &users) const;
+
+    void saveAccountsFile(const TContainer<User> &users);
+
 public:
-    FileManager(std::string  userFile, std::string  accountFile, std::string  shareFile);
-    FileManager(const FileManager& other) = default;
+    FileManager(std::string userFile, std::string accountFile, std::string shareFile);
+
+    FileManager(const FileManager &other) = default;
+
     TContainer<User> loadUsers();
-    void saveUsers(const TContainer<User>& users);
+
+    void saveUsers(const TContainer<User> &users);
 
 };
 

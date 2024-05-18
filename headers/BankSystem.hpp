@@ -15,30 +15,37 @@ public:
     // Constructor, Destructors
 
     BankSystem();
-    explicit BankSystem(const Money& initMoney);
+
+    explicit BankSystem(const Money &initMoney);
+
     ~BankSystem() = default;
 
     //Getters TODO
 
     [[nodiscard]] const Money &getBankMoney() const;
+
     [[nodiscard]] const TContainer<User> &getUsers() const;
 
     //Get...By...
 
-    [[nodiscard]] Share& getShareByChild(const OwnedShare& in) const; //TODO error handling (ptr approach or dummy-reference)
+    [[nodiscard]] Share &
+    getShareByChild(const OwnedShare &in) const; //TODO error handling (ptr approach or dummy-reference)
 
     // New Queries
 
-    void addNewUser(const User& user);
-    void addBankShares(const Share& ShareIn);
+    void addNewUser(const User &user);
 
-    void deleteUser(const User& user);
-    void deleteBankShares(const Share& ShareIn);
+    void addBankShares(const Share &ShareIn);
 
-    void loadUsers(const TContainer<User>& usersIn);
+    void deleteUser(const User &user);
 
-    const User& searchByUserName(const std::string& username);
-    [[nodiscard]] bool isUserNameReserved(const std::string& username) const;
+    void deleteBankShares(const Share &ShareIn);
+
+    void loadUsers(const TContainer<User> &usersIn);
+
+    const User &searchByUserName(const std::string &username);
+
+    [[nodiscard]] bool isUserNameReserved(const std::string &username) const;
 };
 
 #endif //PROG2_NHF_BANKSYSTEM_HPP

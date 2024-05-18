@@ -2,7 +2,7 @@
 
 Money::Money(double value, CurrencyTypes currency) : value(value), moneyCurr(currency) {}
 
-Money::Money(): value(0), moneyCurr(EUR) {}
+Money::Money() : value(0), moneyCurr(EUR) {}
 
 Money Money::TransferCurrency(CurrencyTypes our, const Money &other) {
     double returnValue;
@@ -31,15 +31,17 @@ CurrencyTypes Money::getCurrency() const {
     this->value = val;
 }
 
-[[maybe_unused]] Money Money::convertCurrency(CurrencyTypes dest) const { // Alapvetoen EUR ba van minten, oda valt vissza es at a masikba
+[[maybe_unused]] Money
+Money::convertCurrency(CurrencyTypes dest) const { // Alapvetoen EUR ba van minten, oda valt vissza es at a masikba
     return Money::TransferCurrency(dest, *this);
 }
 
 Money Money::operator+(const Money &other) {
     Money temp = Money::TransferCurrency(this->moneyCurr, other);
-    return {this->value+ temp.value, this->moneyCurr};
+    return {this->value + temp.value, this->moneyCurr};
 
 }
+
 Money Money::operator-(const Money &other) {
     Money temp = Money::TransferCurrency(this->moneyCurr, other);
     return {this->value - temp.value, this->moneyCurr};
@@ -98,7 +100,7 @@ bool Money::operator>(const Money &other) {
     return this->value > temp.value;
 }
 
-std::ostream& operator<<(std::ostream& stream, const Money& in) {
+std::ostream &operator<<(std::ostream &stream, const Money &in) {
     stream << in.getValue() << " " << Currency::SYMBOLS[in.getCurrency()];
     return stream;
 }

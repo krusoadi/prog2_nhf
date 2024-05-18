@@ -1,13 +1,13 @@
 #include "../headers/Currency.hpp"
 
-const std::string Currency::SYMBOLS[] =  {"Eur", "Ft", "$"};
+const std::string Currency::SYMBOLS[] = {"Eur", "Ft", "$"};
 
 double Currency::valueToEUR[] = {1, 350, 400}; // Some basic values to avoid uninitialized currency bug
 
 double Currency::randomValue(double low, double high) {
     std::random_device randomizer;
     std::default_random_engine randEng(randomizer());
-    std::uniform_real_distribution<double> bound(low,high);
+    std::uniform_real_distribution<double> bound(low, high);
     return bound(randEng);
 }
 

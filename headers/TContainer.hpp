@@ -11,7 +11,7 @@
 template<class T>
 class TContainer {
 private:
-    T* vars; // Stored variables
+    T *vars; // Stored variables
     int num; // Number of variables
 
     void delPtr(); // Deletes this->vars, if it isn't nullptr.
@@ -23,8 +23,11 @@ public:
     // Constructors, Destructors
 
     TContainer();
+
     [[maybe_unused]] explicit TContainer(T first);
-    TContainer(const TContainer<T>& other);
+
+    TContainer(const TContainer<T> &other);
+
     ~TContainer();
 
     // Add and Pop methods
@@ -39,8 +42,9 @@ public:
 
     // Operator Overloads
 
-    T& operator[](int n) const;
-    TContainer<T>& operator=(const TContainer<T>& other);
+    T &operator[](int n) const;
+
+    TContainer<T> &operator=(const TContainer<T> &other);
 
     // Status Check methods
     [[nodiscard]] bool isEmpty() const; // Checks if the vars is empty (nullptr)
@@ -56,8 +60,9 @@ public:
 
     //Search by an independent identity, throws compile time error, if wrongly used.
 
-    template<class Y> // Needed due to object-type independence (Share-OwnedShare comparison)
-            int search(Y identity) const;
+    template<class Y>
+    // Needed due to object-type independence (Share-OwnedShare comparison)
+    int search(Y identity) const;
 
     // Iterator (BidirectionalIterator is more than enough)
 
@@ -75,14 +80,17 @@ public:
     struct ConstIterator;
 
     ConstIterator cbegin() const;
+
     ConstIterator cend() const;
+
     ConstIterator begin() const;
+
     ConstIterator end() const;
 
 };
 
 template<class T>
-TContainer<T>& TContainer<T>::operator=(const TContainer<T> &other) {
+TContainer<T> &TContainer<T>::operator=(const TContainer<T> &other) {
     if (this != &other) {
         delPtr();
 
@@ -110,7 +118,7 @@ void TContainer<T>::makePtr(int n) {
 
 template<class T>
 void TContainer<T>::resize(int n) {
-    T* temp = new T[n];
+    T *temp = new T[n];
 
     for (int i = 0; i < std::min(n, num); ++i) {
         temp[i] = this->vars[i];
@@ -131,7 +139,7 @@ void TContainer<T>::checkIndex(int i) const {
 }
 
 template<class T>
-TContainer<T>::TContainer(): vars(nullptr), num(0)  {}
+TContainer<T>::TContainer(): vars(nullptr), num(0) {}
 
 template<class T>
 [[maybe_unused]] TContainer<T>::TContainer(T first): num(1) {
@@ -165,7 +173,7 @@ TContainer<T>::~TContainer() {
 template<class T>
 void TContainer<T>::add_back(T newVar) {
     resize(this->num + 1);
-    this->vars[num-1] = newVar;
+    this->vars[num - 1] = newVar;
 }
 
 template<class T>
@@ -208,23 +216,23 @@ void TContainer<T>::add_index(T newVar, int n) {
 
 template<class T>
 T TContainer<T>::pop_back() {
-    if(isEmpty()) {
+    if (isEmpty()) {
         throw Exceptions(EmptyContainer, "Cannot pop from an empty container (back).");
     }
 
-    T retVal = this->vars[num-1];
-    resize(num-1);
+    T retVal = this->vars[num - 1];
+    resize(num - 1);
     return retVal;
 }
 
 template<class T>
 T TContainer<T>::pop_front() {
-    if(isEmpty()) {
+    if (isEmpty()) {
         throw Exceptions(EmptyContainer, "Cannot pop from an empty container (front).");
     }
 
     T retVal = this->vars[0];
-    T* temp = new T[--num];
+    T *temp = new T[--num];
 
     for (int i = 0; i < num; ++i) {
         temp[i] = this->vars[i + 1];
@@ -236,23 +244,23 @@ T TContainer<T>::pop_front() {
 
 template<class T>
 T TContainer<T>::pop_index(int n) {
-    if(isEmpty()) {
+    if (isEmpty()) {
         throw Exceptions(EmptyContainer, "Cannot pop from an empty container (index).");
     }
     checkIndex(n);
 
     T retVal = this->vars[n];
-    T* temp = new T[num - 1];
+    T *temp = new T[num - 1];
 
     bool reached_n = false;
 
     for (int i = 0; i < num; ++i) {
-        if(n == i) {
+        if (n == i) {
             reached_n = true;
         } else if (!reached_n) {
             temp[i] = this->vars[i];
         } else {
-            temp[i-1] =this->vars[i];
+            temp[i - 1] = this->vars[i];
         }
     }
 
@@ -264,8 +272,8 @@ T TContainer<T>::pop_index(int n) {
 }
 
 template<class T>
-T& TContainer<T>::operator[](int n) const {
-    if(isEmpty()) {
+T &TContainer<T>::operator[](int n) const {
+    if (isEmpty()) {
         throw Exceptions(EmptyContainer, "Cannot get an indexed item from an empty container.");
     }
     checkIndex(n);
@@ -281,6 +289,7 @@ template<class T>
 int TContainer<T>::size() const {
     return this->num;
 }
+
 template<class T>
 void TContainer<T>::clear() {
     delPtr();
@@ -291,19 +300,19 @@ template<class T>
 void TContainer<T>::swap(int n, int m) {
     checkIndex(n);
     checkIndex(m);
-    if(n == m) {
+    if (n == m) {
         return;
     }
 
     T temp = this->vars[n];
     this->vars[n] = this->vars[m];
-    this->vars[m] =temp;
+    this->vars[m] = temp;
 }
 
 template<class T>
 template<class Y>
 int TContainer<T>::search(const Y identity) const {
-    if(this->isEmpty()) {
+    if (this->isEmpty()) {
         throw Exceptions(EmptyContainer, "Cannot search in an empty Container.");
     }
 
@@ -317,28 +326,47 @@ int TContainer<T>::search(const Y identity) const {
 
 // Iterator, and its functions
 
-template <class T> struct TContainer<T>::Iterator {
+template<class T>
+struct TContainer<T>::Iterator {
     using iterator_category = std::bidirectional_iterator_tag;
     using difference_tag = std::ptrdiff_t;
     using value_type = T;
-    using pointer = T*;
-    using reference = T&;
+    using pointer = T *;
+    using reference = T &;
 
     explicit Iterator(pointer ptr) : it_ptr(ptr) {}
 
-    difference_tag distance(Iterator other) {return std::distance(this->it_ptr, other.it_ptr);}
+    difference_tag distance(Iterator other) { return std::distance(this->it_ptr, other.it_ptr); }
 
-    reference operator*() const {return *it_ptr;}
-    pointer operator->() {return it_ptr;}
+    reference operator*() const { return *it_ptr; }
 
-    Iterator& operator++() {it_ptr++; return *this;}
-    Iterator operator++(int) {Iterator temp = *this; ++(*this); return temp;}
+    pointer operator->() { return it_ptr; }
 
-    Iterator& operator--() {it_ptr--; return *this;}
-    Iterator operator--(int) {Iterator temp = *this; --(*this); return temp;}
+    Iterator &operator++() {
+        it_ptr++;
+        return *this;
+    }
 
-    friend bool operator==(const Iterator& a, const Iterator& b) {return a.it_ptr == b.it_ptr;}
-    friend bool operator!=(const Iterator& a, const Iterator& b) {return a.it_ptr != b.it_ptr;}
+    Iterator operator++(int) {
+        Iterator temp = *this;
+        ++(*this);
+        return temp;
+    }
+
+    Iterator &operator--() {
+        it_ptr--;
+        return *this;
+    }
+
+    Iterator operator--(int) {
+        Iterator temp = *this;
+        --(*this);
+        return temp;
+    }
+
+    friend bool operator==(const Iterator &a, const Iterator &b) { return a.it_ptr == b.it_ptr; }
+
+    friend bool operator!=(const Iterator &a, const Iterator &b) { return a.it_ptr != b.it_ptr; }
 
 private:
     pointer it_ptr;
@@ -376,26 +404,47 @@ typename TContainer<T>::Iterator TContainer<T>::rend() {
     return TContainer::Iterator(&vars[-1]);
 }
 
-template <class T> struct TContainer<T>::ConstIterator {
+template<class T>
+struct TContainer<T>::ConstIterator {
     using iterator_category = std::bidirectional_iterator_tag;
     using difference_tag = std::ptrdiff_t;
     using value_type = T;
-    using pointer = const T*;
-    using reference = const T&;
+    using pointer = const T *;
+    using reference = const T &;
 
     explicit ConstIterator(pointer ptr) : it_ptr(ptr) {};
 
-    difference_tag distance(ConstIterator other) {return std::distance(this->it_ptr, other.it_ptr);}
-    reference operator*() const {return *it_ptr;}
-    pointer operator->() const {return it_ptr;}
-    ConstIterator& operator++() {it_ptr++; return *this;}
-    ConstIterator operator++(int) {ConstIterator temp = *this; ++(*this); return temp;}
+    difference_tag distance(ConstIterator other) { return std::distance(this->it_ptr, other.it_ptr); }
 
-    ConstIterator& operator--() {it_ptr--; return *this;}
-    ConstIterator operator--(int) {ConstIterator temp = *this; --(*this); return temp;}
+    reference operator*() const { return *it_ptr; }
 
-    friend bool operator==(const ConstIterator& a, const ConstIterator& b) {return a.it_ptr == b.it_ptr;}
-    friend bool operator!=(const ConstIterator& a, const ConstIterator& b) {return a.it_ptr != b.it_ptr;}
+    pointer operator->() const { return it_ptr; }
+
+    ConstIterator &operator++() {
+        it_ptr++;
+        return *this;
+    }
+
+    ConstIterator operator++(int) {
+        ConstIterator temp = *this;
+        ++(*this);
+        return temp;
+    }
+
+    ConstIterator &operator--() {
+        it_ptr--;
+        return *this;
+    }
+
+    ConstIterator operator--(int) {
+        ConstIterator temp = *this;
+        --(*this);
+        return temp;
+    }
+
+    friend bool operator==(const ConstIterator &a, const ConstIterator &b) { return a.it_ptr == b.it_ptr; }
+
+    friend bool operator!=(const ConstIterator &a, const ConstIterator &b) { return a.it_ptr != b.it_ptr; }
 
 private:
     pointer it_ptr;
@@ -416,6 +465,7 @@ typename TContainer<T>::ConstIterator TContainer<T>::cend() const {
     }
     return TContainer::ConstIterator(&vars[this->num]);
 }
+
 template<class T>
 typename TContainer<T>::ConstIterator TContainer<T>::begin() const {
     if (this->isEmpty()) {
@@ -433,13 +483,12 @@ typename TContainer<T>::ConstIterator TContainer<T>::end() const {
 }
 
 template<class T>
-std::ostream& operator<<(std::ostream& stream, TContainer<T> &in) {
+std::ostream &operator<<(std::ostream &stream, TContainer<T> &in) {
     for (int i = 0; i < in.size(); ++i) {
         stream << in[i] << "\n";
     }
     return stream;
 }
-
 
 
 #endif //PROG2_NHF_TCONTAINER_HPP

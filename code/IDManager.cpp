@@ -5,7 +5,7 @@ TContainer<int> IDManager::reservedIDs = TContainer<int>();
 int IDManager::getRandomNumber() {
     std::random_device randomizer;
     std::mt19937 gen(randomizer());
-    std::uniform_int_distribution<>dis(100000,999999);
+    std::uniform_int_distribution<> dis(100000, 999999);
     return dis(gen);
 }
 
@@ -21,7 +21,7 @@ int IDManager::generateID() {
     return UniqueID;
 }
 
-IDManager::IDManager(): id(generateID()) {}
+IDManager::IDManager() : id(generateID()) {}
 
 IDManager::IDManager(int previousID) {
     try {
@@ -36,7 +36,7 @@ IDManager::IDManager(int previousID) {
                                                   "generated a new. ");
             }
         }
-    } catch (Exceptions & e) {
+    } catch (Exceptions &e) {
         int newID = generateID();
         std::cerr << e.what() << "New ID : " << newID << std::endl;
         this->id = newID;
@@ -56,6 +56,6 @@ bool IDManager::operator==(const IDManager &other) const {
     return this->id == other.id;
 }
 
-std::ostream & operator<<(std::ostream& stream, const IDManager& in) {
+std::ostream &operator<<(std::ostream &stream, const IDManager &in) {
     return stream << "ID: " << in.getId();
 }

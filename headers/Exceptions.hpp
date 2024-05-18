@@ -3,6 +3,7 @@
 
 #include <exception>
 #include <string>
+
 enum errors {
     GenericError,
     NotDefinedError,
@@ -22,8 +23,10 @@ class Exceptions : public std::exception {
     errors type;
     std::string msg;
 public:
-    explicit Exceptions(errors errorType, const char* message = "");
-    [[nodiscard]] const char* what() const noexcept override;
+    explicit Exceptions(errors errorType, const char *message = "");
+
+    [[nodiscard]] const char *what() const noexcept override;
+
     [[nodiscard]] errors getType() const;
 
 };

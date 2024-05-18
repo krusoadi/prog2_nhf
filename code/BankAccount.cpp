@@ -2,20 +2,19 @@
 #include <utility>
 #include "../headers/BankAccount.hpp"
 
-BankAccount::BankAccount(const BankAccount &other): ID(other.ID), userMoney(other.userMoney) {
+BankAccount::BankAccount(const BankAccount &other) : ID(other.ID), userMoney(other.userMoney) {
     this->name = other.name;
     this->isMale = other.isMale;
     this->userShares = other.userShares;
     this->isWorker = other.isWorker;
 }
 
-BankAccount::BankAccount(): ID(IDManager()), userMoney(), isMale(false), isWorker(false) {}
+BankAccount::BankAccount() : ID(IDManager()), userMoney(), isMale(false), isWorker(false) {}
 
-BankAccount::BankAccount(IDManager id): ID(id), isWorker(false), isMale(false) {}
+BankAccount::BankAccount(IDManager id) : ID(id), isWorker(false), isMale(false) {}
 
-BankAccount::BankAccount(const Money& money, std::string name, bool isMale, bool isWorker):
-        ID(IDManager()), name(std::move(name)), isWorker(isWorker), isMale(isMale)
-{
+BankAccount::BankAccount(const Money &money, std::string name, bool isMale, bool isWorker) :
+        ID(IDManager()), name(std::move(name)), isWorker(isWorker), isMale(isMale) {
     if (money.getValue() < 0) {
         throw Exceptions(NegativeMoney, "Negative money was given.");
     }
@@ -34,7 +33,7 @@ unsigned int BankAccount::getId() const {
     return ID.getId();
 }
 
-[[maybe_unused]] void BankAccount::setMoney(const Money& in) {
+[[maybe_unused]] void BankAccount::setMoney(const Money &in) {
     this->userMoney = in;
 }
 
@@ -65,7 +64,7 @@ std::string BankAccount::getGender() const {
     BankAccount::isWorker = isWorkerIn;
 }
 
-void BankAccount::BuyShares(Share& SType, int amount) { // Tesztelve, eddig hibatlan
+void BankAccount::BuyShares(Share &SType, int amount) { // Tesztelve, eddig hibatlan
     Money priceOfShares = SType.getValue();
     priceOfShares *= amount;
 
@@ -77,7 +76,7 @@ void BankAccount::BuyShares(Share& SType, int amount) { // Tesztelve, eddig hiba
     this->subtractMoney(priceOfShares);
 
     if (!userShares.isEmpty()) {
-        for (auto & userShare : userShares) {
+        for (auto &userShare: userShares) {
             if (userShare.getMasterShareId() == SType.getShareId()) {
                 SType.sellToUser(amount, userShare);
                 return;
@@ -92,7 +91,7 @@ void BankAccount::BuyShares(Share& SType, int amount) { // Tesztelve, eddig hiba
     }
 }
 
-void BankAccount::SellShares(Share& SType, int amount) {
+void BankAccount::SellShares(Share &SType, int amount) {
     if (userShares.isEmpty()) {
         throw Exceptions(NotEnoughShares, "Tried to sell shares, but didn't buy earlier.");
     }
@@ -116,7 +115,7 @@ void BankAccount::SellShares(Share& SType, int amount) {
 }
 
 void BankAccount::revealShares() {
-    for (auto & userShare : userShares) {
+    for (auto &userShare: userShares) {
         std::cout << userShare << std::endl;
     }
 }
@@ -137,7 +136,7 @@ const TContainer<OwnedShare> &BankAccount::getUserShares() const {
     return userShares;
 }
 
-std::ostream& operator<<(std::ostream& stream, const BankAccount& in) {
-    stream << "Name: " << in.getName() << " (id: " << in.getId() << ") " << in.getGender() <<" : " << in.getMoney();
+std::ostream &operator<<(std::ostream &stream, const BankAccount &in) {
+    stream << "Name: " << in.getName() << " (id: " << in.getId() << ") " << in.getGender() << " : " << in.getMoney();
     return stream;
 }

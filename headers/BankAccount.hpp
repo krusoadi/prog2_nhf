@@ -23,19 +23,25 @@ public:
     // Constructors/Destructors
 
     BankAccount();
+
     explicit BankAccount(IDManager id);
-    BankAccount(const Money& money, std::string name, bool isMale, bool isWorker);
-    BankAccount(const BankAccount& other);
+
+    BankAccount(const Money &money, std::string name, bool isMale, bool isWorker);
+
+    BankAccount(const BankAccount &other);
 
     ~BankAccount() = default;
 
     // Getters
 
     [[nodiscard]] Money getMoney() const;
+
     [[nodiscard]] unsigned int getId() const;
-    [[nodiscard]] const std::string& getName() const;
+
+    [[nodiscard]] const std::string &getName() const;
 
     [[nodiscard]] std::string getGender() const;
+
     [[maybe_unused]] [[nodiscard]] bool getIsWorker() const;
 
     [[nodiscard]] bool getIsMale() const;
@@ -44,19 +50,23 @@ public:
 
     // Setters
 
-    [[maybe_unused]] void setMoney(const Money& in);
+    [[maybe_unused]] void setMoney(const Money &in);
+
     [[maybe_unused]] void setName(const std::string &name);
+
     [[maybe_unused]] void setIsWorker(bool isWorkerIn);
 
     // Money managing methods
 
-    void addMoney(const Money& in);
-    void subtractMoney(const Money& in);
+    void addMoney(const Money &in);
+
+    void subtractMoney(const Money &in);
 
     // Share managing functions
 
-    void BuyShares(Share& SType, int amount);
-    void SellShares(Share& SType, int amount);
+    void BuyShares(Share &SType, int amount);
+
+    void SellShares(Share &SType, int amount);
 
     // Share printer (Debug purposes)
 
@@ -64,11 +74,11 @@ public:
 
     // Operators
 
-    bool operator==(const BankAccount& other);
+    bool operator==(const BankAccount &other);
 
-    void loadShares(const OwnedShare& in);
+    void loadShares(const OwnedShare &in);
 };
 
-std::ostream& operator<<(std::ostream& stream, const BankAccount& in);
+std::ostream &operator<<(std::ostream &stream, const BankAccount &in);
 
 #endif //PROG2_NHF_BANKACCOUNT_HPP

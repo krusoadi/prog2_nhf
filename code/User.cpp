@@ -3,7 +3,7 @@
 #include "../headers/User.hpp"
 
 User::User(std::string username, std::string hashedPw, const BankAccount &userBank) :
-username(std::move(username)), hashedPw(std::move(hashedPw)), userBank(userBank) {}
+        username(std::move(username)), hashedPw(std::move(hashedPw)), userBank(userBank) {}
 
 const std::string &User::getUsername() const {
     return username;
