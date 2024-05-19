@@ -357,8 +357,9 @@ void UI::ShareMenuFunctions() {
         case 2:
             buyShares();
             break;
-        case 4:
+        case 4: // TODO needs to be more detailed..
             this->thisUser.getUserBank().revealShares();
+
     }
 }
 
