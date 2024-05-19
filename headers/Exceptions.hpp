@@ -14,7 +14,8 @@ enum errors {
     IDAlreadyExists,
     InvalidId,
     FileError,
-    UserNotFound
+    UserNotFound,
+    FatalShareError
 };
 
 class Exceptions : public std::exception {

@@ -12,6 +12,7 @@ class Share {
     -void calculateNewPrice(int change)
     +Share()
     +Share(string name, const Money &value, unsigned int available)
+    +Share(int idIN, string name, const Money &value, unsigned int available)
     +Share(const Share &oth)
     +~Share()
 

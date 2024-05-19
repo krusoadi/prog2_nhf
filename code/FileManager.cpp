@@ -138,3 +138,94 @@ void FileManager::saveAccountsFile(const TContainer<User> &users) {
     }
 }
 
+void FileManager::loadShareFile(TContainer<Share> &shares) {
+    std::ifstream ShareFile(this->BankShareFileName, std::ios::in);
+
+    if (!ShareFile.is_open()) {
+        throw Exceptions(FileError, "(FileManager) Could not open ShareFile, are you sure it exists?");
+    }
+    for (std::string line; std::getline(ShareFile, line);) {
+        std::istringstream lineStream(line);
+
+        std::string fID;
+        std::getline(lineStream, fID, ';');
+        std::string fName;
+        std::getline(lineStream, fName, ';');
+        std::string fValue;
+        std::getline(lineStream, fValue, ';');
+        std::string fCurrency;
+        std::getline(lineStream, fCurrency, ';');
+        std::string fAvailable;
+        std::getline(lineStream, fAvailable);
+
+        int tempID = std::stoi(fID);
+        double tempVal = std::stod(fValue);
+        auto tempCurr = (CurrencyTypes) std::stoi(fCurrency);
+        int tempAvailable = std::stoi(fAvailable);
+        Share finalShare(tempID, fName, Money(tempVal,tempCurr), tempAvailable);
+        shares.add_back(finalShare);
+    }
+
+    if(shares.isEmpty()) {
+        throw std::runtime_error("Shares couldn't be loaded, will generate new shares."
+                                          "All users loose their previous shares, and get compensation.");
+    }
+}
+
+void FileManager::saveShareFile(const TContainer<Share>& out) {
+    if (out.isEmpty()) {
+        throw std::runtime_error("There is no share to save, the program will generate new "
+                                          "shares, all the users who lose their share will be compensated.")
+    }
+
+    std::ofstream ShareFile(BankShareFileName, std::ios::out);
+
+    if (!ShareFile.is_open()) {
+        throw Exceptions(FileError, "(FileManager) Couldn't open ShareFile to write.");
+    }
+
+    for (const auto& it : out) {
+        ShareFile << it.getShareId() << ';' << it.getName() << ';' << it.getValue().getValue() << ';';
+        ShareFile << (int)it.getValue().getCurrency() << ';' << it.getAvailable() << '\n';
+    }
+}
+
+void FileManager::resetShareFile() {
+    Share temp1("Apple", Money(500, HUF), 100);
+    Share temp2("Tesla", Money(750, HUF), 200);
+    Share temp3("Meta", Money(3, EUR), 125);
+    Share temp4("BME", Money(5, USD), 150);
+    Share temp5("Mol", Money(200, HUF), 600);
+
+    TContainer<Share> list;
+    list.add_back(temp1);
+    list.add_back(temp2);
+    list.add_back(temp3);
+    list.add_back(temp4);
+    list.add_back(temp5);
+
+    saveShareFile(list);
+
+}
+
+TContainer<Share> FileManager::loadShares() {
+    TContainer<Share> retVal;
+
+    try {
+        loadShareFile(retVal);
+    } catch (const std::runtime_error &e) {
+        std::cerr << e.what();
+        resetShareFile();
+        loadShareFile(retVal);
+    }
+    return retVal;
+}
+
+void FileManager::saveShares(const TContainer<Share>& in) {
+    try {
+        saveShareFile(in);
+    } catch (const std::runtime_error &e) {
+        std::cerr << e.what();
+        resetShareFile();
+    }
+}

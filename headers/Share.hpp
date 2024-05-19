@@ -24,6 +24,7 @@ public:
 
     Share();
     Share(std::string name, const Money &value, unsigned int available);
+    Share(int idIn, std::string name, const Money &value, unsigned int available);
     Share(const Share &oth) = default;
 
     ~Share() = default;
