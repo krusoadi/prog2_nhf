@@ -1,0 +1,43 @@
+@startuml
+class Share
+class OwnedShare
+
+class Share {
+    -IDManager ShareID
+    -string name
+    -Money value
+    -unsigned int available
+
+    -{static} double getNewRate(bool decrease)
+    -void calculateNewPrice(int change)
+    +Share()
+    +Share(string name, const Money &value, unsigned int available)
+    +Share(const Share &oth)
+    +~Share()
+
+    +void buyFromUser(int n, OwnedShare &in)
+    +void sellToUser(int n, OwnedShare &in)
+
+    +bool operator==(const OwnedShare &other)
+    +bool operator!=(const OwnedShare &other)
+    +bool operator==(const Share &other)
+}
+
+class OwnedShare {
+    -int masterShareID
+    -int amount
+
+    +OwnedShare()
+    +OwnedShare(int amount)
+    +int getAmount()
+    +int getMasterShareId()
+
+    +void setAmount(int amountIn)
+    +void setMasterShareId(int masterShareId)
+
+    +bool operator==(const Share &other)
+    +bool operator!=(const Share &other)
+
+    +Money showValue(Share *master)
+}
+@enduml

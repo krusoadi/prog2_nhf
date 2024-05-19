@@ -2,14 +2,14 @@
 #include <utility>
 #include "../headers/BankAccount.hpp"
 
-BankAccount::BankAccount(const BankAccount &other) : ID(other.ID), userMoney(other.userMoney) {
+BankAccount::BankAccount(const BankAccount &other) : ID(other.ID), AccountMoney(other.AccountMoney) {
     this->name = other.name;
     this->isMale = other.isMale;
     this->userShares = other.userShares;
     this->isWorker = other.isWorker;
 }
 
-BankAccount::BankAccount() : ID(IDManager()), userMoney(), isMale(false), isWorker(false) {}
+BankAccount::BankAccount() : ID(IDManager()), AccountMoney(), isMale(false), isWorker(false) {}
 
 BankAccount::BankAccount(IDManager id) : ID(id), isWorker(false), isMale(false) {}
 
@@ -18,11 +18,11 @@ BankAccount::BankAccount(const Money &money, std::string name, bool isMale, bool
     if (money.getValue() < 0) {
         throw Exceptions(NegativeMoney, "Negative money was given.");
     }
-    this->userMoney = money;
+    this->AccountMoney = money;
 }
 
 Money BankAccount::getMoney() const {
-    return userMoney;
+    return AccountMoney;
 }
 
 const std::string &BankAccount::getName() const {
@@ -34,7 +34,7 @@ unsigned int BankAccount::getId() const {
 }
 
 [[maybe_unused]] void BankAccount::setMoney(const Money &in) {
-    this->userMoney = in;
+    this->AccountMoney = in;
 }
 
 [[maybe_unused]] void BankAccount::setName(const std::string &newUserName) {
@@ -42,14 +42,14 @@ unsigned int BankAccount::getId() const {
 }
 
 void BankAccount::addMoney(const Money &in) {
-    this->userMoney += in;
+    this->AccountMoney += in;
 }
 
 void BankAccount::subtractMoney(const Money &in) {
-    if (this->userMoney < in) {
+    if (this->AccountMoney < in) {
         throw Exceptions(NegativeMoney, "The user does not have enough money to do this.");
     }
-    this->userMoney -= in;
+    this->AccountMoney -= in;
 }
 
 std::string BankAccount::getGender() const {
@@ -71,7 +71,7 @@ void BankAccount::BuyShares(Share &SType, int amount) {
     Money priceOfShares = SType.getValue();
     priceOfShares *= amount;
 
-    if (this->userMoney < priceOfShares) {
+    if (this->AccountMoney < priceOfShares) {
         printf("User does not have enough money.");
         return;
     }

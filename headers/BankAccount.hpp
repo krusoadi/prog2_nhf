@@ -11,7 +11,7 @@ private:
     IDManager ID; // Bank account ID (for user verification in FileManager)
     std::string name; // Users Full name
     bool isMale; // Users Gender
-    Money userMoney; // Users amount of money
+    Money AccountMoney; // Users amount of money
     bool isWorker; // Is the user a worker (admin)
 
     TContainer<OwnedShare> userShares; // Bought shares of the user stored in a TContainer

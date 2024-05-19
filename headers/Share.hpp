@@ -53,6 +53,7 @@ class OwnedShare {
 private:
     int masterShareID;
     int amount; // amount of bought shares
+
 public:
     // Constructors, Destructors
 

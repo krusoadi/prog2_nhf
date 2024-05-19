@@ -1,0 +1,62 @@
+@startuml
+
+class BankAccount
+class User
+
+class BankAccount {
+    -IDManager ID
+    -string name
+    -bool isMale
+    -Money AccountMoney
+    -bool isWorker
+    -TContainer<OwnedShare> userShares
+
+    +BankAccount()
+    +BankAccount(IDManager id)
+    +BankAccount(const Money &money, string name, bool isMale, bool isWorker))
+    +BankAccount(const BankAccount &other)
+    +~BankAccount()
+
+    +Money getMoney()
+    +unsigned int getID()
+    +const string& getName()
+    +string getGender()
+    +bool getIsMale()
+    +const TContainer<OwnedShare>& getUserShares()
+
+    +void addMoney(const Money& in)
+    +void subtractMoney(const Money &in)
+
+    +void BuyShares(Share &SType, int amount)
+    +void SellShares(Share &SType, int amount)
+    +void revealShares()
+
+    +bool operator==(const BankAccount &other)
+    +void loadOShares(const OwnedShare &in)
+}
+
+class User{
+    -string username
+    -string hashedPw
+    -BankAccount userBank
+
+    +User()
+    +User(string username, string hashedPw, const BankAccount &userBank)
+    +User(const User &other)
+    +~User()
+
+    +const string &getUsername()
+    +BankAccount& getUserBank()
+    +BankAccount getUserBank() (const)
+    +bool MatchPassword(const std::string& password)
+    +const string &getHashedPw()
+
+    +void setUserBank(const BankAccount& userBankIn)
+    +void setHashedPw(const std::string& hashedPwIn)
+    +void setUsername(const std::string& usernameIn)
+
+    +bool operator==(const User &other)
+}
+
+
+@enduml
