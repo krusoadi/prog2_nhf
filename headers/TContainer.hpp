@@ -51,8 +51,8 @@ public:
 
     // Other methods
 
-    void clear(); // Clears the array and frees memory
-    void swap(int n, int m); // Swaps two elements by the given index
+    [[maybe_unused]] void clear(); // Clears the array and frees memory
+    [[maybe_unused]] void swap(int n, int m); // Swaps two elements by the given index
 
     //Search by an independent identity, throws compile time error, if wrongly used.
 
@@ -284,13 +284,13 @@ int TContainer<T>::size() const {
 }
 
 template<class T>
-void TContainer<T>::clear() {
+[[maybe_unused]] void TContainer<T>::clear() {
     delPtr();
     this->num = 0;
 }
 
 template<class T>
-void TContainer<T>::swap(int n, int m) {
+[[maybe_unused]] void TContainer<T>::swap(int n, int m) {
     checkIndex(n);
     checkIndex(m);
     if (n == m) {

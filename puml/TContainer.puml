@@ -1,0 +1,60 @@
+@startuml
+class TContainer
+struct Iterator <T>
+struct ConstIterator <T>
+
+class TContainer<T> {
+    -T *vars
+    -int num
+    +struct Iterator
+    +struct ConstIterator
+
+    -void delPtr()
+    -void makePtr(int n)
+    -void checkIndex(int i)
+    -void resize(int n)
+    +TContainer()
+    +TContainer(const TContainer<T> &other)
+    +~TContainer()
+    +void add_back(T newVar)
+    +T popIndex(int n)
+    +T& operator[](int n)
+    +bool isEmpty()
+    +int size()
+    +int search(Y identity)
+    +Iterator begin()
+    +Iterator end()
+    +ConstIterator begin()
+    +ConstIterator end()
+}
+
+struct Iterator <T> {
+    -T* it_ptr
+
+    +Iterator(*T ptr)
+    +std::ptrdiff_t distance(Iterator other)
+    +T& operator*()
+    +T* operator->()
+    +Iterator& operator++()
+    +Iterator& operator++(int)
+    +Iterator& operator--()
+    +Iterator& operator--(int)
+    bool operator==(const Iterator& a, const Iterator& b)
+    bool operator!=(const Iterator& a, const Iterator& b)
+}
+
+struct ConstIterator <T> {
+    -const T* it_ptr
+
+    +ConstIterator(*T ptr)
+    +std::ptrdiff_t distance(Iterator other)
+    +const T& operator*()
+    +const T* operator->()
+    +ConstIterator& operator++()
+    +ConstIterator& operator++(int)
+    +ConstIterator& operator--()
+    +ConstIterator& operator--(int)
+    bool operator==(const Iterator& a, const Iterator& b)
+    bool operator!=(const Iterator& a, const Iterator& b)
+}
+@enduml

@@ -1,0 +1,49 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Currency
+class Money
+enum CurrencyTypes
+
+class Currency {
+    -{static} constexpr double LOWER_BOUNDS[3]
+    -{static} constexpr double UPPER_BOUNDS[3]
+    +{static} double valueToEUR[3]
+    +{static} const string SYMBOLS[3]
+
+    -{static} double randomValue(double low, double high)
+    +{static} void updateCurrency()
+    +{static} void printCurrency()
+    }
+
+class Money {
+    -double value
+    -CurrencyTypes moneyCurr
+
+    -{static} Money TransferCurrency(CurrencyTypes our, const Money &other)
+    +Money()
+    +Money(double value CurrencyTypes currency)
+    +Money(const Money &other)
+    +~Money()
+    +double getValue()
+    +CurrencyTypes getCurrency()
+
+    +Money operator+(const Money &other)
+    +Money operator-(const Money &other)
+    +Money operator*(double rate)
+    +Money operator*(int amount)
+    +Money& operator+=(const Money &other)
+    +Money& operator-=(const Money &other)
+    +Money& operator*=(double rate)
+    +bool operator==(const Money &other)
+    +bool operator<(const Money &other)
+    +bool operator>(const Money &other)
+}
+
+enum CurrencyTypes {
+    EUR
+    HUF
+    USD
+}
+
+@enduml

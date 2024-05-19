@@ -55,5 +55,4 @@ public:
 
 std::ostream &operator<<(std::ostream &stream, const Money &in);
 
-
 #endif //PROG2_NHF_MONEY_HPP

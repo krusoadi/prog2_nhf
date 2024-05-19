@@ -1,0 +1,31 @@
+@startuml
+
+class std::Exceptions
+class Exceptions
+enum errors
+
+std::Exceptions --|> Exceptions
+
+class Exceptions {
+    -errors type
+    -string msg
+
+    +Exceptions(errors errorType, string msgIn)
+    +errors getType()
+    +string what()
+}
+
+enum errors {
+    NegativeMoney
+    NotEnoughShares
+    WrongMaster
+    EmptyContaine
+    NegativeIndex
+    IDAlreadyExists
+    InvalidId
+    FileError
+    UserNotFound
+    OverIndex
+}
+
+@enduml

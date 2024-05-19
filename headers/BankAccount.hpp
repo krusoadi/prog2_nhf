@@ -19,7 +19,7 @@ private:
 public:
     // Constructors/Destructors
 
-    BankAccount(); //All of the constructors are needed
+    BankAccount();
     explicit BankAccount(IDManager id);
     BankAccount(const Money &money, std::string name, bool isMale, bool isWorker);
     BankAccount(const BankAccount &other);
