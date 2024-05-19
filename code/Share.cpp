@@ -11,8 +11,6 @@ Share::Share(int idIn, std::string name, const Money &value, unsigned int availa
                                                                              available(available),
                                                                              ShareID(IDManager(idIn)) {}
 
-
-
 Share::Share() : value(Money()), available(0) {}
 
 double Share::getNewRate(bool decrease) {

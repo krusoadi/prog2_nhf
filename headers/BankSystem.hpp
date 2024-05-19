@@ -21,6 +21,7 @@ public:
 
     [[nodiscard]] const Money &getBankMoney() const;
     [[nodiscard]] const TContainer<User> &getUsers() const;
+    const TContainer<Share>& getBankShares() const;
     User & getUserByUsername(const std::string &username); // Gives back User object by username
     const User &getConstUser(const std::string &username); // Same as the previous but const (for read-only operations)
 

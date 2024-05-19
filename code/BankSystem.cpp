@@ -80,3 +80,7 @@ void BankSystem::loadBankShares(const TContainer<Share> &sharesIn) {
     this->bankShares = sharesIn;
 }
 
+const TContainer<Share> &BankSystem::getBankShares() const {
+    return this->bankShares;
+}
+

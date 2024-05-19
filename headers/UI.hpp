@@ -62,7 +62,10 @@ private:
     void refreshUser(); // Loads changes to our user.
     void myAccount(); // Prints info about the users account
     void mainMenuFunctions(); // Switch case of the menu
-
+    void ShareMenu(); // Opens the share menu and prints the dialog
+    void ShareMenuFunctions(); // Redirects to the functions of the Share menu
+    void printBankShares(); // Prints out the values of each share.
+    void buyShares();
 public:
     UI(const BankSystem &systemIn, const FileManager &managerIn); // Only constructor needed
     ~UI(); // We need the destructor, because with every quit we save the data.

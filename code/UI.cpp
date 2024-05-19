@@ -51,6 +51,7 @@ void UI::print(const std::string &text) {
 
 UI::~UI() {
     this->manager.saveUsers(this->system.getUsers());
+    this->manager.saveShareFile(this->system.getBankShares());
 }
 
 void UI::wrongInput() {
@@ -300,6 +301,9 @@ void UI::mainMenuFunctions() {
         case 3:
             myAccount();
             break;
+        case 4:
+            ShareMenu();
+            break;
         case 5:
             print("\n");
             Currency::printCurrency();
@@ -336,4 +340,58 @@ void UI::boot() {
     }
     this->mainLoop();
 }
+
+void UI::ShareMenu() {
+    print(shareMenuText + "\n");
+    ShareMenuFunctions();
+}
+
+void UI::ShareMenuFunctions() {
+    print("\n>");
+    std::cin >> this->indexIn;
+
+    switch (indexIn) {
+        case 1:
+            printBankShares();
+            return;
+        case 2:
+            buyShares();
+            break;
+        case 4:
+            this->thisUser.getUserBank().revealShares();
+    }
+}
+
+void UI::printBankShares() {
+    if (this->system.getBankShares().isEmpty()) {
+        return;
+    }
+    int index = 0;
+
+    for (const auto &i: this->system.getBankShares()) {
+        std::cout << ++index << ". "<< i << std::endl;
+    }
+}
+
+void UI::buyShares() {
+    printBankShares();
+
+    int index;
+
+    print("Type in the index of the desired share >");
+    std::cin >> index;
+
+    print("\n");
+
+    int amount;
+    print("Type in the desired amount >");
+    std::cin >> amount;
+
+    print("\n");
+    User& temp = this->system.getUserByUsername(this->thisUser.getUsername());
+    temp.getUserBank().BuyShares(this->system.getBankShares()[index-1], amount);
+    refreshUser();
+}
+
+
 
