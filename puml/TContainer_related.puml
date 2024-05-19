@@ -21,7 +21,7 @@ class TContainer<T> {
     +T& operator[](int n)
     +bool isEmpty()
     +int size()
-    +int search(Y identity)
+    +int search(<Y> identity)
     +Iterator begin()
     +Iterator end()
     +ConstIterator begin()

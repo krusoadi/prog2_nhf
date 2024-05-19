@@ -1,0 +1,37 @@
+@startuml
+class IDManager
+class Share
+class OwnedShare
+class BankAccount
+class User
+class Money
+class BankSystem
+class FileManager
+class Currency
+class UI
+class TContainer
+
+IDManager *-- Share
+Share *-- OwnedShare
+
+IDManager *-- BankAccount
+BankAccount *-- User
+
+BankAccount *-- OwnedShare
+
+Money *-- Share
+Money *-- BankAccount
+
+Currency o-- Money
+
+FileManager o-- BankSystem
+User *-- BankSystem
+BankSystem *-- UI
+
+FileManager o-- UI
+Currency -- UI
+
+TContainer *.. BankSystem
+TContainer *.. BankAccount
+TContainer *.. IDManager
+@enduml
