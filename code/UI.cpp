@@ -314,3 +314,26 @@ void UI::mainMenuFunctions() {
     }
 }
 
+void UI::boot() {
+    try {
+        this->system.loadUsers(this->manager.loadUsers());
+    }
+    catch (const Exceptions &e) {
+        std::cerr << e.what() << std::endl;
+        if (e.getType() == FileError) {
+            std::cerr << "File could not be opened.\n" << std::endl;
+            return;
+        }
+    }
+
+    try {
+        this->system.loadBankShares(this->manager.loadShareFile());
+    }
+    catch (const Exceptions &e) {
+        std::cerr << e.what() << std::endl;
+        this->manager.resetShareFile();
+        this->system.loadBankShares(this->manager.loadShareFile());
+    }
+    this->mainLoop();
+}
+

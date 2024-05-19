@@ -36,6 +36,7 @@ public:
 
     void addBankShares(const Share &ShareIn); // TODO
     void deleteBankShares(const Share &ShareIn); // TODO
+    void loadBankShares(const TContainer<Share> &sharesIn);
 
     [[nodiscard]] bool isUserNameReserved(const std::string &username) const; // Checks if username is in use already
 };

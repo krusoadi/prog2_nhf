@@ -28,6 +28,7 @@ void FileManager::loadUserFile(TContainer<User> &users) {
 
         users.add_back(readIn);
     }
+    userFile.close();
 }
 
 void FileManager::loadAccountFile(TContainer<User> &users) {
@@ -73,6 +74,7 @@ void FileManager::loadAccountFile(TContainer<User> &users) {
             }
         }
     }
+    AccFile.close();
 }
 
 OwnedShare FileManager::loadOwnedShare(std::istringstream &lineStream) {
@@ -113,6 +115,7 @@ void FileManager::saveUserFile(const TContainer<User> &users) const {
             UserFile << user.getUsername() << ";" << user.getHashedPw() << ";" << user.getUserBank().getId() << "\n";
         }
     }
+    UserFile.close();
 }
 
 void FileManager::saveAccountsFile(const TContainer<User> &users) {
@@ -136,6 +139,7 @@ void FileManager::saveAccountsFile(const TContainer<User> &users) {
             AccountsFile << "\n";
         }
     }
+    AccountsFile.close();
 }
 
 TContainer<Share> FileManager::loadShareFile() {
@@ -171,6 +175,8 @@ TContainer<Share> FileManager::loadShareFile() {
         throw Exceptions(FatalShareError,"Shares couldn't be loaded, will generate new shares."
                                           "All users loose their previous shares, and get compensation.");
     }
+
+    ShareFile.close();
     return retVal;
 }
 
@@ -190,6 +196,8 @@ void FileManager::saveShareFile(const TContainer<Share>& out) {
         ShareFile << it.getShareId() << ';' << it.getName() << ';' << it.getValue().getValue() << ';';
         ShareFile << (int)it.getValue().getCurrency() << ';' << it.getAvailable() << '\n';
     }
+
+    ShareFile.close();
 }
 
 void FileManager::resetShareFile() {
@@ -205,6 +213,10 @@ void FileManager::resetShareFile() {
     list.add_back(temp3);
     list.add_back(temp4);
     list.add_back(temp5);
+
+    for (const auto &it: list) {
+        IDManager::releaseID(it.getShareId());
+    }
 
     saveShareFile(list);
 }

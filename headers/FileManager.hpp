@@ -39,10 +39,6 @@ public:
     void saveShareFile(const TContainer<Share>& out); // Saves Shares to BankShareFileName
     TContainer<Share> loadShareFile(); // Loads Shares from the BankShareFileName
     void resetShareFile(); // Resets Share File if error is encountered
-
-    //TODO boot saveAll functions with exception handling fo share.
-
 };
-
 
 #endif //PROG2_NHF_FILEMANAGER_HPP

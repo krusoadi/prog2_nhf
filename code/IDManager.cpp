@@ -56,6 +56,15 @@ bool IDManager::operator==(const IDManager &other) const {
     return this->id == other.id;
 }
 
+void IDManager::releaseID(int ID) {
+    if (!IDManager::reservedIDs.isEmpty()) {
+        int i = IDManager::reservedIDs.search(ID);
+        if (i != -1) {
+            IDManager::reservedIDs.pop_index(i);
+        }
+    }
+}
+
 std::ostream &operator<<(std::ostream &stream, const IDManager &in) {
     return stream << "ID: " << in.getId();
 }

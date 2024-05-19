@@ -67,6 +67,7 @@ public:
     UI(const BankSystem &systemIn, const FileManager &managerIn); // Only constructor needed
     ~UI(); // We need the destructor, because with every quit we save the data.
     void mainLoop(); // Main menus loop.
+    void boot();
 };
 
 

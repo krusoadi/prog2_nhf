@@ -76,3 +76,7 @@ User &BankSystem::getUserByUsername(const std::string &username) {
     throw Exceptions(UserNotFound, "Couldn't find user.");
 }
 
+void BankSystem::loadBankShares(const TContainer<Share> &sharesIn) {
+    this->bankShares = sharesIn;
+}
+

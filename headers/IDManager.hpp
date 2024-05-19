@@ -26,6 +26,8 @@ public:
 
     [[nodiscard]] int getId() const; // Only needed public method along with the operator
     bool operator==(const IDManager &other) const;
+
+    static void releaseID(int ID);
 };
 
 std::ostream &operator<<(std::ostream &stream, const IDManager &in);
