@@ -17,16 +17,14 @@ private: // Private File Data Loaders (used by loadUsers())
     void loadUserFile(TContainer<User> &users); // Loads users data from the UserFileName
     void loadAccountFile(TContainer<User> &users); // Loads users accounts from the AccountsFileName
     static OwnedShare loadOwnedShare(std::istringstream &lineStream); // Loads users shares from a given string
-    void loadShareFile(TContainer<Share> &shares); // Loads Shares from the BankShareFileName
-    void resetShareFile(); // Resets Share File if error is encountered
 
 private: // Private File Data Savers
     void saveUserFile(const TContainer<User> &users) const; // Saves users data to UserFile
     void saveAccountsFile(const TContainer<User> &users); // Saves users accounts (and shares) to UserFile
-    void saveShareFile(const TContainer<Share>& out); // Saves Shares to BankShareFileName
 
 public:
     // Constructors and Destructors
+
     FileManager(std::string userFile, std::string accountFile, std::string shareFile);
     FileManager(const FileManager &other) = default;
     ~FileManager() = default;
@@ -36,10 +34,13 @@ public:
     TContainer<User> loadUsers();
     void saveUsers(const TContainer<User> &users);
 
-    TContainer<Share> loadShares();
-    void saveShares(const TContainer<Share>& in);
+    // Share Save/Load methods
 
+    void saveShareFile(const TContainer<Share>& out); // Saves Shares to BankShareFileName
+    TContainer<Share> loadShareFile(); // Loads Shares from the BankShareFileName
+    void resetShareFile(); // Resets Share File if error is encountered
 
+    //TODO boot saveAll functions with exception handling fo share.
 
 };
 

@@ -138,7 +138,8 @@ void FileManager::saveAccountsFile(const TContainer<User> &users) {
     }
 }
 
-void FileManager::loadShareFile(TContainer<Share> &shares) {
+TContainer<Share> FileManager::loadShareFile() {
+    TContainer<Share> retVal;
     std::ifstream ShareFile(this->BankShareFileName, std::ios::in);
 
     if (!ShareFile.is_open()) {
@@ -163,19 +164,20 @@ void FileManager::loadShareFile(TContainer<Share> &shares) {
         auto tempCurr = (CurrencyTypes) std::stoi(fCurrency);
         int tempAvailable = std::stoi(fAvailable);
         Share finalShare(tempID, fName, Money(tempVal,tempCurr), tempAvailable);
-        shares.add_back(finalShare);
+        retVal.add_back(finalShare);
     }
 
-    if(shares.isEmpty()) {
-        throw std::runtime_error("Shares couldn't be loaded, will generate new shares."
+    if(retVal.isEmpty()) {
+        throw Exceptions(FatalShareError,"Shares couldn't be loaded, will generate new shares."
                                           "All users loose their previous shares, and get compensation.");
     }
+    return retVal;
 }
 
 void FileManager::saveShareFile(const TContainer<Share>& out) {
     if (out.isEmpty()) {
-        throw std::runtime_error("There is no share to save, the program will generate new "
-                                          "shares, all the users who lose their share will be compensated.")
+        throw Exceptions(FatalShareError, "There is no share to save, the program will generate new "
+                                          "shares, all the users who lose their share will be compensated.");
     }
 
     std::ofstream ShareFile(BankShareFileName, std::ios::out);
@@ -205,27 +207,4 @@ void FileManager::resetShareFile() {
     list.add_back(temp5);
 
     saveShareFile(list);
-
-}
-
-TContainer<Share> FileManager::loadShares() {
-    TContainer<Share> retVal;
-
-    try {
-        loadShareFile(retVal);
-    } catch (const std::runtime_error &e) {
-        std::cerr << e.what();
-        resetShareFile();
-        loadShareFile(retVal);
-    }
-    return retVal;
-}
-
-void FileManager::saveShares(const TContainer<Share>& in) {
-    try {
-        saveShareFile(in);
-    } catch (const std::runtime_error &e) {
-        std::cerr << e.what();
-        resetShareFile();
-    }
 }
