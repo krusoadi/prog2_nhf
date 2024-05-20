@@ -43,6 +43,8 @@ private: // Private Static variables, functions
 
     static std::string safeInput(); // for passwords, it stars out the input;
     static std::string hashStr(const std::string &in); // Hashing function (really primitive hash)
+    static bool hasDigit(const std::string& in);
+    static void clearScreen();
 
 private: //Private variables (user related)
     int indexIn; // Given menuIndex

@@ -12,7 +12,8 @@ const std::string UI::menuText = "Please type in your selected menu point. Optio
                                  "4. Shares\n"
                                  "5. View Currency\n"
                                  "6. Convert to new Currency\n"
-                                 "7. Log out\n";
+                                 "7. Clear Screen (cls)\n"
+                                 "8. Log out\n";
 
 const std::string UI::shareMenuText = "Please type in your selected menu point. Options:\n\n"
                                       "1. Show information about the shares\n"
@@ -80,12 +81,13 @@ UI::UI(const BankSystem &systemIn, const FileManager &managerIn) : indexIn(0), i
                                                                    manager(managerIn), system(systemIn) {
     print(UI::welcomeText);
     Currency::updateCurrency();
-    std::cout << std::fixed << std::setprecision(9) <<std::endl;
+    std::cout << std::fixed << std::setprecision(3) <<std::endl;
 }
 
 void UI::AccountUI() {
     while (!is_loggedIn) {
         print(UI::accountTextMenu);
+        print("\n>");
         std::cin >> this->indexIn;
 
         switch (indexIn) {
@@ -103,7 +105,7 @@ void UI::AccountUI() {
                 break;
         }
     }
-} // TODO user error check
+}
 
 void UI::logIn() {
     std::string userName;
@@ -144,7 +146,9 @@ void UI::makeAcc() {
     std::string name;
 
     print(usernameTXT);
+
     std::cin >> newUserName;
+
     if (system.isUserNameReserved(newUserName)) {
         print("\nUsername is already in use please choose an other one.\n");
         return;
@@ -152,16 +156,46 @@ void UI::makeAcc() {
 
     print(passwordTXT);
     newPassword = safeInput();
+
     print("\nType in your first name >");
+
     std::cin >> name;
+
+    if (hasDigit(name)) {
+        print("\nDigits cannot be in names\n");
+        return;
+    }
+
     print("\nType in your last name >");
     std::string last;
     std::cin >> last;
+
+
+    if (hasDigit(last)) {
+        print("\nDigits cannot be in names\n");
+        return;
+    }
+
     name += " " + last;
+
+    print("\n Are you a male (y/n): ");
+
+    bool isMale;
+    std::string male;
+    std::cin >> male;
+
+    if (male == "y") {
+        isMale = true;
+    } else if (male == "n") {
+        isMale = false;
+    } else {
+        wrongInput();
+        return;
+    }
 
     newUser.setUsername(newUserName);
     newUser.setHashedPw(hashStr(newPassword));
-    newUser.setUserBank(BankAccount(Money(0, EUR), name, false, true));
+    newUser.setUserBank(BankAccount(Money(0, EUR), name, isMale, true));
     system.addNewUser(newUser);
     manager.saveUsers(system.getUsers());
     this->thisUser = newUser;
@@ -209,7 +243,12 @@ std::string UI::hashStr(const std::string &in) { // The only point of this funct
 void UI::depositMoney() {
     print("Type in the amount you want to deposit >");
     double amount;
-    std::cin >> amount;
+    try {
+        std::cin >> amount;
+    } catch (...) {
+        wrongInput();
+        return;
+    }
 
     if (amount < 0.0) {
         print("\nCannot deposit negative amount of money!\n");
@@ -251,7 +290,13 @@ void UI::refreshUser() {
 void UI::withdrawMoney() {
     print("Type in the amount you want to withdraw >");
     double amount;
-    std::cin >> amount;
+
+    try {
+        std::cin >> amount;
+    } catch (...) {
+        wrongInput();
+        return;
+    }
 
     if (amount <= 0.0) {
         print("\nCannot withdraw negative amount of money!\n");
@@ -320,7 +365,10 @@ void UI::mainMenuFunctions() {
         case 6:
             convertMyCurrency();
             return;
-        case 7:
+        case 7 :
+            clearScreen();
+            break;
+        case 8:
             exit();
             return;
         default:
@@ -374,7 +422,6 @@ void UI::ShareMenuFunctions() {
         case 4: // TODO needs to be more detailed..
             this->thisUser.getUserBank().revealShares();
         case 5:
-            convertMyCurrency();
             return;
         default:
             wrongInput();
@@ -399,7 +446,13 @@ void UI::buyShares() { // TODO check if shares are available
     int index;
 
     print("Type in the index of the desired share >");
-    std::cin >> index;
+
+    try {
+        std::cin >> index;
+    } catch (...) {
+        wrongInput();
+        return;
+    }
 
     if(index > this->system.getBankShares().size() || index < 1) {
         print("\nThe index you gave is not existent!\n");
@@ -410,8 +463,13 @@ void UI::buyShares() { // TODO check if shares are available
 
     int amount;
     print("Type in the desired amount >");
-    std::cin >> amount;
 
+    try {
+        std::cin >> amount;
+    } catch (...) {
+        wrongInput();
+        return;
+    }
     if (amount < 1) {
         print("\nZero or negative amount of shares cannot be bought!\n");
         return;
@@ -440,7 +498,12 @@ void UI::sellShares() {
 
     print("Type in the index of the desired share >");
 
-    std::cin >> index;
+    try {
+        std::cin >> index;
+    } catch (...) {
+        wrongInput();
+        return;
+    }
 
     if(index > currentShares.size() || index < 1) {
         print("\nThe index you gave is not existent\n");
@@ -451,7 +514,13 @@ void UI::sellShares() {
 
     int amount;
     print("Type in the desired amount >");
-    std::cin >> amount;
+
+    try {
+        std::cin >> amount;
+    } catch (...) {
+        wrongInput();
+        return;
+    }
 
     if (amount < 1) {
         print("\nZero or negative amount of shares cannot be bought!\n");
@@ -504,6 +573,21 @@ void UI::convertMyCurrency() {
     refreshUser();
     print("\nYour money has been converted successfully!\n");
     std::cout << "Converted money: " <<  newMoney << std::endl;
+}
+
+bool UI::hasDigit(const std::string &in) {
+    if (!in.empty()) {
+        for (const char c : in) {
+            if (isdigit(c)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+void UI::clearScreen() {
+    print("\033[2J\033[1;1H");
 }
 
 
