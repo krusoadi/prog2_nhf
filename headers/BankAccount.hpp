@@ -32,15 +32,13 @@ public:
     [[nodiscard]] unsigned int getId() const;
     [[nodiscard]] const std::string &getName() const;
     [[nodiscard]] std::string getGender() const;
-    [[maybe_unused]] [[nodiscard]] bool getIsWorker() const;
+    [[maybe_unused]] [[nodiscard]] bool getIsWorker() const; // TODO check if worker functions will be used
     [[nodiscard]] bool getIsMale() const;
     [[nodiscard]] TContainer<OwnedShare> &getUserShares();
 
-    // Setters TODO check if they are needed
+    // Setter
 
-    [[maybe_unused]] void setMoney(const Money &in);
-    [[maybe_unused]] void setName(const std::string &name);
-    [[maybe_unused]] void setIsWorker(bool isWorkerIn);
+    void setAccountMoney(const Money &accountMoney);
 
     // Money managing methods
 

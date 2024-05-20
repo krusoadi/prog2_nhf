@@ -1,6 +1,7 @@
 #ifndef PROG2_NHF_UI_HPP
 #define PROG2_NHF_UI_HPP
 
+#include <iomanip>
 #include <string>
 #include <iostream>
 #include <conio.h> // for safe password staring
@@ -65,8 +66,9 @@ private:
     void ShareMenu(); // Opens the share menu and prints the dialog
     void ShareMenuFunctions(); // Redirects to the functions of the Share menu
     void printBankShares(); // Prints out the values of each share.
-    void buyShares();
-    void sellShares();
+    void buyShares(); // Interface for buying shares
+    void sellShares(); // Interface for selling shares
+    void convertMyCurrency();
 public:
     UI(const BankSystem &systemIn, const FileManager &managerIn); // Only constructor needed
     ~UI(); // We need the destructor, because with every quit we save the data.

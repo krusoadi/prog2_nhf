@@ -11,7 +11,8 @@ const std::string UI::menuText = "Please type in your selected menu point. Optio
                                  "3. Check my account\n"
                                  "4. Shares\n"
                                  "5. View Currency\n"
-                                 "6. Log out\n";
+                                 "6. Convert to new Currency\n"
+                                 "7. Log out\n";
 
 const std::string UI::shareMenuText = "Please type in your selected menu point. Options:\n\n"
                                       "1. Show information about the shares\n"
@@ -79,6 +80,7 @@ UI::UI(const BankSystem &systemIn, const FileManager &managerIn) : indexIn(0), i
                                                                    manager(managerIn), system(systemIn) {
     print(UI::welcomeText);
     Currency::updateCurrency();
+    std::cout << std::fixed << std::setprecision(9) <<std::endl;
 }
 
 void UI::AccountUI() {
@@ -101,7 +103,7 @@ void UI::AccountUI() {
                 break;
         }
     }
-}
+} // TODO user error check
 
 void UI::logIn() {
     std::string userName;
@@ -298,7 +300,6 @@ void UI::myAccount() {
     std::cout << this->thisUser.getUserBank() << std::endl;
 }
 
-
 void UI::mainMenuFunctions() {
     switch (indexIn) {
         case 1:
@@ -317,6 +318,9 @@ void UI::mainMenuFunctions() {
             Currency::printCurrency();
             break;
         case 6:
+            convertMyCurrency();
+            return;
+        case 7:
             exit();
             return;
         default:
@@ -370,6 +374,7 @@ void UI::ShareMenuFunctions() {
         case 4: // TODO needs to be more detailed..
             this->thisUser.getUserBank().revealShares();
         case 5:
+            convertMyCurrency();
             return;
         default:
             wrongInput();
@@ -460,6 +465,48 @@ void UI::sellShares() {
     refreshUser();
     print("\nSuccessfully sold the shares!\n");
 }
+
+void UI::convertMyCurrency() {
+    Currency::printCurrency();
+    print("\nPlease select currency (1 = EUR, 2 = HUF, 3 = USD, 4 = return) >");
+    int type;
+    CurrencyTypes finalType;
+
+    try {
+    std::cin >> type;
+    } catch (...) {
+        wrongInput();
+        return;
+    }
+    
+
+    switch (type) {
+        case 1:
+            finalType = EUR;
+            break;
+        case 2:
+            finalType = HUF;
+            break;
+        case 3:
+            finalType = USD;
+            break;
+        case 4:
+            return;
+        default:
+            wrongInput();
+            return;
+    }
+
+
+    User& current = this->system.getUserByUsername(this->thisUser.getUsername());
+    auto& newMoney = current.getUserBank().getMoney().convertCurrency(finalType);
+    current.getUserBank().setAccountMoney(newMoney);
+    refreshUser();
+    print("\nYour money has been converted successfully!\n");
+    std::cout << "Converted money: " <<  newMoney << std::endl;
+}
+
+
 
 
 

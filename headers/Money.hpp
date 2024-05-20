@@ -26,14 +26,9 @@ public:
     [[nodiscard]] double getValue() const;
     [[nodiscard]] CurrencyTypes getCurrency() const;
 
-    // Setters TODO check if they are needed.
+    // Converters (for object) TODO megcsinalni
 
-    [[maybe_unused]] void setCurrency(CurrencyTypes cur);
-    [[maybe_unused]] void setValue(double val);
-
-    // Converters (for object) TODO check if safe to delete
-
-    [[maybe_unused]] [[nodiscard]] Money convertCurrency(CurrencyTypes dest) const;
+    [[maybe_unused]] [[nodiscard]] const Money convertCurrency(CurrencyTypes dest) const;
 
     // Arithmetic Operators
 

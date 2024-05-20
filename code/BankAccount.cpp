@@ -33,14 +33,6 @@ unsigned int BankAccount::getId() const {
     return ID.getId();
 }
 
-[[maybe_unused]] void BankAccount::setMoney(const Money &in) {
-    this->AccountMoney = in;
-}
-
-[[maybe_unused]] void BankAccount::setName(const std::string &newUserName) {
-    this->name = newUserName;
-}
-
 void BankAccount::addMoney(const Money &in) {
     this->AccountMoney += in;
 }
@@ -61,10 +53,6 @@ std::string BankAccount::getGender() const {
 
 [[maybe_unused]] bool BankAccount::getIsWorker() const {
     return isWorker;
-}
-
-[[maybe_unused]] void BankAccount::setIsWorker(bool isWorkerIn) {
-    BankAccount::isWorker = isWorkerIn;
 }
 
 void BankAccount::BuyShares(Share &SType, int amount) {
@@ -137,6 +125,10 @@ bool BankAccount::getIsMale() const {
 
 TContainer<OwnedShare> &BankAccount::getUserShares() {
     return userShares;
+}
+
+void BankAccount::setAccountMoney(const Money &accountMoney) {
+    AccountMoney = accountMoney;
 }
 
 std::ostream &operator<<(std::ostream &stream, const BankAccount &in) {

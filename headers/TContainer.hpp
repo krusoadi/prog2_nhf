@@ -77,7 +77,7 @@ public:
     [[maybe_unused]] ConstIterator cbegin() const; // Constant Iterator begin
     [[maybe_unused]] ConstIterator cend() const; // Constant Iterator end
 
-    ConstIterator begin() const; //TODO make these the main constant iterators
+    ConstIterator begin() const;
     ConstIterator end() const;
 
 };
