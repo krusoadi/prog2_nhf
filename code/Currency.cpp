@@ -19,5 +19,6 @@ void Currency::updateCurrency() {
 }
 
 void Currency::printCurrency() {
-    std::cout << "From EUR:\tHUF:" << Currency::valueToEUR[HUF] << "\tUSD:" << Currency::valueToEUR[USD] << std::endl;
+    std::cout << "\n" << "From EUR:\tHUF:" << Currency::valueToEUR[HUF];
+    std::cout << "\tUSD:" << Currency::valueToEUR[USD] << "\n" << std::endl;
 }

@@ -52,7 +52,7 @@ public:
     void BuyShares(Share &SType, int amount);
     void SellShares(Share &SType, int amount);
 
-    // Share printer (Debug purposes) TODO check if needed.
+    // Share printer
 
     void revealShares();
 

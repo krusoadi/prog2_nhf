@@ -55,8 +55,8 @@ UI::~UI() {
 }
 
 void UI::wrongInput() {
-    fflush(stdin);
     std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     print(IllegalNumber);
 }
 
@@ -85,7 +85,6 @@ void UI::AccountUI() {
     while (!is_loggedIn) {
         print(UI::accountTextMenu);
         std::cin >> this->indexIn;
-
 
         switch (indexIn) {
             case 1:
@@ -210,6 +209,11 @@ void UI::depositMoney() {
     double amount;
     std::cin >> amount;
 
+    if (amount < 0.0) {
+        print("\nCannot deposit negative amount of money!\n");
+        return;
+    }
+
     print("\n");
 
     print("Please select currency (1 = EUR, 2 = HUF, 3 = USD >");
@@ -246,6 +250,11 @@ void UI::withdrawMoney() {
     print("Type in the amount you want to withdraw >");
     double amount;
     std::cin >> amount;
+
+    if (amount <= 0.0) {
+        print("\nCannot withdraw negative amount of money!\n");
+        return;
+    }
 
     print("\n");
 
@@ -305,9 +314,7 @@ void UI::mainMenuFunctions() {
             ShareMenu();
             break;
         case 5:
-            print("\n");
             Currency::printCurrency();
-            print("\n");
             break;
         case 6:
             exit();
@@ -352,17 +359,21 @@ void UI::ShareMenuFunctions() {
 
     switch (indexIn) {
         case 1:
-            printBankShares();
+            printBankShares(); // Checked
             return;
         case 2:
-            buyShares();
+            buyShares(); // Checked
             break;
         case 3:
-            sellShares();
+            sellShares(); // Checked
             break;
         case 4: // TODO needs to be more detailed..
             this->thisUser.getUserBank().revealShares();
-
+        case 5:
+            return;
+        default:
+            wrongInput();
+            break;
     }
 }
 
@@ -377,7 +388,7 @@ void UI::printBankShares() {
     }
 }
 
-void UI::buyShares() {
+void UI::buyShares() { // TODO check if shares are available
     printBankShares();
 
     int index;
@@ -385,16 +396,27 @@ void UI::buyShares() {
     print("Type in the index of the desired share >");
     std::cin >> index;
 
+    if(index > this->system.getBankShares().size() || index < 1) {
+        print("\nThe index you gave is not existent!\n");
+        return;
+    }
+
     print("\n");
 
     int amount;
     print("Type in the desired amount >");
     std::cin >> amount;
 
+    if (amount < 1) {
+        print("\nZero or negative amount of shares cannot be bought!\n");
+        return;
+    }
+
     print("\n");
     User& temp = this->system.getUserByUsername(this->thisUser.getUsername());
     temp.getUserBank().BuyShares(this->system.getBankShares()[index-1], amount);
     refreshUser();
+    print("\nSuccessfully bought the shares!\n");
 }
 
 void UI::sellShares() {
@@ -402,12 +424,23 @@ void UI::sellShares() {
     auto currentShares = current.getUserBank().getUserShares();
     int index = 0;
 
+    if (currentShares.isEmpty()) {
+        print("\nYou do not have any shares to sell.\n");
+        return;
+    }
+
     for (const auto &it:currentShares) {
         std::cout << ++index << ". " << it << ":" << std::endl;
     }
 
     print("Type in the index of the desired share >");
+
     std::cin >> index;
+
+    if(index > currentShares.size() || index < 1) {
+        print("\nThe index you gave is not existent\n");
+        return;
+    }
 
     print("\n");
 
@@ -415,11 +448,17 @@ void UI::sellShares() {
     print("Type in the desired amount >");
     std::cin >> amount;
 
+    if (amount < 1) {
+        print("\nZero or negative amount of shares cannot be bought!\n");
+        return;
+    }
+
     OwnedShare &selected = currentShares[index-1];
     Share& masterShare = this->system.getShareByChild(selected);
 
     current.getUserBank().SellShares(masterShare, amount);
     refreshUser();
+    print("\nSuccessfully sold the shares!\n");
 }
 
 
