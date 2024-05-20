@@ -135,7 +135,7 @@ bool BankAccount::getIsMale() const {
     return isMale;
 }
 
-const TContainer<OwnedShare> &BankAccount::getUserShares() const {
+TContainer<OwnedShare> &BankAccount::getUserShares() {
     return userShares;
 }
 

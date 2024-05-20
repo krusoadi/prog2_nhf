@@ -357,6 +357,9 @@ void UI::ShareMenuFunctions() {
         case 2:
             buyShares();
             break;
+        case 3:
+            sellShares();
+            break;
         case 4: // TODO needs to be more detailed..
             this->thisUser.getUserBank().revealShares();
 
@@ -391,6 +394,31 @@ void UI::buyShares() {
     print("\n");
     User& temp = this->system.getUserByUsername(this->thisUser.getUsername());
     temp.getUserBank().BuyShares(this->system.getBankShares()[index-1], amount);
+    refreshUser();
+}
+
+void UI::sellShares() {
+    User &current = this->system.getUserByUsername(this->thisUser.getUsername());
+    auto currentShares = current.getUserBank().getUserShares();
+    int index = 0;
+
+    for (const auto &it:currentShares) {
+        std::cout << ++index << ". " << it << ":" << std::endl;
+    }
+
+    print("Type in the index of the desired share >");
+    std::cin >> index;
+
+    print("\n");
+
+    int amount;
+    print("Type in the desired amount >");
+    std::cin >> amount;
+
+    OwnedShare &selected = currentShares[index-1];
+    Share& masterShare = this->system.getShareByChild(selected);
+
+    current.getUserBank().SellShares(masterShare, amount);
     refreshUser();
 }
 

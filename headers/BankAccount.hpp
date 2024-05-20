@@ -34,7 +34,7 @@ public:
     [[nodiscard]] std::string getGender() const;
     [[maybe_unused]] [[nodiscard]] bool getIsWorker() const;
     [[nodiscard]] bool getIsMale() const;
-    [[nodiscard]] const TContainer<OwnedShare> &getUserShares() const;
+    [[nodiscard]] TContainer<OwnedShare> &getUserShares();
 
     // Setters TODO check if they are needed
 

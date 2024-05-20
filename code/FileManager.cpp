@@ -83,11 +83,11 @@ OwnedShare FileManager::loadOwnedShare(std::istringstream &lineStream) {
     std::string fAmount;
     std::getline(lineStream, fAmount); // OwnedShare Amount
 
-    IDManager OSMIDTemp(std::stoi(fOSMID));
+    int OSMIDTemp = std::stoi(fOSMID);
     int AmountTemp = std::stoi(fAmount);
 
     OwnedShare tempOS(AmountTemp);
-    tempOS.setMasterShareId(OSMIDTemp.getId());
+    tempOS.setMasterShareId(OSMIDTemp);
     return tempOS;
 }
 
