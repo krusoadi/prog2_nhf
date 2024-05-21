@@ -306,6 +306,8 @@ class UI {
     -{static} std::string hashStr(const string &in)
     -{static} bool hasDigit(const string& in)
     -{static} void clearScreen()
+    -{static} bool checkAnswerFail();
+    -{static} bool wrongInput();
 
     -void AccountUI()
     -void logIn()

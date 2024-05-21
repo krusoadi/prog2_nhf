@@ -26,7 +26,7 @@ public:
     [[nodiscard]] double getValue() const;
     [[nodiscard]] CurrencyTypes getCurrency() const;
 
-    // Converters (for object) TODO megcsinalni
+    // Converters (for object)
 
     [[maybe_unused]] [[nodiscard]] const Money convertCurrency(CurrencyTypes dest) const;
 
