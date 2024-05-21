@@ -17,7 +17,7 @@ private:
     // New price (after sell/buy) calculators
 
     double static getNewRate(bool decrease); // Random growth/regression rate calculator
-    void calculateNewPrice(int change); // Method to set the new price with the generated rate
+    void calculateNewPrice(bool change); // Method to set the new price with the generated rate
 
 public:
     // Constructors, Destructors

@@ -38,10 +38,10 @@ private: // Private Static variables, functions
     static void wrongMenuPoint(); // Restores the IO when wrong input was given
     static std::string safeInput(); // for passwords, it stars out the input;
     static std::string hashStr(const std::string &in); // Hashing function (really primitive hash)
-    static bool hasDigit(const std::string& in);
-    static void clearScreen();
-    static bool checkAnswerFail();
-    static void wrongInput();
+    static bool hasDigit(const std::string& in); // Checks if a string has digits in it
+    static void clearScreen(); // Clears the screen
+    static bool checkAnswerFail(); // Checks the input if it has any errors //TODO
+    static void wrongInput(); // Restores input if a bad answer came //TODO
 
 private: //Private variables (user related)
     int indexIn; // Given menuIndex
@@ -68,7 +68,7 @@ private: // Object related private methods
     void buyShares(); // Interface for buying shares
     void sellShares(); // Interface for selling shares
     void convertMyCurrency(); // Converts the users currency
-    void showMyShares();
+    void showMyShares(); // Prints out the current users shares, with values
 public:
     UI(const BankSystem &systemIn, const FileManager &managerIn); // Only constructor needed
     ~UI(); // We need the destructor, because with every quit we save the data.

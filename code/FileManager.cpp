@@ -14,15 +14,17 @@ void FileManager::loadUserFile(TContainer<User> &users) {
     }
 
     for (std::string line; std::getline(userFile, line);) {
+        // File buffers
         std::string fUsername;
         std::string fPassword;
         std::string fAccId;
-
         std::istringstream lineStream(line);
 
         std::getline(lineStream, fUsername, ';');
         std::getline(lineStream, fPassword, ';');
         std::getline(lineStream, fAccId);
+
+        // Temp user objects
 
         User readIn(fUsername, fPassword, BankAccount(IDManager(std::stoi(fAccId))));
 
@@ -40,6 +42,8 @@ void FileManager::loadAccountFile(TContainer<User> &users) {
 
     for (std::string line; std::getline(AccFile, line);) {
         std::istringstream lineStream(line);
+
+        // Loading buffers from files
 
         std::string fID;
         std::getline(lineStream, fID, ';');
@@ -61,11 +65,11 @@ void FileManager::loadAccountFile(TContainer<User> &users) {
 
         BankAccount tempAcc(tempMoney, Name, tempMale, tempWorker);
 
+
         for (std::string ShareLine; std::getline(lineStream, ShareLine, '|');) {
             std::istringstream ShareLineStream(ShareLine);
             OwnedShare tempOS = loadOwnedShare(ShareLineStream);
             tempAcc.loadOShares(tempOS);
-
         }
         for (auto &it: users) {
             if (tempId == it.getUserBank().getId()) {
@@ -152,6 +156,8 @@ TContainer<Share> FileManager::loadShareFile() {
     for (std::string line; std::getline(ShareFile, line);) {
         std::istringstream lineStream(line);
 
+        // File temporary buffers
+
         std::string fID;
         std::getline(lineStream, fID, ';');
         std::string fName;
@@ -162,6 +168,8 @@ TContainer<Share> FileManager::loadShareFile() {
         std::getline(lineStream, fCurrency, ';');
         std::string fAvailable;
         std::getline(lineStream, fAvailable);
+
+        //Cast temporary units
 
         int tempID = std::stoi(fID);
         double tempVal = std::stod(fValue);
@@ -200,7 +208,7 @@ void FileManager::saveShareFile(const TContainer<Share>& out) {
     ShareFile.close();
 }
 
-void FileManager::resetShareFile() {
+void FileManager::resetShareFile() { // TODO
     Share temp1("Apple", Money(500, HUF), 100);
     Share temp2("Tesla", Money(750, HUF), 200);
     Share temp3("Meta", Money(3, EUR), 125);

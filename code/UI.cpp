@@ -39,7 +39,7 @@ void UI::print(const std::string &text) {
     std::cout << text;
 }
 
-UI::~UI() {
+UI::~UI() { // The destructor saves the current data
     this->manager.saveUsers(this->system.getUsers());
     this->manager.saveShareFile(this->system.getBankShares());
 }
@@ -58,7 +58,7 @@ void UI::wrongInput() {
 
 void UI::mainLoop() {
     AccountUI();
-    if (!this->is_loggedIn) {
+    if (!this->is_loggedIn) { //Last check if the user has logged in
         UI::runtime = false;
     }
 
@@ -68,14 +68,13 @@ void UI::mainLoop() {
         std::cin >> indexIn;
         mainMenuFunctions();
     };
-
 }
 
 UI::UI(const BankSystem &systemIn, const FileManager &managerIn) : indexIn(0), is_loggedIn(false),
                                                                    manager(managerIn), system(systemIn) {
     print(UI::welcomeText);
-    Currency::updateCurrency();
-    std::cout << std::fixed << std::setprecision(3) <<std::endl;
+    Currency::updateCurrency(); // new currency every time we load
+    std::cout << std::fixed << std::setprecision(3) <<std::endl; //formatting
 }
 
 void UI::AccountUI() {
@@ -108,16 +107,16 @@ void UI::logIn() {
     print(usernameTXT);
 
     std::cin >> userName;
-    if (!system.isUserNameReserved(userName)) {
+    if (!system.isUserNameReserved(userName)) { // we check if this username exists, if not we return
         print("\nThere is no account with this username, please try again!\n");
         return;
     }
 
     print(passwordTXT);
-    Password = safeInput();
-    std::string hashed = hashStr(Password);
+    Password = safeInput(); // we safely ask for password
+    std::string hashed = hashStr(Password); // hash it, we don't need to store the full password
 
-    try {
+    try { // we try to get the users account, if we can't find it we quit
         const User &found = system.getConstUser(userName);
         if (!found.MatchPassword(hashed)) {
             print("Incorrect password, try again!\n");
@@ -134,7 +133,7 @@ void UI::logIn() {
 }
 
 void UI::makeAcc() {
-    User newUser;
+    User newUser; // new user object
     std::string newUserName;
     std::string newPassword;
     std::string name;
@@ -143,19 +142,19 @@ void UI::makeAcc() {
 
     std::cin >> newUserName;
 
-    if (system.isUserNameReserved(newUserName)) {
+    if (system.isUserNameReserved(newUserName)) { // we check the new username if it is reserved
         print("\nUsername is already in use please choose an other one.\n");
         return;
     }
 
     print(passwordTXT);
-    newPassword = safeInput();
+    newPassword = safeInput(); // we safely get the password
 
     print("\nType in your first name >");
 
     std::cin >> name;
 
-    if (hasDigit(name)) {
+    if (hasDigit(name)) { // we can't have digits in names
         print("\nDigits cannot be in names\n");
         return;
     }
@@ -170,7 +169,7 @@ void UI::makeAcc() {
         return;
     }
 
-    name += " " + last;
+    name += " " + last; // we store the full name
 
     print("\n Are you a male (y/n): ");
 
@@ -205,10 +204,10 @@ void UI::exit() {
 }
 
 std::string UI::safeInput() {
-    std::string buffer; // full password
-    char tch; // temp character
+    std::string buffer; // full password buffer
+    char tch; // temp character for iterations
 
-    while ((tch = static_cast<char>(_getch())) != ENTER) {
+    while ((tch = static_cast<char>(_getch())) != ENTER) { // _getch() gets new characters without showing them on the console
         if (tch != '\b') { // Checks if the char was a backspace
             std::cout << '*';
             buffer += tch;
@@ -224,14 +223,14 @@ std::string UI::safeInput() {
 }
 
 std::string UI::hashStr(const std::string &in) { // The only point of this function is to not store the passwords as they are.
-    unsigned long long hashNumber = 5311;
+    unsigned long long hashNumber = 5311; // some basic hash number !!!!!TOP SECRET!!!!!
 
     for (int i = 0; i < 3; ++i) {
         for (char tch: in) {
             hashNumber = ((hashNumber << 5) + hashNumber) + tch;
         }
     }
-    return std::to_string(hashNumber);
+    return std::to_string(hashNumber); // we store it as a string for safety
 }
 
 void UI::depositMoney() {
@@ -251,6 +250,7 @@ void UI::depositMoney() {
     print("\n");
 
     print("Please select currency (1 = EUR, 2 = HUF, 3 = USD >");
+
     int type;
     CurrencyTypes finalType;
     std::cin >> type;
@@ -273,13 +273,14 @@ void UI::depositMoney() {
             wrongMenuPoint();
             return;
     }
+    // we always update the user in the bank, to make sure we save it. After that we refresh our current user
     Money in(amount, finalType);
     this->system.getUserByUsername(thisUser.getUsername()).getUserBank().addMoney(in);
     refreshUser();
     print("\nSuccessfully added the amount of money.\n");
 }
 
-void UI::refreshUser() {
+void UI::refreshUser() { // we copy the user from the bank to our UI.
     auto refresh = this->system.getConstUser(thisUser.getUsername());
     this->thisUser = refresh;
 }
@@ -322,7 +323,8 @@ void UI::withdrawMoney() {
             return;
     }
     Money in(amount, finalType);
-    try {
+
+    try { // we throw an exception when subtracting money for safety and we catch it here
         this->system.getUserByUsername(thisUser.getUsername()).getUserBank().subtractMoney(in);
     } catch (const Exceptions &e) {
         if (e.getType() == NegativeMoney) {
@@ -390,10 +392,10 @@ void UI::boot() {
     }
     catch (const Exceptions &e) {
         std::cerr << e.what() << std::endl;
-        this->manager.resetShareFile();
-        this->system.loadBankShares(this->manager.loadShareFile());
+        this->manager.resetShareFile(); // we cannot run without shares, so we load some basic backup shares to the program
+        this->system.loadBankShares(this->manager.loadShareFile()); // at this point the file sure exists so we don't need exceptions
     }
-    this->mainLoop();
+    this->mainLoop(); // We can start the UI from here
 }
 
 void UI::ShareMenu() {
@@ -427,8 +429,8 @@ void UI::ShareMenuFunctions() {
 }
 
 void UI::printBankShares() {
-    if (this->system.getBankShares().isEmpty()) {
-        return;
+    if (this->system.getBankShares().isEmpty()) { // if the TContainer is empty, and we try to iterate it we get
+        return; // an exception
     }
     int index = 0;
 
@@ -482,8 +484,9 @@ void UI::buyShares() {
 }
 
 void UI::sellShares() {
+    // we work with the systems account because we will need it later
     User &current = this->system.getUserByUsername(this->thisUser.getUsername());
-    auto currentShares = current.getUserBank().getUserShares();
+    auto currentShares = current.getUserBank().getUserShares(); // convention
     int index = 0;
 
     if (currentShares.isEmpty()) {
@@ -496,16 +499,12 @@ void UI::sellShares() {
     }
 
     print("\n");
-
     print("Type in the index of the desired share >");
-
 
     std::cin >> index;
     if (checkAnswerFail()) {
         return;
     }
-
-
     if(index > currentShares.size() || index < 1) {
         print("\nThe index you gave is not existent\n");
         return;
@@ -516,13 +515,10 @@ void UI::sellShares() {
     int amount;
     print("Type in the desired amount >");
 
-
     std::cin >> amount;
     if (checkAnswerFail()) {
         return;
     }
-
-
     if (amount < 1) {
         print("\nZero or negative amount of shares cannot be bought!\n");
         return;
@@ -553,7 +549,6 @@ void UI::convertMyCurrency() {
         wrongMenuPoint();
         return;
     }
-    
 
     switch (type) {
         case 1:
@@ -571,8 +566,7 @@ void UI::convertMyCurrency() {
             wrongMenuPoint();
             return;
     }
-
-
+    // We update the systems account and after we finished we refresh our own
     User& current = this->system.getUserByUsername(this->thisUser.getUsername());
     auto& newMoney = current.getUserBank().getMoney().convertCurrency(finalType);
     current.getUserBank().setAccountMoney(newMoney);

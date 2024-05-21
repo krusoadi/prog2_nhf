@@ -19,6 +19,8 @@ double Share::getNewRate(bool decrease) {
 
     int low, high;
 
+    // we decide the ranges of the random new rate based on if it was sold or bought
+
     decrease ? low = 95 : low = 100;
     decrease ? high = 99 : high = 105;
 
@@ -27,7 +29,7 @@ double Share::getNewRate(bool decrease) {
     return ((double) dis(gen)) / 100;
 }
 
-void Share::calculateNewPrice(int sold) {
+void Share::calculateNewPrice(bool sold) {
     double rate = getNewRate(sold);
     this->value *= rate;
 }

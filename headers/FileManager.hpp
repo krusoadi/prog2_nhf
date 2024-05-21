@@ -31,8 +31,8 @@ public:
 
     // User Save/Load methods
 
-    TContainer<User> loadUsers();
-    void saveUsers(const TContainer<User> &users);
+    TContainer<User> loadUsers(); // Public function to load users for UI
+    void saveUsers(const TContainer<User> &users); // Public Function to save users for UI
 
     // Share Save/Load methods
 

@@ -124,7 +124,7 @@ void TContainer<T>::resize(int n) {
 template<class T>
 void TContainer<T>::checkIndex(int i) const {
     if (i > num) {
-        throw Exceptions(EmptyContainer, "Over indexed TContainer, when adding a new element.");
+        throw Exceptions(OverIndex, "Over indexed TContainer, when adding a new element.");
     }
     if (i < 0) {
         throw Exceptions(NegativeIndex, "Negative Indexed when adding new element");

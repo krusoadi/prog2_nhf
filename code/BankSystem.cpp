@@ -6,7 +6,7 @@ BankSystem::BankSystem() : bankMoney(Money()), users(TContainer<User>()),
 BankSystem::BankSystem(const Money &initMoney) : users(TContainer<User>()),
                                                  bankShares(TContainer<Share>()), bankMoney(initMoney) {}
 
-const Money &BankSystem::getBankMoney() const {
+[[maybe_unused]] const Money &BankSystem::getBankMoney() const {
     return bankMoney;
 }
 
@@ -43,6 +43,7 @@ const TContainer<User> &BankSystem::getUsers() const {
 }
 
 const User &BankSystem::getConstUser(const std::string &username) {
+    // Main reason for this is read only operations with ConstIterators ofr safety
     if (!users.isEmpty()) {
         for (const auto &it: users) {
             if (it.getUsername() == username) {

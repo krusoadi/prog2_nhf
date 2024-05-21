@@ -204,7 +204,7 @@ class Share {
     -unsigned int available
 
     -{static} double getNewRate(bool decrease)
-    -void calculateNewPrice(int change)
+    -void calculateNewPrice(bool change)
     +Share()
     +Share(string name, const Money &value, unsigned int available)
     +Share(int idIN, string name, const Money &value, unsigned int available)

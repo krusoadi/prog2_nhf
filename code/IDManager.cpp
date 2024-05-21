@@ -5,16 +5,20 @@ TContainer<int> IDManager::reservedIDs = TContainer<int>();
 int IDManager::getRandomNumber() {
     std::random_device randomizer;
     std::mt19937 gen(randomizer());
-    std::uniform_int_distribution<> dis(100000, 999999);
+    std::uniform_int_distribution<> dis(100000, 999999); // Supported ID range
     return dis(gen);
 }
 
 int IDManager::generateID() {
     int UniqueID = getRandomNumber();
 
+    if (reservedIDs.size() ==  999999 - 100000) { // We cannot continue if we can't generate new ID
+        throw Exceptions(AllIDsReserved, "Cannot generate new ID. The Program stops");
+    }
+
     if (!reservedIDs.isEmpty()) {
         while (reservedIDs.search(UniqueID) != -1) {
-            UniqueID = getRandomNumber();
+            UniqueID = getRandomNumber(); // We iterate until we have a suitable ID
         }
     }
     reservedIDs.add_back(UniqueID);
@@ -25,7 +29,7 @@ IDManager::IDManager() : id(generateID()) {}
 
 IDManager::IDManager(int previousID) {
     try {
-        if (previousID < 100000 || previousID > 999999) {
+        if (previousID < 100000 || previousID > 999999) { // Only supported ID range
             throw Exceptions(InvalidId, "The ID is invalid, not between the supported bounds,"
                                         " generated a new");
         }

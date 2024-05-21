@@ -31,7 +31,7 @@ public:
     [[nodiscard]] Money getMoney() const;
     [[nodiscard]] unsigned int getId() const;
     [[nodiscard]] const std::string &getName() const;
-    [[nodiscard]] std::string getGender() const;
+    [[nodiscard]] std::string getGender() const; // Converts to female/male for IO
     [[maybe_unused]] [[nodiscard]] bool getIsWorker() const;
     [[nodiscard]] bool getIsMale() const;
     [[nodiscard]] TContainer<OwnedShare> &getUserShares();
@@ -40,17 +40,15 @@ public:
 
     void setAccountMoney(const Money &accountMoney);
 
-    // Money managing methods
+    // Money managing interface methods
 
     void addMoney(const Money &in);
     void subtractMoney(const Money &in);
 
-    // Share managing functions
+    // Share managing interface methods
 
     void BuyShares(Share &SType, int amount);
     void SellShares(Share &SType, int amount);
-
-    // Share printer
 
     // Operators
 

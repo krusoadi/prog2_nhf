@@ -66,7 +66,9 @@ void BankAccount::BuyShares(Share &SType, int amount) {
 
     this->subtractMoney(priceOfShares);
 
-    if (!userShares.isEmpty()) {
+    // Te next loop is when the user had shares, and we want to increment the amount
+
+    if (!userShares.isEmpty()) { // we get the share , and use the interface method of the Share to communicate
         for (auto &userShare: userShares) {
             if (userShare.getMasterShareId() == SType.getShareId()) {
                 SType.sellToUser(amount, userShare);
@@ -74,6 +76,8 @@ void BankAccount::BuyShares(Share &SType, int amount) {
             }
         }
     }
+
+// this is used when the user did not have any share, or not from the type which he/she bought from
 
     OwnedShare temp;
     SType.sellToUser(amount, temp);
@@ -87,18 +91,17 @@ void BankAccount::SellShares(Share &SType, int amount) {
     if (userShares.isEmpty()) {
         throw Exceptions(NotEnoughShares, "\nTried to sell shares, but didn't buy earlier.\n");
     }
-    for (auto i = userShares.begin(); i != userShares.end(); ++i) {
+    for (auto i = userShares.begin(); i != userShares.end(); ++i) { // we need the distance so we can't use range based loops
         if ((*i).getMasterShareId() == SType.getShareId()) {
 
-            if (amount <= (*i).getAmount()) { // Mivel a kovetkezo fuggveny nezne ezt meg ezert itt is kell.
-                this->addMoney((*i).showValue(&SType)); // Visszaadjuk a penzet a felhasznalonak
+            if (amount <= (*i).getAmount()) { // The next method would check only so we need to check too
+                this->addMoney((*i).showValue(&SType)); // we give the money back to the account
             }
 
             SType.buyFromUser(amount, (*i));
 
             if ((*i).getAmount() == 0) {
                 // The index will never reach a higher number than 100
-                // and the instruction set of the processor is 64 bit, so it's safe to static cast the int.
                 userShares.pop_index(static_cast<int>(i.distance(userShares.begin())));
             }
             return;
