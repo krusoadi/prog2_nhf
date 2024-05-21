@@ -10,7 +10,7 @@ class BankSystem {
 private: // Variables
     TContainer<User> users; // Stored Users of the bank
     TContainer<Share> bankShares; // Stored Shares of the bank
-    Money bankMoney; // Banks Total money TODO check if needed
+    Money bankMoney; // Banks Total money
 public:
     // Constructor, Destructors
     BankSystem();

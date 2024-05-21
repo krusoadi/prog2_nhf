@@ -35,11 +35,13 @@ private: // Private Static variables, functions
     // Static Functions
 
     static void print(const std::string &text); // Prints out a string (for convention)
-    static void wrongInput(); // Restores the IO when wrong input was given
+    static void wrongMenuPoint(); // Restores the IO when wrong input was given
     static std::string safeInput(); // for passwords, it stars out the input;
     static std::string hashStr(const std::string &in); // Hashing function (really primitive hash)
     static bool hasDigit(const std::string& in);
     static void clearScreen();
+    static bool checkAnswerFail();
+    static void wrongInput();
 
 private: //Private variables (user related)
     int indexIn; // Given menuIndex

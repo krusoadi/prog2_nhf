@@ -44,10 +44,16 @@ UI::~UI() {
     this->manager.saveShareFile(this->system.getBankShares());
 }
 
-void UI::wrongInput() {
+void UI::wrongMenuPoint() {
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     print(IllegalNumber);
+}
+
+void UI::wrongInput() {
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    print("\nThe input was wrong, please try again\n");
 }
 
 void UI::mainLoop() {
@@ -89,7 +95,7 @@ void UI::AccountUI() {
                 exit();
                 return;
             default:
-                wrongInput();
+                wrongMenuPoint();
                 break;
         }
     }
@@ -231,10 +237,9 @@ std::string UI::hashStr(const std::string &in) { // The only point of this funct
 void UI::depositMoney() {
     print("Type in the amount you want to deposit >");
     double amount;
-    try {
-        std::cin >> amount;
-    } catch (...) {
-        wrongInput();
+
+    std::cin >> amount;
+    if (checkAnswerFail()) {
         return;
     }
 
@@ -250,6 +255,10 @@ void UI::depositMoney() {
     CurrencyTypes finalType;
     std::cin >> type;
 
+    if (checkAnswerFail()) {
+        return;
+    }
+
     switch (type) {
         case 1:
             finalType = EUR;
@@ -261,7 +270,7 @@ void UI::depositMoney() {
             finalType = USD;
             break;
         default:
-            wrongInput();
+            wrongMenuPoint();
             return;
     }
     Money in(amount, finalType);
@@ -282,7 +291,7 @@ void UI::withdrawMoney() {
     try {
         std::cin >> amount;
     } catch (...) {
-        wrongInput();
+        wrongMenuPoint();
         return;
     }
 
@@ -309,7 +318,7 @@ void UI::withdrawMoney() {
             finalType = USD;
             break;
         default:
-            wrongInput();
+            wrongMenuPoint();
             return;
     }
     Money in(amount, finalType);
@@ -360,7 +369,7 @@ void UI::mainMenuFunctions() {
             exit();
             return;
         default:
-            wrongInput();
+            wrongMenuPoint();
             return;
     }
 }
@@ -412,7 +421,7 @@ void UI::ShareMenuFunctions() {
         case 5:
             return;
         default:
-            wrongInput();
+            wrongMenuPoint();
             break;
     }
 }
@@ -432,13 +441,10 @@ void UI::buyShares() {
     printBankShares();
 
     int index;
-
     print("Type in the index of the desired share >");
 
-    try {
-        std::cin >> index;
-    } catch (...) {
-        wrongInput();
+    std::cin >> index;
+    if (checkAnswerFail()) {
         return;
     }
 
@@ -452,12 +458,11 @@ void UI::buyShares() {
     int amount;
     print("Type in the desired amount >");
 
-    try {
-        std::cin >> amount;
-    } catch (...) {
-        wrongInput();
+    std::cin >> amount;
+    if (checkAnswerFail()) {
         return;
     }
+
     if (amount < 1) {
         print("\nZero or negative amount of shares cannot be bought!\n");
         return;
@@ -490,14 +495,16 @@ void UI::sellShares() {
         std::cout << ++index << ". " << it << ":" << std::endl;
     }
 
+    print("\n");
+
     print("Type in the index of the desired share >");
 
-    try {
-        std::cin >> index;
-    } catch (...) {
-        wrongInput();
+
+    std::cin >> index;
+    if (checkAnswerFail()) {
         return;
     }
+
 
     if(index > currentShares.size() || index < 1) {
         print("\nThe index you gave is not existent\n");
@@ -509,12 +516,12 @@ void UI::sellShares() {
     int amount;
     print("Type in the desired amount >");
 
-    try {
-        std::cin >> amount;
-    } catch (...) {
-        wrongInput();
+
+    std::cin >> amount;
+    if (checkAnswerFail()) {
         return;
     }
+
 
     if (amount < 1) {
         print("\nZero or negative amount of shares cannot be bought!\n");
@@ -543,7 +550,7 @@ void UI::convertMyCurrency() {
     try {
     std::cin >> type;
     } catch (...) {
-        wrongInput();
+        wrongMenuPoint();
         return;
     }
     
@@ -561,7 +568,7 @@ void UI::convertMyCurrency() {
         case 4:
             return;
         default:
-            wrongInput();
+            wrongMenuPoint();
             return;
     }
 
@@ -602,6 +609,16 @@ void UI::showMyShares() {
         std::cout << Master.getName() << ": " << OS << " value: " << OS.showValue(&Master) << std::endl;
     }
 }
+
+bool UI::checkAnswerFail() {
+    if (std::cin.fail()) {
+        wrongInput();
+        return true;
+    }
+    return false;
+}
+
+
 
 
 

@@ -320,7 +320,7 @@ int TContainer<T>::search(const Y identity) const {
 // Iterator, and its functions
 
 template<class T>
-struct TContainer<T>::Iterator { //TODO comment this and the ConstIterator
+struct TContainer<T>::Iterator {
     using iterator_category = std::bidirectional_iterator_tag; // Iterator type
     using difference_tag = std::ptrdiff_t; // Difference of two iterator
     using value_type = T;

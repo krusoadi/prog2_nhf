@@ -32,7 +32,7 @@ public:
     [[nodiscard]] unsigned int getId() const;
     [[nodiscard]] const std::string &getName() const;
     [[nodiscard]] std::string getGender() const;
-    [[maybe_unused]] [[nodiscard]] bool getIsWorker() const; // TODO check if worker functions will be used
+    [[maybe_unused]] [[nodiscard]] bool getIsWorker() const;
     [[nodiscard]] bool getIsMale() const;
     [[nodiscard]] TContainer<OwnedShare> &getUserShares();
 
