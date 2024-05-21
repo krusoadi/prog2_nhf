@@ -28,7 +28,7 @@ public:
 
     // Converters (for object)
 
-    [[maybe_unused]] [[nodiscard]] const Money convertCurrency(CurrencyTypes dest) const;
+    [[maybe_unused]] [[nodiscard]] Money convertCurrency(CurrencyTypes dest) const;
 
     // Arithmetic Operators
 

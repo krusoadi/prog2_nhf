@@ -23,7 +23,7 @@ CurrencyTypes Money::getCurrency() const {
     return moneyCurr;
 }
 
-[[maybe_unused]] const Money
+[[maybe_unused]] Money
 Money::convertCurrency(CurrencyTypes dest) const { // Alapvetoen EUR ba van minten, oda valt vissza es at a masikba
     return Money::TransferCurrency(dest, *this);
 }

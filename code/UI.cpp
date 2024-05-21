@@ -568,7 +568,7 @@ void UI::convertMyCurrency() {
     }
     // We update the systems account and after we finished we refresh our own
     User& current = this->system.getUserByUsername(this->thisUser.getUsername());
-    auto& newMoney = current.getUserBank().getMoney().convertCurrency(finalType);
+    const auto& newMoney = current.getUserBank().getMoney().convertCurrency(finalType);
     current.getUserBank().setAccountMoney(newMoney);
     refreshUser();
     print("\nYour money has been converted successfully!\n");

@@ -40,8 +40,8 @@ private: // Private Static variables, functions
     static std::string hashStr(const std::string &in); // Hashing function (really primitive hash)
     static bool hasDigit(const std::string& in); // Checks if a string has digits in it
     static void clearScreen(); // Clears the screen
-    static bool checkAnswerFail(); // Checks the input if it has any errors //TODO
-    static void wrongInput(); // Restores input if a bad answer came //TODO
+    static bool checkAnswerFail(); // Checks the input if it has any errors
+    static void wrongInput(); // Restores input if a bad answer came
 
 private: //Private variables (user related)
     int indexIn; // Given menuIndex

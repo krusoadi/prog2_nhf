@@ -91,7 +91,7 @@ void BankAccount::SellShares(Share &SType, int amount) {
     if (userShares.isEmpty()) {
         throw Exceptions(NotEnoughShares, "\nTried to sell shares, but didn't buy earlier.\n");
     }
-    for (auto i = userShares.begin(); i != userShares.end(); ++i) { // we need the distance so we can't use range based loops
+    for (auto i = userShares.begin(); i != userShares.end(); ++i) { // we need the distance, so we can't use range based loops
         if ((*i).getMasterShareId() == SType.getShareId()) {
 
             if (amount <= (*i).getAmount()) { // The next method would check only so we need to check too
