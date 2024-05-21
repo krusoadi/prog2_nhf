@@ -10,6 +10,8 @@ class FileManager
 class Currency
 class UI
 class TContainer
+class Exceptions
+class std::Exceptions
 
 IDManager *-- Share
 Share *-- OwnedShare
@@ -30,6 +32,8 @@ BankSystem *-- UI
 
 FileManager o-- UI
 Currency -- UI
+
+std::Exceptions --|> Exceptions
 
 TContainer *.. BankSystem
 TContainer *.. BankAccount

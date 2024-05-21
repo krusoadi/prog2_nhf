@@ -35,7 +35,7 @@ public:
     [[maybe_unused]] void deleteUser(const User &user); // Deletes user from TContainer
     void loadUsers(const TContainer<User> &usersIn); // Function used by FileManager to load users when starting
 
-    [[maybe_unused]] void addBankShares(const Share &ShareIn); // TODO worker functions
+    [[maybe_unused]] void addBankShares(const Share &ShareIn);
     [[maybe_unused]] void deleteBankShares(const Share &ShareIn);
     void loadBankShares(const TContainer<Share> &sharesIn);
 

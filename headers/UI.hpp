@@ -13,7 +13,7 @@
 class UI {
 private: // Private Static variables, functions
 
-    // Static Const Strings, which  needs to be stored, in the program
+    // Static Const Strings, which needs to be stored, in the program
 
     static const std::string welcomeText;
     static const std::string menuText;
@@ -22,11 +22,9 @@ private: // Private Static variables, functions
     static const std::string workerMenuText;
 
     static const std::string accountTextMenu;
-    static const std::string loginMenu;
     static const std::string usernameTXT;
     static const std::string passwordTXT;
 
-    static const std::string logOut;
     static const std::string goodbye;
 
     static const std::string IllegalNumber;
@@ -38,9 +36,7 @@ private: // Private Static variables, functions
     // Static Functions
 
     static void print(const std::string &text); // Prints out a string (for convention)
-
     static void wrongInput(); // Restores the IO when wrong input was given
-
     static std::string safeInput(); // for passwords, it stars out the input;
     static std::string hashStr(const std::string &in); // Hashing function (really primitive hash)
     static bool hasDigit(const std::string& in);
@@ -55,7 +51,7 @@ private: // Private variables (object related)
     BankSystem system; // The system where the banks data stored
     FileManager manager; // The IO manager class.
 
-private:
+private: // Object related private methods
     void AccountUI(); // Login/Register selector
     void logIn(); // Login panel
     void makeAcc(); // Register [register keyword is reserved]
@@ -70,7 +66,7 @@ private:
     void printBankShares(); // Prints out the values of each share.
     void buyShares(); // Interface for buying shares
     void sellShares(); // Interface for selling shares
-    void convertMyCurrency();
+    void convertMyCurrency(); // Converts the users currency
 public:
     UI(const BankSystem &systemIn, const FileManager &managerIn); // Only constructor needed
     ~UI(); // We need the destructor, because with every quit we save the data.

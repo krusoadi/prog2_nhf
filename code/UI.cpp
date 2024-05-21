@@ -3,9 +3,9 @@
 bool UI::runtime = true;
 
 const std::string UI::welcomeText = "\nWelcome To NewVille Bank, this program is made by Adam Krusoczki"
-                                    "My github link is www.github.com/krusoadi\n\n";
+                                    "\nMy github link is www.github.com/krusoadi\n\n";
 
-const std::string UI::menuText = "Please type in your selected menu point. Options:\n\n"
+const std::string UI::menuText = "\nPlease type in your selected menu point. Options:\n\n"
                                  "1. Deposit Money\n"
                                  "2. Withdraw Money\n"
                                  "3. Check my account\n"
@@ -15,14 +15,14 @@ const std::string UI::menuText = "Please type in your selected menu point. Optio
                                  "7. Clear Screen (cls)\n"
                                  "8. Log out\n";
 
-const std::string UI::shareMenuText = "Please type in your selected menu point. Options:\n\n"
+const std::string UI::shareMenuText = "\nPlease type in your selected menu point. Options:\n\n"
                                       "1. Show information about the shares\n"
                                       "2. Buy shares\n"
                                       "3. Sell shares\n"
                                       "4. Show my shares\n"
                                       "5. Return\n";
 
-const std::string UI::workerMenuText = "Please type in your selected menu point. Options:\n\n"
+const std::string UI::workerMenuText = "\nPlease type in your selected menu point. Options:\n\n"
                                        "1. Banks Finances\n"
                                        "2. Manage Shares.\n"
                                        "3. Manage Users\n"
@@ -34,14 +34,9 @@ const std::string UI::accountTextMenu = "Please type in your selected menu point
                                         "2. Register\n"
                                         "3. Exit\n";
 
-const std::string UI::loginMenu = "You will need a name and password to log in."
-                                  "Press any key if you are ready!\n";
-
 const std::string UI::usernameTXT = "\nUsername >";
 
 const std::string UI::passwordTXT = "\nPassword >";
-
-const std::string UI::logOut = "\nAre you sure you want to log out? (y/n)\n";
 
 const std::string UI::goodbye = "\nThank you for using this app, have a nice day! Goodbye!\n";
 
