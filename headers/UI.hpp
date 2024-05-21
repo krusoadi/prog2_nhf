@@ -19,7 +19,6 @@ private: // Private Static variables, functions
     static const std::string menuText;
 
     static const std::string shareMenuText;
-    static const std::string workerMenuText;
 
     static const std::string accountTextMenu;
     static const std::string usernameTXT;
@@ -67,6 +66,7 @@ private: // Object related private methods
     void buyShares(); // Interface for buying shares
     void sellShares(); // Interface for selling shares
     void convertMyCurrency(); // Converts the users currency
+    void showMyShares();
 public:
     UI(const BankSystem &systemIn, const FileManager &managerIn); // Only constructor needed
     ~UI(); // We need the destructor, because with every quit we save the data.

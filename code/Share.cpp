@@ -127,5 +127,5 @@ std::ostream &operator<<(std::ostream &stream, const Share &in) {
 }
 
 std::ostream &operator<<(std::ostream &stream, const OwnedShare &in) {
-    return stream << "id of share: " << in.getMasterShareId() << " owned: " << in.getAmount();
+    return stream << "(id of share: " << in.getMasterShareId() << ") owned: " << in.getAmount();
 }

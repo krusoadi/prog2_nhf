@@ -22,13 +22,6 @@ const std::string UI::shareMenuText = "\nPlease type in your selected menu point
                                       "4. Show my shares\n"
                                       "5. Return\n";
 
-const std::string UI::workerMenuText = "\nPlease type in your selected menu point. Options:\n\n"
-                                       "1. Banks Finances\n"
-                                       "2. Manage Shares.\n"
-                                       "3. Manage Users\n"
-                                       "4. Manage Currency\n"
-                                       "5. Log out\n";
-
 const std::string UI::accountTextMenu = "Please type in your selected menu point. Options:\n\n"
                                         "1. Login\n"
                                         "2. Register\n"
@@ -413,8 +406,9 @@ void UI::ShareMenuFunctions() {
         case 3:
             sellShares(); // Checked
             break;
-        case 4: // TODO needs to be more detailed..
-            this->thisUser.getUserBank().revealShares();
+        case 4:
+            showMyShares();
+            break;
         case 5:
             return;
         default:
@@ -434,7 +428,7 @@ void UI::printBankShares() {
     }
 }
 
-void UI::buyShares() { // TODO check if shares are available
+void UI::buyShares() {
     printBankShares();
 
     int index;
@@ -593,6 +587,20 @@ bool UI::hasDigit(const std::string &in) {
 
 void UI::clearScreen() {
     print("\033[2J\033[1;1H");
+}
+
+void UI::showMyShares() {
+    auto userShares = this->thisUser.getUserBank().getUserShares();
+    print("\n");
+
+    if (userShares.isEmpty()) {
+        print("\nYou don't have any shares bought.\n");
+        return;
+    }
+    for (const auto &OS: userShares) {
+        auto Master = this->system.getShareByChild(OS);
+        std::cout << Master.getName() << ": " << OS << " value: " << OS.showValue(&Master) << std::endl;
+    }
 }
 
 

@@ -106,12 +106,6 @@ void BankAccount::SellShares(Share &SType, int amount) {
     }
 }
 
-void BankAccount::revealShares() {
-    for (auto &userShare: userShares) {
-        std::cout << userShare << std::endl;
-    }
-}
-
 bool BankAccount::operator==(const BankAccount &other) {
     return this->ID == other.ID;
 }

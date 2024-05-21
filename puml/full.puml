@@ -43,7 +43,6 @@ class BankAccount {
 
     +void BuyShares(Share &SType, int amount)
     +void SellShares(Share &SType, int amount)
-    +void revealShares()
 
     +bool operator==(const BankAccount &other)
     +void loadOShares(const OwnedShare &in)
@@ -323,6 +322,7 @@ class UI {
     -void buyShares()
     -void sellShares()
     -void convertMyCurrency()
+    -void showMyShares();
 
 
     +UI(const BankSystem &systemIn, const FileManager &managerIn)

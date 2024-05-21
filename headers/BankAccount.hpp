@@ -52,8 +52,6 @@ public:
 
     // Share printer
 
-    void revealShares();
-
     // Operators
 
     bool operator==(const BankAccount &other);
