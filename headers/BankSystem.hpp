@@ -1,10 +1,12 @@
 #ifndef PROG2_NHF_BANKSYSTEM_HPP
 #define PROG2_NHF_BANKSYSTEM_HPP
 
-#include "User.hpp"
-#include "TContainer.hpp"
 #include <fstream>
 #include <sstream>
+#include "User.hpp"
+#include "TContainer.hpp"
+#include "memtrace.h"
+
 
 class BankSystem {
 private: // Variables

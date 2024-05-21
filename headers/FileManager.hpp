@@ -1,11 +1,13 @@
 #ifndef PROG2_NHF_FILEMANAGER_HPP
 #define PROG2_NHF_FILEMANAGER_HPP
 
+#include <fstream>
+#include <sstream>
+#include "memtrace.h"
 #include "Exceptions.hpp"
 #include "TContainer.hpp"
 #include "User.hpp"
-#include <fstream>
-#include <sstream>
+
 
 class FileManager {
 private: // File Name Variables

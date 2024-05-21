@@ -1,6 +1,7 @@
 #ifndef PROG2_NHF_USER_HPP
 #define PROG2_NHF_USER_HPP
 
+#include "memtrace.h"
 #include "TContainer.hpp"
 #include "BankAccount.hpp"
 

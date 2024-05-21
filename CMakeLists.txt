@@ -25,4 +25,10 @@ add_executable(prog2_nhf main.cpp
         headers/User.hpp
         code/FileManager.cpp
         headers/FileManager.hpp
+        headers/memtrace.h
+        code/memtrace.cpp
 )
+
+add_compile_definitions(prog2_nhf "MEMTRACE")
+
+add_compile_options(-DMEMTRACE -Wall -Werror)

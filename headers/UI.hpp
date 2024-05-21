@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <conio.h> // for safe password staring
+#include "memtrace.h"
 #include "BankSystem.hpp"
 #include "FileManager.hpp"
 

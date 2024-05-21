@@ -29,7 +29,7 @@ public:
     // Getters
 
     [[nodiscard]] Money getMoney() const;
-    [[nodiscard]] unsigned int getId() const;
+    [[nodiscard]] int getId() const;
     [[nodiscard]] const std::string &getName() const;
     [[nodiscard]] std::string getGender() const; // Converts to female/male for IO
     [[maybe_unused]] [[nodiscard]] bool getIsWorker() const;

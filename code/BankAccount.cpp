@@ -2,23 +2,25 @@
 #include <utility>
 #include "../headers/BankAccount.hpp"
 
-BankAccount::BankAccount(const BankAccount &other) : ID(other.ID), AccountMoney(other.AccountMoney) {
+BankAccount::BankAccount(const BankAccount &other) : ID(other.ID) {
     this->name = other.name;
     this->isMale = other.isMale;
-    this->userShares = other.userShares;
+    this->AccountMoney = other.AccountMoney;
     this->isWorker = other.isWorker;
+    this->userShares = other.userShares;
 }
 
-BankAccount::BankAccount() : ID(IDManager()), AccountMoney(), isMale(false), isWorker(false) {}
+BankAccount::BankAccount() : ID(IDManager()), isMale(false), AccountMoney(), isWorker(false) {}
 
-BankAccount::BankAccount(IDManager id) : ID(id), isWorker(false), isMale(false) {}
+BankAccount::BankAccount(IDManager id) : ID(id), isMale(false), isWorker(false)  {}
 
 BankAccount::BankAccount(const Money &money, std::string name, bool isMale, bool isWorker) :
-        ID(IDManager()), name(std::move(name)), isWorker(isWorker), isMale(isMale) {
+        ID(IDManager()), name(std::move(name)), isMale(isMale) {
     if (money.getValue() < 0) {
         throw Exceptions(NegativeMoney, "\nNegative money was given.\n");
     }
     this->AccountMoney = money;
+    this->isWorker = isWorker;
 }
 
 Money BankAccount::getMoney() const {
@@ -29,7 +31,7 @@ const std::string &BankAccount::getName() const {
     return name;
 }
 
-unsigned int BankAccount::getId() const {
+int BankAccount::getId() const {
     return ID.getId();
 }
 

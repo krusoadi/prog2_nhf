@@ -4,6 +4,7 @@
 #include <random>
 #include <string>
 #include <iostream>
+#include "memtrace.h"
 
 #define END 3 // Max number of currencies
 

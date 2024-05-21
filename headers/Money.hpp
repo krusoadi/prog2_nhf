@@ -2,6 +2,7 @@
 #define PROG2_NHF_MONEY_HPP
 
 #include <iostream>
+#include "memtrace.h"
 #include "Exceptions.hpp"
 #include "Currency.hpp"
 

@@ -1,5 +1,6 @@
-#include "../headers/FileManager.hpp"
 #include <utility>
+#include "../headers/memtrace.h"
+#include "../headers/FileManager.hpp"
 
 FileManager::FileManager(std::string userFile, std::string accountFile, std::string shareFile) :
         UserFileName(std::move(userFile)), AccountsFileName(std::move(accountFile)),
@@ -208,12 +209,14 @@ void FileManager::saveShareFile(const TContainer<Share>& out) {
     ShareFile.close();
 }
 
-void FileManager::resetShareFile() { // TODO
+void FileManager::resetShareFile() {
     Share temp1("Apple", Money(500, HUF), 100);
     Share temp2("Tesla", Money(750, HUF), 200);
     Share temp3("Meta", Money(3, EUR), 125);
     Share temp4("BME", Money(5, USD), 150);
     Share temp5("Mol", Money(200, HUF), 600);
+    Share temp6("Samsung", Money(3, USD), 250);
+    Share temp7("BlackRock", Money(4, EUR), 450);
 
     TContainer<Share> list;
     list.add_back(temp1);
@@ -221,6 +224,8 @@ void FileManager::resetShareFile() { // TODO
     list.add_back(temp3);
     list.add_back(temp4);
     list.add_back(temp5);
+    list.add_back(temp6);
+    list.add_back(temp7);
 
     for (const auto &it: list) {
         IDManager::releaseID(it.getShareId());

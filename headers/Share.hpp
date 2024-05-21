@@ -1,6 +1,7 @@
 #ifndef PROG2_NHF_SHARE_HPP
 #define PROG2_NHF_SHARE_HPP
 
+#include "memtrace.h"
 #include "Exceptions.hpp"
 #include "Money.hpp"
 #include "IDManager.hpp"

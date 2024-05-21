@@ -1,7 +1,7 @@
 #include "../headers/BankSystem.hpp"
 
-BankSystem::BankSystem() : bankMoney(Money()), users(TContainer<User>()),
-                           bankShares(TContainer<Share>()) {}
+BankSystem::BankSystem() : users(TContainer<User>()),
+                           bankShares(TContainer<Share>()), bankMoney(Money()) {}
 
 BankSystem::BankSystem(const Money &initMoney) : users(TContainer<User>()),
                                                  bankShares(TContainer<Share>()), bankMoney(initMoney) {}

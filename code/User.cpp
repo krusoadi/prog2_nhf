@@ -1,5 +1,5 @@
 #include <utility>
-
+#include "../headers/memtrace.h"
 #include "../headers/User.hpp"
 
 User::User(std::string username, std::string hashedPw, const BankAccount &userBank) :

@@ -3,6 +3,7 @@
 
 #include "TContainer.hpp"
 #include <random>
+#include "memtrace.h"
 #include "Exceptions.hpp"
 
 class IDManager {

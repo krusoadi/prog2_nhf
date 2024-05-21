@@ -1,3 +1,4 @@
+#include "../headers/memtrace.h"
 #include "../headers/UI.hpp"
 
 bool UI::runtime = true;
@@ -70,8 +71,8 @@ void UI::mainLoop() {
     };
 }
 
-UI::UI(const BankSystem &systemIn, const FileManager &managerIn) : indexIn(0), is_loggedIn(false),
-                                                                   manager(managerIn), system(systemIn) {
+UI::UI(const BankSystem &systemIn, const FileManager &managerIn) : indexIn(0), is_loggedIn(false), thisUser(User()),
+                                                                   system(systemIn), manager(managerIn) {
     print(UI::welcomeText);
     Currency::updateCurrency(); // new currency every time we load
     std::cout << std::fixed << std::setprecision(3) <<std::endl; //formatting

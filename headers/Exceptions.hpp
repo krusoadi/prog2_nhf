@@ -3,6 +3,7 @@
 
 #include <exception>
 #include <string>
+#include "memtrace.h"
 // Errors used in the program, to get these you have to call e.getType() (e = Exception &e)
 enum errors {
     NegativeMoney,

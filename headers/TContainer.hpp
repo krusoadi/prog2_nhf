@@ -1,10 +1,11 @@
 #ifndef PROG2_NHF_TCONTAINER_HPP
 #define PROG2_NHF_TCONTAINER_HPP
 
-#include "Exceptions.hpp"
 #include <iostream>
 #include <iterator>
 #include <cstddef>
+#include "memtrace.h"
+#include "Exceptions.hpp"
 
 // Every method in the class are listed down below in declaration order
 
