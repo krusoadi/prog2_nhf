@@ -16,7 +16,7 @@ BankAccount::BankAccount(IDManager id) : ID(id), isWorker(false), isMale(false) 
 BankAccount::BankAccount(const Money &money, std::string name, bool isMale, bool isWorker) :
         ID(IDManager()), name(std::move(name)), isWorker(isWorker), isMale(isMale) {
     if (money.getValue() < 0) {
-        throw Exceptions(NegativeMoney, "Negative money was given.");
+        throw Exceptions(NegativeMoney, "\nNegative money was given.\n");
     }
     this->AccountMoney = money;
 }
@@ -39,7 +39,7 @@ void BankAccount::addMoney(const Money &in) {
 
 void BankAccount::subtractMoney(const Money &in) {
     if (this->AccountMoney < in) {
-        throw Exceptions(NegativeMoney, "The user does not have enough money to do this.");
+        throw Exceptions(NegativeMoney, "\nThe user does not have enough money to do this.\n");
     }
     this->AccountMoney -= in;
 }
@@ -60,7 +60,7 @@ void BankAccount::BuyShares(Share &SType, int amount) {
     priceOfShares *= amount;
 
     if (this->AccountMoney < priceOfShares) {
-        printf("User does not have enough money.");
+        printf("\nUser does not have enough money.\n");
         return;
     }
 
@@ -80,11 +80,12 @@ void BankAccount::BuyShares(Share &SType, int amount) {
     if (temp.getMasterShareId() != -1) {
         this->userShares.add_back(temp);
     }
+    std::cout << "\nSuccessfully bought the shares!" << std::endl;
 }
 
 void BankAccount::SellShares(Share &SType, int amount) {
     if (userShares.isEmpty()) {
-        throw Exceptions(NotEnoughShares, "Tried to sell shares, but didn't buy earlier.");
+        throw Exceptions(NotEnoughShares, "\nTried to sell shares, but didn't buy earlier.\n");
     }
     for (auto i = userShares.begin(); i != userShares.end(); ++i) {
         if ((*i).getMasterShareId() == SType.getShareId()) {

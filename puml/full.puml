@@ -1,0 +1,365 @@
+@startuml
+class IDManager
+class Share
+class OwnedShare
+class BankAccount
+class User
+class Money
+class BankSystem
+class FileManager
+class Currency
+class UI
+class TContainer
+class std::Exceptions
+class Exceptions
+enum errors
+struct Iterator <T>
+struct ConstIterator <T>
+
+
+class BankAccount {
+    -IDManager ID
+    -string name
+    -bool isMale
+    -Money AccountMoney
+    -bool isWorker
+    -TContainer<OwnedShare> userShares
+
+    +BankAccount()
+    +BankAccount(IDManager id)
+    +BankAccount(const Money &money, string name, bool isMale, bool isWorker))
+    +BankAccount(const BankAccount &other)
+    +~BankAccount()
+
+    +Money getMoney()
+    +unsigned int getID()
+    +const string& getName()
+    +string getGender()
+    +bool getIsMale()
+    +const TContainer<OwnedShare>& getUserShares()
+
+    +void addMoney(const Money& in)
+    +void subtractMoney(const Money &in)
+
+    +void BuyShares(Share &SType, int amount)
+    +void SellShares(Share &SType, int amount)
+    +void revealShares()
+
+    +bool operator==(const BankAccount &other)
+    +void loadOShares(const OwnedShare &in)
+}
+
+class User{
+    -string username
+    -string hashedPw
+    -BankAccount userBank
+
+    +User()
+    +User(string username, string hashedPw, const BankAccount &userBank)
+    +User(const User &other)
+    +~User()
+
+    +const string &getUsername()
+    +BankAccount& getUserBank()
+    +BankAccount getUserBank() (const)
+    +bool MatchPassword(const std::string& password)
+    +const string &getHashedPw()
+
+    +void setUserBank(const BankAccount& userBankIn)
+    +void setHashedPw(const std::string& hashedPwIn)
+    +void setUsername(const std::string& usernameIn)
+
+    +bool operator==(const User &other)
+}
+
+class BankSystem {
+    -TContainer<User> users
+    -TContainer<Share> bankShares
+    -Money bankMoney
+
+    +BankSystem()
+    +BankSystem(const Money &initMoney)
+    +~BankSystem()
+    +const Money &getBankMoney() const
+    +const TContainer<User> &getUsers() const
+    +const TContainer<Share>& getBankShares() const
+    +User & getUserByUsername(const std::string &username)
+    +const User &getConstUser(const std::string &username) const
+    +Share &getShareByChild(const OwnedShare &in) const
+    +void addNewUser(const User &user)
+    +void deleteUser(const User &user)
+    +void loadUsers(const TContainer<User> &usersIn)
+    +void addBankShares(const Share &ShareIn)
+    +void deleteBankShares(const Share &ShareIn)
+    +void loadBankShares(const TContainer<Share> &sharesIn)
+    +bool isUserNameReserved(const std::string &username) const
+}
+
+class FileManager {
+    -std::string UserFileName
+    -std::string AccountsFileName
+    -std::string BankShareFileName
+
+    -void loadUserFile(TContainer<User> &users)
+    -void loadAccountFile(TContainer<User> &users)
+    {static} -OwnedShare loadOwnedShare(std::istringstream &lineStream)
+
+    -void saveUserFile(const TContainer<User> &users) const
+    -void saveAccountsFile(const TContainer<User> &users)
+
+
+    +FileManager(std::string userFile, std::string accountFile, std::string shareFile)
+    +FileManager(const FileManager &other)
+    +~FileManager()
+    +TContainer<User> loadUsers()
+    +void saveUsers(const TContainer<User> &users)
+    +void saveShareFile(const TContainer<Share>& out)
+    +TContainer<Share> loadShareFile()
+    +void resetShareFile()
+}
+
+std::Exceptions --|> Exceptions
+
+class Exceptions {
+    -errors type
+    -string msg
+
+    +Exceptions(errors errorType, string msgIn)
+    +errors getType()
+    +string what()
+}
+
+enum errors {
+    NegativeMoney
+    NotEnoughShares
+    WrongMaster
+    EmptyContaine
+    NegativeIndex
+    IDAlreadyExists
+    InvalidId
+    FileError
+    UserNotFound
+    OverIndex
+}
+
+class IDManager {
+    -{static} TContainer<int> reservedIDs
+    -int id
+
+    -{static} int getRandomNumber()
+    -{static} int generateID()
+    +IDManager()
+    +IDManager(int previousID)
+    +IDManager(const IDManager &other)
+    +~IDManager()
+    +int getId() const
+    +bool operator==(const IDManager &other) const
+    +static void releaseID(int ID)
+}
+
+class Currency {
+    -{static} constexpr double LOWER_BOUNDS[3]
+    -{static} constexpr double UPPER_BOUNDS[3]
+    +{static} double valueToEUR[3]
+    +{static} const string SYMBOLS[3]
+
+    -{static} double randomValue(double low, double high)
+    +{static} void updateCurrency()
+    +{static} void printCurrency()
+    }
+
+class Money {
+    -double value
+    -CurrencyTypes moneyCurr
+
+    -{static} Money TransferCurrency(CurrencyTypes our, const Money &other)
+    +Money()
+    +Money(double value CurrencyTypes currency)
+    +Money(const Money &other)
+    +~Money()
+    +double getValue()
+    +CurrencyTypes getCurrency()
+
+    +Money operator+(const Money &other)
+    +Money operator-(const Money &other)
+    +Money operator*(double rate)
+    +Money operator*(int amount)
+    +Money& operator+=(const Money &other)
+    +Money& operator-=(const Money &other)
+    +Money& operator*=(double rate)
+    +bool operator==(const Money &other)
+    +bool operator<(const Money &other)
+    +bool operator>(const Money &other)
+}
+
+enum CurrencyTypes {
+    EUR
+    HUF
+    USD
+}
+
+class Share {
+    -IDManager ShareID
+    -string name
+    -Money value
+    -unsigned int available
+
+    -{static} double getNewRate(bool decrease)
+    -void calculateNewPrice(int change)
+    +Share()
+    +Share(string name, const Money &value, unsigned int available)
+    +Share(int idIN, string name, const Money &value, unsigned int available)
+    +Share(const Share &oth)
+    +~Share()
+
+    +void buyFromUser(int n, OwnedShare &in)
+    +void sellToUser(int n, OwnedShare &in)
+
+    +bool operator==(const OwnedShare &other)
+    +bool operator!=(const OwnedShare &other)
+    +bool operator==(const Share &other)
+}
+
+class OwnedShare {
+    -int masterShareID
+    -int amount
+
+    +OwnedShare()
+    +OwnedShare(int amount)
+    +int getAmount()
+    +int getMasterShareId()
+
+    +void setAmount(int amountIn)
+    +void setMasterShareId(int masterShareId)
+
+    +bool operator==(const Share &other)
+    +bool operator!=(const Share &other)
+
+    +Money showValue(Share *master)
+}
+
+class TContainer<T> {
+    -T *vars
+    -int num
+    +struct Iterator
+    +struct ConstIterator
+
+    -void delPtr()
+    -void makePtr(int n)
+    -void checkIndex(int i)
+    -void resize(int n)
+    +TContainer()
+    +TContainer(const TContainer<T> &other)
+    +~TContainer()
+    +void add_back(T newVar)
+    +T popIndex(int n)
+    +T& operator[](int n)
+    +bool isEmpty()
+    +int size()
+    +int search(<Y> identity)
+    +Iterator begin()
+    +Iterator end()
+    +ConstIterator begin()
+    +ConstIterator end()
+}
+
+struct Iterator <T> {
+    -T* it_ptr
+
+    +Iterator(*T ptr)
+    +std::ptrdiff_t distance(Iterator other)
+    +T& operator*()
+    +T* operator->()
+    +Iterator& operator++()
+    +Iterator& operator++(int)
+    +Iterator& operator--()
+    +Iterator& operator--(int)
+    bool operator==(const Iterator& a, const Iterator& b)
+    bool operator!=(const Iterator& a, const Iterator& b)
+}
+
+struct ConstIterator <T> {
+    -const T* it_ptr
+
+    +ConstIterator(*T ptr)
+    +std::ptrdiff_t distance(Iterator other)
+    +const T& operator*()
+    +const T* operator->()
+    +ConstIterator& operator++()
+    +ConstIterator& operator++(int)
+    +ConstIterator& operator--()
+    +ConstIterator& operator--(int)
+    bool operator==(const Iterator& a, const Iterator& b)
+    bool operator!=(const Iterator& a, const Iterator& b)
+}
+
+class UI {
+    -{static} bool runtime
+    -int indexIn
+    -bool is_loggedIn
+    -User thisUser
+    -BankSystem system
+    -FileManager manager
+
+    -{static} void print(const string &text)
+    -{static} void wrongInput()
+    -{static} std::string safeInput()
+    -{static} std::string hashStr(const string &in)
+    -{static} bool hasDigit(const string& in)
+    -{static} void clearScreen()
+
+    -void AccountUI()
+    -void logIn()
+    -void makeAcc()
+    -void exit()
+    -void depositMoney()
+    -void withdrawMoney()
+    -void refreshUser()
+    -void myAccount()
+    -void mainMenuFunctions()
+    -void ShareMenu()
+    -void ShareMenuFunctions()
+    -void printBankShares()
+    -void buyShares()
+    -void sellShares()
+    -void convertMyCurrency()
+
+
+    +UI(const BankSystem &systemIn, const FileManager &managerIn)
+    +~UI()
+    +void mainLoop()
+    +void boot()
+}
+
+IDManager *-- Share
+Share *-- OwnedShare
+
+IDManager *-- BankAccount
+BankAccount *-- User
+
+BankAccount *-- OwnedShare
+
+Money *-- Share
+Money *-- BankAccount
+
+Currency o-- Money
+
+FileManager o-- BankSystem
+User *-- BankSystem
+BankSystem *-- UI
+
+FileManager o-- UI
+Currency -- UI
+
+TContainer *.. BankSystem
+TContainer *.. BankAccount
+TContainer *.. IDManager
+
+errors o-- Exceptions
+
+TContainer *-- Iterator
+TContainer *-- ConstIterator
+
+CurrencyTypes *-- Currency
+
+@enduml

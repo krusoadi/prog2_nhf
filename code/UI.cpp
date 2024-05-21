@@ -384,8 +384,7 @@ void UI::boot() {
     catch (const Exceptions &e) {
         std::cerr << e.what() << std::endl;
         if (e.getType() == FileError) {
-            std::cerr << "File could not be opened.\n" << std::endl;
-            return;
+            std::cerr << "\nData could not be loaded. The program continues, with new save.\n" << std::endl;
         }
     }
 
@@ -476,10 +475,16 @@ void UI::buyShares() { // TODO check if shares are available
     }
 
     print("\n");
+
     User& temp = this->system.getUserByUsername(this->thisUser.getUsername());
-    temp.getUserBank().BuyShares(this->system.getBankShares()[index-1], amount);
+
+    try {
+        temp.getUserBank().BuyShares(this->system.getBankShares()[index - 1], amount);
+    } catch (const Exceptions &e) { // Here it does not matter if we get WrongMaster, or NotEnoughShares
+        std::cerr << e.what(); // exception, because we cannot continue either way.
+        return;
+    }
     refreshUser();
-    print("\nSuccessfully bought the shares!\n");
 }
 
 void UI::sellShares() {
@@ -530,7 +535,12 @@ void UI::sellShares() {
     OwnedShare &selected = currentShares[index-1];
     Share& masterShare = this->system.getShareByChild(selected);
 
-    current.getUserBank().SellShares(masterShare, amount);
+    try {
+        current.getUserBank().SellShares(masterShare, amount);
+    } catch (const Exceptions &e) { // Same as in buying, we cannot continue with either exceptions thrown
+        std::cerr << e.what(); // so we let the user know the error and return. (WrongMaster probably can't happen.)
+        return;
+    }
     refreshUser();
     print("\nSuccessfully sold the shares!\n");
 }

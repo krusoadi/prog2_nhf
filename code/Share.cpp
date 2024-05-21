@@ -46,7 +46,7 @@ void Share::buyFromUser(int n, OwnedShare &in) {
 
 void Share::sellToUser(int n, OwnedShare &in) {
     if (in.getMasterShareId() != -1 && in.getMasterShareId() != this->ShareID.getId()) {
-        throw Exceptions(WrongMaster, "Tried to buy share to a different one.");
+        throw Exceptions(WrongMaster, "\nTried to buy share to a different one.\n");
     }
     if (this->available >= n) {
         this->available -= n;
@@ -56,7 +56,7 @@ void Share::sellToUser(int n, OwnedShare &in) {
         calculateNewPrice(false);
         return;
     }
-    throw Exceptions(NotEnoughShares, "There weren't enough shares to buy");
+    throw Exceptions(NotEnoughShares, "\nThere weren't enough shares to buy\n");
 }
 
 const std::string &Share::getName() const {

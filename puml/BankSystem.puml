@@ -1,0 +1,53 @@
+@startuml
+
+class BankSystem
+class FileManager
+
+class BankSystem {
+    -TContainer<User> users
+    -TContainer<Share> bankShares
+    -Money bankMoney
+
+    +BankSystem()
+    +BankSystem(const Money &initMoney)
+    +~BankSystem()
+    +const Money &getBankMoney() const
+    +const TContainer<User> &getUsers() const
+    +const TContainer<Share>& getBankShares() const
+    +User & getUserByUsername(const std::string &username)
+    +const User &getConstUser(const std::string &username) const
+    +Share &getShareByChild(const OwnedShare &in) const
+    +void addNewUser(const User &user)
+    +void deleteUser(const User &user)
+    +void loadUsers(const TContainer<User> &usersIn)
+    +void addBankShares(const Share &ShareIn)
+    +void deleteBankShares(const Share &ShareIn)
+    +void loadBankShares(const TContainer<Share> &sharesIn)
+    +bool isUserNameReserved(const std::string &username) const
+}
+
+class FileManager {
+    -std::string UserFileName
+    -std::string AccountsFileName
+    -std::string BankShareFileName
+
+    -void loadUserFile(TContainer<User> &users)
+    -void loadAccountFile(TContainer<User> &users)
+    {static} -OwnedShare loadOwnedShare(std::istringstream &lineStream)
+
+    -void saveUserFile(const TContainer<User> &users) const
+    -void saveAccountsFile(const TContainer<User> &users)
+
+
+    +FileManager(std::string userFile, std::string accountFile, std::string shareFile)
+    +FileManager(const FileManager &other)
+    +~FileManager()
+    +TContainer<User> loadUsers()
+    +void saveUsers(const TContainer<User> &users)
+    +void saveShareFile(const TContainer<Share>& out)
+    +TContainer<Share> loadShareFile()
+    +void resetShareFile()
+}
+
+
+@enduml

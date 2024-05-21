@@ -1,0 +1,41 @@
+@startuml
+
+class UI {
+    -{static} bool runtime
+    -int indexIn
+    -bool is_loggedIn
+    -User thisUser
+    -BankSystem system
+    -FileManager manager
+
+    -{static} void print(const string &text)
+    -{static} void wrongInput()
+    -{static} std::string safeInput()
+    -{static} std::string hashStr(const string &in)
+    -{static} bool hasDigit(const string& in)
+    -{static} void clearScreen()
+
+    -void AccountUI()
+    -void logIn()
+    -void makeAcc()
+    -void exit()
+    -void depositMoney()
+    -void withdrawMoney()
+    -void refreshUser()
+    -void myAccount()
+    -void mainMenuFunctions()
+    -void ShareMenu()
+    -void ShareMenuFunctions()
+    -void printBankShares()
+    -void buyShares()
+    -void sellShares()
+    -void convertMyCurrency()
+
+
+    +UI(const BankSystem &systemIn, const FileManager &managerIn)
+    +~UI()
+    +void mainLoop()
+    +void boot()
+}
+
+@enduml

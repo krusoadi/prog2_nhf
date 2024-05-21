@@ -1,0 +1,19 @@
+@startuml
+
+
+class IDManager {
+    -{static} TContainer<int> reservedIDs
+    -int id
+
+    -{static} int getRandomNumber()
+    -{static} int generateID()
+    +IDManager()
+    +IDManager(int previousID)
+    +IDManager(const IDManager &other)
+    +~IDManager()
+    +int getId() const
+    +bool operator==(const IDManager &other) const
+    +static void releaseID(int ID)
+}
+
+@enduml
