@@ -6,6 +6,7 @@ int main() {
     BankSystem system(Money(15000, EUR));
 
     FileManager manager("files\\test.txt", "files\\test2.txt", "files\\test3.txt");
-    UI(system, manager).boot();
+    UI main(system, manager);
+    main.boot();
     return 0;
 }
