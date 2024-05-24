@@ -14,6 +14,7 @@ so I needed to write an own template storage class, which is TContainer.
 It's a Normal template class with a dynamic array, made to mimic
 the [std::vector](https://en.cppreference.com/w/cpp/container/vector).
 Unfortunately it's not as (and never meant to be) optimal as an STL container, it works for this project perfectly.
+Lately I've made a ConstIterator and an Iterator for the Container, which work perfectly.
 
 ### [Currency](headers/Currency.hpp)
 
@@ -42,7 +43,36 @@ available shares.
 
 ### [BankAccount](headers/BankAccount.hpp)
 
-This class stores data, about users, with a generated ID. The users can buy shares, deposit etc.
+This class stores data, about users, with a generated ID. The users can buy shares, deposit etc, except login data,
+because I've made a [user](headers/User.hpp) class for that.
+
+### [IDManager](headers/IDManager.hpp)
+
+IDManagers main use is in the Shares and BankAccounts. It generates a new ID which isn't reserved by anything in the 
+programs current state. Main reason of this class is to avoid ID collision during runtime, because that would cause
+problems when handling Shares and OwnedShares.
+
+
+### [User](headers/User.hpp)
+
+The User class encapsulates the BankAccounts and the login data of a user. The main reasons for this are the admin
+functions (not yet made), which will be able to modify most of the users data.
+
+### [FileManager](headers/FileManager.hpp)
+
+The FileManager class handles all file I/O for loading or saving data which includes the users data, the accounts data
+and the shares data.
+
+### [BankSystem](headers/BankSystem.hpp)
+
+The BankSystem class stores all the data which is needed for the program to operate. Users, accounts and shares data are
+stored here, it functions just like a bank.
+
+### [UI](headers/UI.hpp)
+
+The UI handles all user interactions, through the console, and handles input errors etc.
+
+
 
 
 
