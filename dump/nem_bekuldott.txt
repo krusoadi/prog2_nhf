@@ -1,6 +1,0 @@
-const std::string UI::workerMenuText = "\nPlease type in your selected menu point. Options:\n\n"
-                                       "1. Banks Finances\n"
-                                       "2. Manage Shares.\n"
-                                       "3. Manage Users\n"
-                                       "4. Manage Currency\n"
-                                       "5. Log out\n";
