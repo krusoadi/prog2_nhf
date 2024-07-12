@@ -24,7 +24,7 @@ public:
     [[maybe_unused]] [[nodiscard]] const Money& getBankMoney() const;
     [[nodiscard]] const TContainer<User> &getUsers() const; // Used by FileManager methods to save
     [[nodiscard]] const TContainer<Share>& getBankShares() const; // Used by FileManager methods to save
-    User & getUserByUsername(const std::string &username); // Gives back User object by username
+    User &getUserByUsername(const std::string &username); // Gives back User object by username
     const User &getConstUser(const std::string &username); // Same as the previous but const (for read-only operations)
 
     //Get...By...

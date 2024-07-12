@@ -53,7 +53,7 @@ private: // Private variables (object related)
     BankSystem system; // The system where the banks data stored
     FileManager manager; // The IO manager class.
 
-private: // Object related private methods
+private: // Object related USER private methods
     void AccountUI(); // Login/Register selector
     void logIn(); // Login panel
     void makeAcc(); // Register [register keyword is reserved]

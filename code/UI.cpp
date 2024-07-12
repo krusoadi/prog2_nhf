@@ -68,11 +68,11 @@ void UI::mainLoop() {
         print("\n>");
         std::cin >> indexIn;
         mainMenuFunctions();
-    };
+    }
 }
 
 UI::UI(const BankSystem &systemIn, const FileManager &managerIn) : indexIn(0), is_loggedIn(false), thisUser(User()),
-                                                                   system(systemIn), manager(managerIn) {
+                                                                system(systemIn), manager(managerIn) {
     print(UI::welcomeText);
     Currency::updateCurrency(); // new currency every time we load
     std::cout << std::fixed << std::setprecision(3) <<std::endl; //formatting
@@ -130,7 +130,6 @@ void UI::logIn() {
         std::cerr << e.what();
         this->is_loggedIn = false;
     }
-
 }
 
 void UI::makeAcc() {
@@ -394,7 +393,7 @@ void UI::boot() {
     catch (const Exceptions &e) {
         std::cerr << e.what() << std::endl;
         this->manager.resetShareFile(); // we cannot run without shares, so we load some basic backup shares to the program
-        this->system.loadBankShares(this->manager.loadShareFile()); // at this point the file sure exists so we don't need exceptions
+        this->system.loadBankShares(this->manager.loadShareFile()); // at this point the file sure exists, so we don't need exceptions
     }
     this->mainLoop(); // We can start the UI from here
 }
@@ -567,7 +566,7 @@ void UI::convertMyCurrency() {
             wrongMenuPoint();
             return;
     }
-    // We update the systems account and after we finished we refresh our own
+    // We update the systems account, and after we finished we refresh our own
     User& current = this->system.getUserByUsername(this->thisUser.getUsername());
     const auto& newMoney = current.getUserBank().getMoney().convertCurrency(finalType);
     current.getUserBank().setAccountMoney(newMoney);
